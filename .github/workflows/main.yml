@@ -1,11 +1,11 @@
-name: Test and Build Project
+name: Test project
 
 on: 
 
   workflow_dispatch: # workflow dispatch is for manual run from actions page
   push: # on push
   pull_request: # on pull request
-  schedule: # cron will trigger this pipeline everyday at 9.00 AM and 19.00 PM UTC
+  schedule:
   - cron: '00 9 * * *' 
   
   
@@ -36,6 +36,7 @@ jobs:
       - uses: game-ci/unity-test-runner@v4
         id: tests
         env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
@@ -49,38 +50,3 @@ jobs:
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-
-  buildForAllDesiredPlatforms:
-    needs: testProject
-    name: Build for ${{ matrix.targetPlatform }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        targetPlatform:		
-          #- StandaloneWindows # Build a Windows standalone.
-          - StandaloneWindows64 # Build a Windows 64-bit standalone.
-          - WebGL # Build for WebGL.
-
-         # comment or uncomment your desired platforms
-         
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          lfs: true
-      - uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-
-      - uses: game-ci/unity-builder@v4
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: ${{ matrix.targetPlatform }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
