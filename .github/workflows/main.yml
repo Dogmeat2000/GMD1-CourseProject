@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             Library-
 
-      - uses: game-ci/setup-unity@v2
+      - uses: game-ci/unity-setup@v2
         with:
           unityVersion: 6000.3.7f1
           unityLicense: ${{ secrets.UNITY_LICENSE }}
@@ -59,7 +59,7 @@ jobs:
           restore-keys: |
             Library-
 
-      - uses: game-ci/setup-unity@v2
+      - uses: game-ci/unity-setup@v2
         with:
           unityVersion: 6000.3.7f1
           unityLicense: ${{ secrets.UNITY_LICENSE }}
