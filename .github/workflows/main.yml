@@ -1,52 +1,81 @@
 name: Test project
 
 on: 
+  workflow_dispatch:
+  push:
+  pull_request:
+  schedule:
+    - cron: '00 9 * * *' 
 
-  workflow_dispatch: # workflow dispatch is for manual run from actions page
-  push: # on push
-  pull_request: # on pull request
-  schedule: # cron will trigger this pipeline everyday at 9.00 AM and 19.00 PM UTC
-  - cron: '00 9 * * *' 
-  
-  
 jobs:
-  testProject:
-    name: Test in ${{ matrix.testMode }}
+  editmodeTests:
+    name: Editmode Tests
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # name of project folder or ./
-        projectPath:
-          - ./
-        testMode:
-          - playmode
-          - editmode
-
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
+
       - uses: actions/cache@v4
         with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-${{ hashFiles('**/Packages/manifest.json') }}
+          path: ./Library
+          key: Library-${{ hashFiles('**/Packages/manifest.json') }}
           restore-keys: |
             Library-
-      - uses: game-ci/unity-test-runner@v4
-        id: tests
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+      - uses: game-ci/setup-unity@v2
         with:
           unityVersion: 6000.3.7f1
-          projectPath: ${{ matrix.projectPath }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
+          unityLicense: ${{ secrets.UNITY_LICENSE }}
+
+      - uses: game-ci/unity-test-runner@v4
+        id: editmodeTests
+        with:
+          unityVersion: 6000.3.7f1
+          projectPath: ./
+          testMode: editmode
+          artifactsPath: editmode-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results
-          licenseMethod: file
+          checkName: Editmode Test Results
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Test results for ${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.artifactsPath }}
+          name: Editmode Test Results
+          path: ${{ steps.editmodeTests.outputs.artifactsPath }}
+
+  playmodeTests:
+    name: Playmode Tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/cache@v4
+        with:
+          path: ./Library
+          key: Library-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-
+
+      - uses: game-ci/setup-unity@v2
+        with:
+          unityVersion: 6000.3.7f1
+          unityLicense: ${{ secrets.UNITY_LICENSE }}
+
+      - uses: game-ci/unity-test-runner@v4
+        id: playmodeTests
+        with:
+          unityVersion: 6000.3.7f1
+          projectPath: ./
+          testMode: playmode
+          artifactsPath: playmode-artifacts
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          checkName: Playmode Test Results
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Playmode Test Results
+          path: ${{ steps.playmodeTests.outputs.artifactsPath }}
