@@ -1,81 +1,87 @@
-name: Test project
+name: Test and Build Project
 
 on: 
-  workflow_dispatch:
-  push:
-  pull_request:
-  schedule:
-    - cron: '00 9 * * *' 
 
+  workflow_dispatch: # workflow dispatch is for manual run from actions page
+  push: # on push
+  pull_request: # on pull request
+  schedule: # cron will trigger this pipeline everyday at 9.00 AM and 19.00 PM UTC
+  - cron: '00 9 * * *' 
+  
+  
 jobs:
-  editmodeTests:
-    name: Editmode Tests
-    runs-on: windows-latest
+  testProject:
+    name: Test in ${{ matrix.testMode }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # name of project folder or ./
+        projectPath:
+          - ./
+        testMode:
+          - playmode
+          - editmode
+
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
-
       - uses: actions/cache@v4
         with:
-          path: ./Library
-          key: Library-${{ hashFiles('**/Packages/manifest.json') }}
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-
-
-      - uses: game-ci/unity-setup@v2
-        with:
-          unityVersion: 6000.3.7f1
-          unityLicense: ${{ secrets.UNITY_LICENSE }}
-
       - uses: game-ci/unity-test-runner@v4
-        id: editmodeTests
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.3.7f1
-          projectPath: ./
-          testMode: editmode
-          artifactsPath: editmode-artifacts
+          projectPath: ${{ matrix.projectPath }}
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Editmode Test Results
-
+          checkName: ${{ matrix.testMode }} Test Results          
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Editmode Test Results
-          path: ${{ steps.editmodeTests.outputs.artifactsPath }}
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}
 
-  playmodeTests:
-    name: Playmode Tests
-    runs-on: windows-latest
+  buildForAllDesiredPlatforms:
+    needs: testProject
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:		
+          #- StandaloneWindows # Build a Windows standalone.
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - WebGL # Build for WebGL.
+
+         # comment or uncomment your desired platforms
+         
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           lfs: true
-
       - uses: actions/cache@v4
         with:
-          path: ./Library
-          key: Library-${{ hashFiles('**/Packages/manifest.json') }}
-          restore-keys: |
-            Library-
-
-      - uses: game-ci/unity-setup@v2
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.3.7f1
-          unityLicense: ${{ secrets.UNITY_LICENSE }}
-
-      - uses: game-ci/unity-test-runner@v4
-        id: playmodeTests
-        with:
-          unityVersion: 6000.3.7f1
-          projectPath: ./
-          testMode: playmode
-          artifactsPath: playmode-artifacts
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Playmode Test Results
-
+          targetPlatform: ${{ matrix.targetPlatform }}
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: Playmode Test Results
-          path: ${{ steps.playmodeTests.outputs.artifactsPath }}
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
