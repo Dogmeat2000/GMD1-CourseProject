@@ -43,7 +43,8 @@ jobs:
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results          
+          checkName: ${{ matrix.testMode }} Test Results
+          licenseMethod: file
       - uses: actions/upload-artifact@v4
         if: always()
         with:
