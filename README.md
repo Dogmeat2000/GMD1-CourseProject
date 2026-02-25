@@ -1,4 +1,7 @@
-# GMD1
+# GMD1 - Spearhead: Nereus Protocol
+This repository features the result of my first course on Game Development with VIA University College.
+
+Please see the posts below for project details.
 
 # Table of Contents:
 
