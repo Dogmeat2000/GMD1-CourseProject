@@ -9,6 +9,9 @@
 ## Game Concept
 Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each operate a single 360° upper-bridge turret mounted above their ship’s armored bridge. The player(s) track a moving convoy from a first-person turret camera, fight airborne alien techno-organic horrors, and coordinate railgun target designation and other shared systems. The experience should feel epic, cinematic, and hopelessly tense while remaining immediately accessible and arcade-friendly.
 
+<img width="1568" height="968" alt="SHIP_Terran_Frigate_Spearhead_v01_1" src="https://github.com/user-attachments/assets/e18f0279-386a-4a90-9a33-a54cfb46cdf7" />
+
+
 ## Target Aesthetics
 - **Fellowship           :** Players work together to protect the fleet. Special actions can only be performed after cooperating on activating them.
 - **Challenge            :** Survival against increasing wave difficulties of attacking foes, combined with high-scoring between players so players  might challenge each other in friendly competition.
