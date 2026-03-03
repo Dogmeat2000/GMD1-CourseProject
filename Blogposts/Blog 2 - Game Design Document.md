@@ -5,9 +5,13 @@
 - **Genre               :** Singleplayer/Co-op Arcade Action Sci-Fi Shooter
 - **Platform            :** Windows-based arcade machine (local single / local 2-player split-screen)
 - **Target Audience     :** Players seeking challenging, fast-paced, narrative-driven co-op arcade sessions (5–10 minute runs)
+<img width="1536" height="1169" alt="space_view_of_nereus_9_on_approach_v01" src="https://github.com/user-attachments/assets/b9d8d0f2-b13a-46a5-b008-f59e9a92a7e3" />
 
 ## Game Concept
 Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each operate a single 360° upper-bridge turret mounted above their ship’s armored bridge. The player(s) track a moving convoy from a first-person turret camera, fight airborne alien techno-organic horrors, and coordinate railgun target designation and other shared systems. The experience should feel epic, cinematic, and hopelessly tense while remaining immediately accessible and arcade-friendly.
+
+<img width="1536" height="1169" alt="mood_naval_turret_destroying_attacking_aliens_v01" src="https://github.com/user-attachments/assets/1d0c6988-039d-44bc-842a-42ad4dbb4423" />
+
 
 ## Target Aesthetics
 - **Fellowship           :** Players work together to protect the fleet. Special actions can only be performed after cooperating on activating them.
@@ -27,6 +31,8 @@ First person turret view in either split screen (2 players) or single screen (1 
 - **2P Split-Screen     :** Vertical split screen, with each player having half of the screen available for their own POV turrets and HUD.
 - **Player Feelings     :** Teamwork, tension (managing ammo, heat, hull health, etc.), competing for high-scores over short (4-8 minutes sessions).
 - **Cooperative options :** Multiple ship variants to choose. Either dual turret ships (require 2 players), or single turret ship(s). In 2P mode with single turret ships, each player will be placed on turrets on seperate escort ships.
+<img width="1536" height="1169" alt="technical_concept_ship_escort_frigate_v02" src="https://github.com/user-attachments/assets/719b2a7a-16d5-410b-b7d5-b1a7d930f769" />
+
 
 ## Gameplay Mechanics
 - **Core Mechanic — Railgun Designation:** Players maintain laser lock on capital targets while surviving enemy fire; successful locks trigger massive spinal railgun strikes on designated target.

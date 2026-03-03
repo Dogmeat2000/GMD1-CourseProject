@@ -1,7 +1,14 @@
+[![Test project](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml/badge.svg)](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml)
 # GMD1 - Spearhead: Nereus Protocol
 This repository features the result of my first course on Game Development with VIA University College.
 
-Please see the posts below for project details.
+<p align="center">
+<img width="1536" height="1169" alt="mood_spearhead_convoy_with_leviathan_lurking_on_horizon_v01" src="https://github.com/user-attachments/assets/14479ee4-d3c1-45b7-9a08-70b33bd23fd3" />
+</p>
+
+<br>
+ 
+<br>Please see the posts below for project details.
 
 # Table of Contents:
 
