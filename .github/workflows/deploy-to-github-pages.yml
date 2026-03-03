@@ -10,7 +10,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
     permissions:
       contents: write
 
@@ -22,13 +21,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Build-WebGL
-          path: dist
+          path: temp_build
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Flatten Directory Structure
+        run: |
+          mkdir dist
+          SUBFOLDER=$(find temp_build -name "index.html" -exec dirname {} \;)
+          echo "Moving files from $SUBFOLDER to dist"
+          cp -r $SUBFOLDER/. dist/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
-          clean: true 
+          clean: true
