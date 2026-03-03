@@ -22,12 +22,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Build-WebGL
-          path: .
+          path: dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: dist
           branch: gh-pages
+          clean: true 
