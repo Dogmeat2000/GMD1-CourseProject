@@ -20,7 +20,7 @@ Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each ope
 - **Sensation            :** World-shaking railgun discharges, ocean spray, thunderous impact VFX + low-frequency audio that sells scale.
 
 ## World Foundation
-**Planet                :** Nereus-9 (oceanic super-world, 92% surface water), bioluminescent seas, thin horizon mist, exotic weather (two suns by day, multiple moons by night).
+**Planet                :** Nereus-9 (oceanic super-world, 95% surface water), bioluminescent seas, thin horizon mist, exotic weather (two suns by day, multiple moons by night).
 - **Key Resource        :** Aether Crystal — an exotic crystal essential for FTL cores, energy weapons and advanced power production on Terra.
 - **World State         :** Humanity arrived peacefully to extract resources; drilling operations awakened an ancient unknown race of aliens that became hellbent on wiping out humanity.
 - **Threat              :** Semi-biological, semi-mechanical alien entities in various sizes posing different kinds of threats to humanitys operation on the planet.
