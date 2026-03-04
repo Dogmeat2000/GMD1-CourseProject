@@ -1,4 +1,4 @@
-[![Test project](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml/badge.svg)](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml)
+[![Test project](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml/badge.svg)](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/main.yml)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Deploy to GitHub Pages](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/deploy-to-github-pages.yml/badge.svg)](https://github.com/Dogmeat2000/GMD1-CourseProject/actions/workflows/deploy-to-github-pages.yml)
 # GMD1 - Spearhead: Nereus Protocol
 This repository features the result of my first course on Game Development with VIA University College.
 
