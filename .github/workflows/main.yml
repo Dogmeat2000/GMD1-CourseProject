@@ -10,7 +10,6 @@ env:
   CACHE_VERSION: v2
 
 jobs:
-
   testProject:
     name: Test in ${{ matrix.testMode }}
     runs-on: ubuntu-latest
@@ -24,56 +23,41 @@ jobs:
 
     steps:
 
-      # -------------------------------
-      # Free Disk Space
-      # -------------------------------
-      - name: Free disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/lib/android
-          sudo docker system prune -af || true
-          df -h
+    - name: Increase file descriptor limit
+      run: |
+        ulimit -n 65536
+        echo "ulimit set to:"
+        ulimit -n
 
-      # -------------------------------
-      # Checkout
-      # -------------------------------
-      - uses: actions/checkout@v4
-        with:
-          lfs: true
+    - name: Free disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/lib/android
+        sudo docker system prune -af || true
+        df -h
 
-      # -------------------------------
-      # Cache Library
-      # -------------------------------
-      - uses: actions/cache@v4
-        with:
-          path: Library
-          key: >
-            Library-${{ env.CACHE_VERSION }}-
-            ${{ runner.os }}-
-            Test-
-            ${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json') }}
+    - uses: actions/checkout@v4
+      with:
+        lfs: true
 
-      # -------------------------------
-      # Run Tests
-      # -------------------------------
-      - uses: game-ci/unity-test-runner@v4
-        id: tests
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          unityVersion: ${{ env.UNITY_VERSION }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: test-artifacts-${{ matrix.testMode }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+    - uses: game-ci/unity-test-runner@v4
+      id: tests
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      with:
+        unityVersion: 6000.3.7f1
+        testMode: ${{ matrix.testMode }}
+        artifactsPath: test-artifacts-${{ matrix.testMode }}
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: TestResults-${{ matrix.testMode }}
-          path: test-artifacts-${{ matrix.testMode }}
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: TestResults-${{ matrix.testMode }}
+        path: test-artifacts-${{ matrix.testMode }}
 
   buildForAllDesiredPlatforms:
     needs: testProject
