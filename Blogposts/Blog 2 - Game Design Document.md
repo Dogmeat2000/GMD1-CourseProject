@@ -8,7 +8,7 @@
 <img width="1536" height="1169" alt="space_view_of_nereus_9_on_approach_v01" src="https://github.com/user-attachments/assets/b9d8d0f2-b13a-46a5-b008-f59e9a92a7e3" />
 
 ## Game Concept
-Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each operate a single 360° upper-bridge turret mounted above their ship’s armored bridge. The player(s) track a moving convoy from a first-person turret camera, fight airborne alien techno-organic horrors, and coordinate railgun target designation and other shared systems. The experience should feel epic, cinematic, and hopelessly tense while remaining immediately accessible and arcade-friendly.
+Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each operate a turret on a warship. The player(s) protect a moving convoy from a first-person turret camera by fighting airborne alien techno-organic horrors, and coordinate railgun target designation and other shared systems. The experience should feel epic, cinematic, and hopelessly tense while remaining immediately accessible and arcade-friendly.
 
 <img width="1536" height="1169" alt="mood_naval_turret_destroying_attacking_aliens_v01" src="https://github.com/user-attachments/assets/1d0c6988-039d-44bc-842a-42ad4dbb4423" />
 
@@ -21,7 +21,7 @@ Spearhead is a fast, tense 3D arcade escort shooter where 1–2 players each ope
 
 ## World Foundation
 **Planet                :** Nereus-9 (oceanic super-world, 95% surface water), bioluminescent seas, thin horizon mist, exotic weather (two suns by day, multiple moons by night).
-- **Key Resource        :** Aether Crystal — an exotic crystal essential for FTL cores, energy weapons and advanced power production on Terra.
+- **Key Resource        :** Aether Crystal — an exotic crystal essential for FTL cores, energy weapons and advanced power production on Earth.
 - **World State         :** Humanity arrived peacefully to extract resources; drilling operations awakened an ancient unknown race of aliens that became hellbent on wiping out humanity.
 - **Threat              :** Semi-biological, semi-mechanical alien entities in various sizes posing different kinds of threats to humanitys operation on the planet.
 <img width="1536" height="1169" alt="land_aether_crystal_closeup_v01" src="https://github.com/user-attachments/assets/d06b0b5d-8f24-4c2b-a869-d2d29bfadf5e" />
@@ -63,6 +63,8 @@ First person turret view in either split screen (2 players) or single screen (1 
 - 2 different turret options for players, with 2 different ammunition types.
 - Environment including: ocean/water, fog/mist/clouds and suns/moons.
 - Menu and pause screen.
+<img width="4400" height="2475" alt="Milestones_v01" src="https://github.com/user-attachments/assets/2da44b90-9e96-457e-9730-89da333a9ea0" />
+
 
 ## Interactivity:
 - **Aiming turrets          :** Rotates turret around own axis (Joystick/Mouse left/right) and controls turret azimuth (Joystick/Mouse up/down).
