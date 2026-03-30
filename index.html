@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -52,16 +52,16 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/b860b855ae24842ef46ce796de1629db.loader.js";
+      var loaderUrl = buildUrl + "/02f5c717cb630cdbe8381d5716b4d376.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/69c7a9274e788f29258b83950e0f3daa.data.unityweb",
-        frameworkUrl: buildUrl + "/7e6dce64837ae6f257da6a056b8cc00d.framework.js.unityweb",
-        codeUrl: buildUrl + "/aba7f25639372ccc577043b2d7630cbd.wasm.unityweb",
+        dataUrl: buildUrl + "/36552df61304c097049bcf43f03e1b42.data.unityweb",
+        frameworkUrl: buildUrl + "/0dd2adb02cdc024b2b202d26d6d0bbd3.framework.js.unityweb",
+        codeUrl: buildUrl + "/dba797fc445ebb330470f6e203059234.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "KristianDashnaw",
         productName: "Spearhead - Nereus Protocol",
-        productVersion: "0.0.50",
+        productVersion: "0.0.52",
         showBanner: unityShowBanner,
         // errorHandler: function(err, url, line) {
         //    alert("error " + err + " occurred at line " + line);
@@ -104,8 +104,8 @@
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "1920px";
+        canvas.style.height = "1080px";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
