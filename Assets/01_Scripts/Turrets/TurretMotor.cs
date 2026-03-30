@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _01_Scripts.Turrets
 {
@@ -8,6 +9,10 @@ namespace _01_Scripts.Turrets
         public Transform turretBase; 
         public Transform barrelBase; 
 
+        [Header("Weapons Systems")]
+        [Tooltip("The Fire Control System managing the object pool")]
+        public TurretWeapon mainWeapon;
+        
         [Header("Operational Constraints")]
         [Tooltip("Limits the downward elevation of the barrel, to prevent mesh clipping")]
         public float minPitch = -15f; 
@@ -37,8 +42,21 @@ namespace _01_Scripts.Turrets
         }
 
         public void PullTrigger()
-        {
-            // Execution for main weapon fire
+        { 
+            // Do not fire, if game is paused
+            if (Time.timeScale <= 0f) return;
+            
+            // Do not fire, if player is clicking on UI elements
+            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
+            
+            if (mainWeapon)
+            {
+                mainWeapon.Fire(); 
+            }
+            else
+            {
+                Debug.LogWarning("The mainWeapon reference is not assigned in the TurretMotor inspector!");
+            }
             Debug.Log("Main Weapon Fired");
         }
     }
