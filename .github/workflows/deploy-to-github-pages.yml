@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   workflow_run:
     workflows: ["Test and Build Project"]
+    branches: [main]
     types:
       - completed
 

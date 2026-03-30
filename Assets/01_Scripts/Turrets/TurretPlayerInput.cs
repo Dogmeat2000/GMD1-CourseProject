@@ -21,7 +21,19 @@ namespace _01_Scripts.Turrets
         void OnEnable() {
             moveAction.action.Enable();
             fireAction.action.Enable();
-            fireAction.action.performed += _ => _motor.PullTrigger();
+            fireAction.action.performed += ExecuteFireCommand;
+        }
+        
+        void OnDisable() 
+        {
+            moveAction.action.Disable();
+            fireAction.action.Disable();
+            fireAction.action.performed -= ExecuteFireCommand;
+        }
+
+        private void ExecuteFireCommand(InputAction.CallbackContext context)
+        {
+            _motor.PullTrigger();
         }
 
         void Update() {

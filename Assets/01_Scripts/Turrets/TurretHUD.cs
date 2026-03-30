@@ -64,6 +64,6 @@ public class TurretHUD : MonoBehaviour
     // TODO
     public void SetStatus(string message)
     {
-        if (statusText != null) statusText.text = message;
+        if (statusText) statusText.text = message;
     }
 }
