@@ -12,7 +12,7 @@ namespace _01_Scripts.Core
     {
         [Header("WebGL Video Routing")]
         [Tooltip("The exact file name inside the StreamingAssets folder, including the .mp4 extension")]
-        public string videoFileName = "";
+        [SerializeField] private string videoFileName = "";
 
         private VideoPlayer _videoPlayer;
 

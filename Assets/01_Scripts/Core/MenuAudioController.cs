@@ -15,8 +15,7 @@ namespace _01_Scripts.Core
         private void Start()
         {
             menuMusic.volume = 0f;
-            menuMusic.Play();
-            StartCoroutine(FadeInMusic());
+            StartPlaying();
         }
 
         private IEnumerator FadeInMusic()
@@ -30,6 +29,28 @@ namespace _01_Scripts.Core
             }
             
             menuMusic.volume = targetVolume;
+        }
+
+        public void SetTargetVolume(float volume)
+        {
+            targetVolume = Mathf.Clamp01(volume);
+            menuMusic.volume = targetVolume;
+        }
+
+        private void OnDisable()
+        {
+            menuMusic.Stop();
+        }
+
+        private void OnEnable()
+        {
+            StartPlaying();
+        }
+
+        private void StartPlaying()
+        {
+            menuMusic.Play();
+            StartCoroutine(FadeInMusic());
         }
     }
 }

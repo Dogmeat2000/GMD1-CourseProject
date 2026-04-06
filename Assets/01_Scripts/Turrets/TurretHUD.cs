@@ -1,69 +1,54 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class TurretHUD : MonoBehaviour
+namespace _01_Scripts.Turrets
 {
-    [Header("Targeting")]
-    public Transform lowerMuzzleExit;
-    public Transform upperMuzzleExit;
-    public RectTransform lowerReticleUI;
-    public RectTransform upperReticleUI;
-    public Camera turretCamera;
-
-    [Header("Readout")]
-    public TextMeshProUGUI statusText;
-
-    private void LateUpdate()
+    public class TurretHUD : MonoBehaviour
     {
-        if (!turretCamera) return;
+        [Header("Targeting")]
+        [SerializeField] private Transform lowerMuzzleExit;
+        [SerializeField] private Transform upperMuzzleExit;
+        [SerializeField] private RectTransform lowerReticleUI;
+        [SerializeField] private RectTransform upperReticleUI;
+        [SerializeField] private Camera turretCamera;
 
-        // Calculate the 3D target point 750m ahead of the lowerMuzzle
-        if (lowerMuzzleExit && lowerReticleUI)
+        [Header("Readout")]
+        [SerializeField] private TextMeshProUGUI statusText;
+
+        private void LateUpdate()
         {
-            Ray targetRay = new Ray(lowerMuzzleExit.position, lowerMuzzleExit.forward);
-            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, 750f) ? hit.point : targetRay.GetPoint(750f);
+            if (!turretCamera) return;
 
-            // Project the 3D point onto the 2D screen
-            Vector3 screenPoint = turretCamera.WorldToScreenPoint(worldImpactPoint);
-            
-            // Update UI position if target is in front of camera lens
-            if (screenPoint.z > 0)
-            {
-                lowerReticleUI.gameObject.SetActive(true);
-                lowerReticleUI.position = screenPoint;
-            }
-            else
-            {
-                lowerReticleUI.gameObject.SetActive(false);
-            }
+            // Calculate the 3D target point 750m ahead of the muzzles
+            UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
+            UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
         }
-
-        if (upperMuzzleExit&& upperReticleUI)
-        {
-            Ray targetRay = new Ray(upperMuzzleExit.position, upperMuzzleExit.forward);
-            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, 750f) ? hit.point : targetRay.GetPoint(750f);
-
-            // Project the 3D point onto the 2D screen
-            Vector3 screenPoint = turretCamera.WorldToScreenPoint(worldImpactPoint);
-            
-            // Update UI position if target is in front of camera lens
-            if (screenPoint.z > 0)
-            {
-                upperReticleUI.gameObject.SetActive(true);
-                upperReticleUI.position = screenPoint;
-            }
-            else
-            {
-                upperReticleUI.gameObject.SetActive(false);
-            }
-        }
-
-    }
     
-    // Call this from TurretPlayerInput to update the status text
-    // TODO
-    public void SetStatus(string message)
-    {
-        if (statusText) statusText.text = message;
+        private void UpdateReticlePosition(Transform muzzle, RectTransform reticle)
+        {
+            if (!muzzle || !reticle) return;
+
+            Ray targetRay = new Ray(muzzle.position, muzzle.forward);
+            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, 750f) ? hit.point : targetRay.GetPoint(750f);
+
+            Vector3 screenPoint = turretCamera.WorldToScreenPoint(worldImpactPoint);
+            
+            // z > 0 means the target is in front of the camera
+            bool isTargetVisible = screenPoint.z > 0;
+        
+            reticle.gameObject.SetActive(isTargetVisible);
+            if (isTargetVisible)
+            {
+                reticle.position = screenPoint;
+            }
+        }
+    
+    
+        // Call this from TurretPlayerInput to update the status text
+        // TODO
+        public void SetStatus(string message)
+        {
+            if (statusText) statusText.text = message;
+        }
     }
 }

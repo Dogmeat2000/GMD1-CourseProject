@@ -13,13 +13,13 @@ namespace _01_Scripts.Core
     {
         [Header("UI Readouts")]
         [Tooltip("The parent object of the loading screen")]
-        public GameObject loadingScreenPanel;
+        [SerializeField] private GameObject loadingScreenPanel;
     
         [Tooltip("Text element to display the loading percentage")]
-        public TextMeshProUGUI progressText;
+        [SerializeField] private TextMeshProUGUI progressText;
 
         [Tooltip("Optional: A visual slider for loading progress")]
-        public Slider progressBar;
+        [SerializeField] private Slider progressBar;
 
         private void Start()
         {
@@ -39,6 +39,11 @@ namespace _01_Scripts.Core
         private IEnumerator LoadGameLevelAsync(string sceneName)
         {
             if (loadingScreenPanel) loadingScreenPanel.SetActive(true);
+            
+            // Ensure the cursor is ready for gameplay during the transition
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
             // Prevent the scene from activating instantly if you want to hold players on the loading screen
