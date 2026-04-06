@@ -54,7 +54,9 @@ jobs:
     # Generate LFS State Fingerprint
     # -------------------------------
     - name: Generate LFS pointers hash
-      run: git lfs ls-files -s > .lfs-pointers.txt
+      run: |
+          git lfs ls-files -s > .lfs-pointers.txt
+          echo ".lfs-pointers.txt" >> .git/info/exclude
         
     # -------------------------------
     # Cache Git LFS files
@@ -128,7 +130,9 @@ jobs:
       # Generate LFS State Fingerprint
       # -------------------------------
       - name: Generate LFS pointers hash
-        run: git lfs ls-files -s > .lfs-pointers.txt
+        run: |
+          git lfs ls-files -s > .lfs-pointers.txt
+          echo ".lfs-pointers.txt" >> .git/info/exclude
             
       # -------------------------------
       # Cache LFS
