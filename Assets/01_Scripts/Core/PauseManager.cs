@@ -11,16 +11,27 @@ namespace _01_Scripts.Core
     {
         [Header("UI Overlay")]
         [Tooltip("The Panel to be displayed when Pause is invoked")]
-        public GameObject pauseMenuPanel;
+        [SerializeField] private GameObject pauseMenuPanel;
 
         private bool _isPaused = false;
 
         private void Start()
         {
+            
+            if (UnityEngine.EventSystems.EventSystem.current)
+            {
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+            }
+            
             if (pauseMenuPanel)
             {
                 pauseMenuPanel.SetActive(false);
             }
+            
+            Time.timeScale = 1f;
+            _isPaused = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void Update()

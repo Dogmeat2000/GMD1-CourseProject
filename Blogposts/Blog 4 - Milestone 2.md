@@ -1,0 +1,3 @@
+- Write about:
+-- UI / GUI Design (I'm using the uGUI approach)
+-- 9-Slicing of buttons and stuff!

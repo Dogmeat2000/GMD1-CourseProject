@@ -6,8 +6,8 @@ namespace _01_Scripts.Turrets
     public class TurretProjectile : MonoBehaviour
     {
         [Header("Ballistics")]
-        public float speed = 500f;
-        public float lifeTime = 3f;
+        [SerializeField] private float speed = 500f;
+        [SerializeField] private float lifeTime = 3f;
 
         // The interface linking this bullet back to the turret's "magazine"
         private IObjectPool<TurretProjectile> _managedPool;

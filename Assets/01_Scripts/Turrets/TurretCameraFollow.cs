@@ -5,12 +5,12 @@ namespace _01_Scripts.Turrets
     public class TurretCameraFollow : MonoBehaviour
     {
         [Header("Tracking Target")]
-        public Transform barrelPivot;
+        [SerializeField] private Transform barrelPivot;
 
         [Header("Damping Settings")]
         [Range(0f, 1f)]
         [Tooltip("0 = Fixed Horizon, 1 = Full 1:1 Follow.")]
-        public float followFactor = 0.25f;
+        [SerializeField] private float followFactor = 0.25f;
         
         private Quaternion _initialLocalRotation;
 

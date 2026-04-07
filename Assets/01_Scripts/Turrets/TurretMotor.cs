@@ -1,23 +1,22 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace _01_Scripts.Turrets
 {
     public class TurretMotor : MonoBehaviour
     {
         [Header("Mechanical Components")]
-        public Transform turretBase; 
-        public Transform barrelBase; 
+        [SerializeField] private Transform turretBase; 
+        [SerializeField] private Transform barrelBase; 
 
         [Header("Weapons Systems")]
         [Tooltip("The Fire Control System managing the object pool")]
-        public TurretWeapon mainWeapon;
+        [SerializeField] private TurretWeapon mainWeapon;
         
         [Header("Operational Constraints")]
         [Tooltip("Limits the downward elevation of the barrel, to prevent mesh clipping")]
-        public float minPitch = -15f; 
+        [SerializeField] private float minPitch = -15f; 
         [Tooltip("Limits the upward elevation of the barrel, to prevent mesh clipping")]
-        public float maxPitch = 45f;  
+        [SerializeField] private float maxPitch = 45f;  
 
         private float _currentPitch = 0f;
 
@@ -46,18 +45,10 @@ namespace _01_Scripts.Turrets
             // Do not fire, if game is paused
             if (Time.timeScale <= 0f) return;
             
-            // Do not fire, if player is clicking on UI elements
-            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
-            
             if (mainWeapon)
             {
                 mainWeapon.Fire(); 
             }
-            else
-            {
-                Debug.LogWarning("The mainWeapon reference is not assigned in the TurretMotor inspector!");
-            }
-            Debug.Log("Main Weapon Fired");
         }
     }
 }
