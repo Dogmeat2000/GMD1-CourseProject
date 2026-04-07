@@ -9,6 +9,10 @@ This repository features the result of my first course on Game Development with 
 </p>
 <br>
 
+**Play the game directly in your browser here:** [Link](https://dogmeat2000.github.io/GMD1-CourseProject/)
+
+<br>
+
 # Table of Contents:
 
 - **Blog Posts**

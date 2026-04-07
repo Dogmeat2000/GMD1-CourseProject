@@ -20,11 +20,9 @@ namespace _01_Scripts.Turrets
 
         private float _currentPitch = 0f;
 
-        public void RotateJoints(float yawDelta, float pitchDelta)
-        {
+        public void RotateJoints(float yawDelta, float pitchDelta) {
             // Pitch Axis (Up/Down)
-            if (barrelBase) 
-            {
+            if (barrelBase) {
                 _currentPitch += pitchDelta;
                 _currentPitch = Mathf.Clamp(_currentPitch, minPitch, maxPitch);
 
@@ -33,20 +31,18 @@ namespace _01_Scripts.Turrets
             }
 
             // Yaw Axis (Left/Right)
-            if (turretBase) 
-            {
+            if (turretBase) {
                 // Rotate along Turret Y-Axis (Left/Right)
                 turretBase.Rotate(Vector3.forward * yawDelta, Space.Self);
             }
         }
 
-        public void PullTrigger()
-        { 
+        public void PullTrigger() { 
             // Do not fire, if game is paused
-            if (Time.timeScale <= 0f) return;
+            if (Time.timeScale <= 0f) 
+                return;
             
-            if (mainWeapon)
-            {
+            if (mainWeapon) {
                 mainWeapon.Fire(); 
             }
         }

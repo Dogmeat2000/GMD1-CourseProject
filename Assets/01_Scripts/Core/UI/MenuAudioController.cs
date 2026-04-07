@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace _01_Scripts.Core
+namespace _01_Scripts.Core.UI
 {
     /**
      * <p>Handles the audio that is played inside menus</p>
@@ -12,17 +12,14 @@ namespace _01_Scripts.Core
         [SerializeField] private float fadeDuration = 3.0f;
         [SerializeField] private float targetVolume = 1.0f;
 
-        private void Start()
-        {
+        private void Start() {
             menuMusic.volume = 0f;
             StartPlaying();
         }
 
-        private IEnumerator FadeInMusic()
-        {
+        private IEnumerator FadeInMusic() {
             float currentTime = 0;
-            while (currentTime < fadeDuration)
-            {
+            while (currentTime < fadeDuration) {
                 currentTime += Time.deltaTime;
                 menuMusic.volume = Mathf.Lerp(0f, targetVolume, currentTime / fadeDuration);
                 yield return null;
@@ -31,24 +28,20 @@ namespace _01_Scripts.Core
             menuMusic.volume = targetVolume;
         }
 
-        public void SetTargetVolume(float volume)
-        {
+        public void SetTargetVolume(float volume) {
             targetVolume = Mathf.Clamp01(volume);
             menuMusic.volume = targetVolume;
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             menuMusic.Stop();
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             StartPlaying();
         }
 
-        private void StartPlaying()
-        {
+        private void StartPlaying() {
             menuMusic.Play();
             StartCoroutine(FadeInMusic());
         }

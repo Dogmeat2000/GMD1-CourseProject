@@ -56,6 +56,7 @@ To maintain structural integrity as the project scales, I implemented a strict, 
 
 05_Settings     -> Holds everything related to settings, such as the Unity Input System and input configuration.
    - Input
+
 99_ThirdParty   -> Holds imported third party assets, such as fonts or samples (i.e. the VIA Arcade Machine sample)
 
 StreamingAssets -> Holds all assets that must be streamed (i.e. main menu background video), to maintain compatibility with the WebGL Build and deployments to GitHub Pages.
@@ -83,7 +84,7 @@ I expect more will be added as the game development progresses.
 ## Basic Shooting Mechanics
 The primary gameplay loop currently features 3D aim tracking, frame-independent rotation, and pooled projectile instantiation.
 
-<video src="./Blog%203%20-%20Video%20of%20Basic%20Shooting%20Mechanics.mp4" controls width="860">
+<video src="https://github.com/Dogmeat2000/GMD1-CourseProject/raw/refs/heads/main/Blogposts/Blog%203%20-%20Video%20of%20Basic%20Shooting%20Mechanics.mp4?download=" controls width="860">
   Your browser does not support the video tag.
 </video>
 
@@ -91,13 +92,13 @@ The primary gameplay loop currently features 3D aim tracking, frame-independent 
 
 A Screen Space Overlay Canvas forms the HUD. To account for 3D depth, Raycasts fire directly from individual barrel transforms, painting dynamic reticles accurately at the actual impact point.
 
-<img src="Blog%203%20-%20PlayerTurretPrefab.jpg" alt="Player Turrt Prefab" width="860">
+<img src="Blog%203%20-%20PlayerTurretPrefab.jpg" alt="Player Turret Prefab" width="860">
 
 <br>
 
 1. **Player Aims**
     
-    Turret yaw and barrel pitch scale dynamically based on the active hardware (Pointer vs. Arcade). Adjustments are multiplied by ```Time.deltaTime``` to ensure uniform rotation speeds across varying frame rates.
+    Turret rotation and barrel pitch scale dynamically based on the active hardware (Mouse Pointer vs. Arcade). Adjustments are multiplied by ```Time.deltaTime``` to ensure uniform rotation speeds across varying frame rates.
     ```csharp
     [RequireComponent(typeof(TurretMotor))]
     public class TurretPlayerInput : MonoBehaviour

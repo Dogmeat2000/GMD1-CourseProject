@@ -15,8 +15,7 @@ namespace _01_Scripts.Turrets
         [Header("Readout")]
         [SerializeField] private TextMeshProUGUI statusText;
 
-        private void LateUpdate()
-        {
+        private void LateUpdate() {
             if (!turretCamera) return;
 
             // Calculate the 3D target point 750m ahead of the muzzles
@@ -24,8 +23,7 @@ namespace _01_Scripts.Turrets
             UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
         }
     
-        private void UpdateReticlePosition(Transform muzzle, RectTransform reticle)
-        {
+        private void UpdateReticlePosition(Transform muzzle, RectTransform reticle) {
             if (!muzzle || !reticle) return;
 
             Ray targetRay = new Ray(muzzle.position, muzzle.forward);
@@ -37,8 +35,7 @@ namespace _01_Scripts.Turrets
             bool isTargetVisible = screenPoint.z > 0;
         
             reticle.gameObject.SetActive(isTargetVisible);
-            if (isTargetVisible)
-            {
+            if (isTargetVisible) {
                 reticle.position = screenPoint;
             }
         }
@@ -46,8 +43,7 @@ namespace _01_Scripts.Turrets
     
         // Call this from TurretPlayerInput to update the status text
         // TODO
-        public void SetStatus(string message)
-        {
+        public void SetStatus(string message) {
             if (statusText) statusText.text = message;
         }
     }

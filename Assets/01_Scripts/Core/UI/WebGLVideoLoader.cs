@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 
-namespace _01_Scripts.Core
+namespace _01_Scripts.Core.UI
 {
     /**
      * <p>This script handles compatibility between video playing in webgl builds (through browser) and playing video through windows builds -
@@ -16,21 +16,18 @@ namespace _01_Scripts.Core
 
         private VideoPlayer _videoPlayer;
 
-        private void Awake()
-        {
+        private void Awake() {
             _videoPlayer = GetComponent<VideoPlayer>();
             string rawPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
             _videoPlayer.url = rawPath.Replace("\\", "/");
-            for (ushort i = 0; i < _videoPlayer.audioTrackCount; i++)
-            {
+            for (ushort i = 0; i < _videoPlayer.audioTrackCount; i++) {
                 _videoPlayer.SetDirectAudioMute(i, true);
             }
             _videoPlayer.Prepare();
             _videoPlayer.prepareCompleted += OnVideoPrepared;
         }
 
-        private void OnVideoPrepared(VideoPlayer source)
-        {
+        private void OnVideoPrepared(VideoPlayer source) {
             source.Play();
         }
     }

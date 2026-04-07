@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _01_Scripts.Core
+namespace _01_Scripts.Core.UI
 {
     /**
      * <p>This script handles cursor locking in game scenes. It should be loaded as part of the setup for each Game Level,
@@ -11,21 +11,17 @@ namespace _01_Scripts.Core
      */
     public class CursorManager : MonoBehaviour
     {
-        private void Start()
-        {
+        private void Start() {
             EngageCursorLock();
         }
 
-        private void Update()
-        {
-            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Time.timeScale > 0f) 
-            {
+        private void Update() {
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Time.timeScale > 0f) {
                 EngageCursorLock();
             }
         }
 
-        private void EngageCursorLock()
-        {
+        private void EngageCursorLock() {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
