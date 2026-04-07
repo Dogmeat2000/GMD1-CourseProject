@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8771802079893421558}
   - component: {fileID: 8520524713047180061}
   - component: {fileID: 397304293492529927}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RevisedProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,10 +58,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &8520524713047180061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretProjectile
   speed: 750
   lifeTime: 3
+  damageAmount: 50
 --- !u!136 &397304293492529927
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -95,10 +96,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Height: 7
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -2}
 --- !u!1 &8402172112652879564
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ GameObject:
   - component: {fileID: 8402172112652589804}
   - component: {fileID: 8402172112653884108}
   - component: {fileID: 8402172112654882828}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Mesh_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-namespace _01_Scripts.Core
+namespace _01_Scripts.Core.UI
 {
     /**
      * <p>Handles the Pause Menu, that can be activated while a game level is in progress</p>
@@ -15,16 +15,13 @@ namespace _01_Scripts.Core
 
         private bool _isPaused = false;
 
-        private void Start()
-        {
+        private void Start() {
             
-            if (UnityEngine.EventSystems.EventSystem.current)
-            {
+            if (UnityEngine.EventSystems.EventSystem.current) {
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
             }
             
-            if (pauseMenuPanel)
-            {
+            if (pauseMenuPanel) {
                 pauseMenuPanel.SetActive(false);
             }
             
@@ -34,27 +31,21 @@ namespace _01_Scripts.Core
             Cursor.visible = false;
         }
 
-        private void Update()
-        {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
+        private void Update() {
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) {
                 TogglePause();
             }
         }
 
-        public void TogglePause()
-        {
+        public void TogglePause() {
             _isPaused = !_isPaused;
 
-            if (_isPaused)
-            {
+            if (_isPaused) {
                 Time.timeScale = 0f;
                 pauseMenuPanel.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-            }
-            else
-            {
+            } else {
                 Time.timeScale = 1f;
                 pauseMenuPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
@@ -62,13 +53,11 @@ namespace _01_Scripts.Core
             }
         }
         
-        public void ResumeGame()
-        {
+        public void ResumeGame() {
             if (_isPaused) TogglePause();
         }
         
-        public void ReturnToMainMenu()
-        {
+        public void ReturnToMainMenu() {
             // Reset the engine's internal clock
             Time.timeScale = 1f;
             SceneManager.LoadSceneAsync("SCN_MainMenu");

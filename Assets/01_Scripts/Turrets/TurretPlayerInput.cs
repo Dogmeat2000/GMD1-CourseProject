@@ -20,27 +20,23 @@ namespace _01_Scripts.Turrets
 
         void Awake() => _motor = GetComponent<TurretMotor>();
 
-        void OnEnable() 
-        {
+        void OnEnable() {
             moveAction.action.Enable();
             fireAction.action.Enable();
             fireAction.action.performed += ExecuteFireCommand;
         }
         
-        void OnDisable() 
-        {
+        void OnDisable() {
             moveAction.action.Disable();
             fireAction.action.Disable();
             fireAction.action.performed -= ExecuteFireCommand;
         }
 
-        private void ExecuteFireCommand(InputAction.CallbackContext context)
-        {
+        private void ExecuteFireCommand(InputAction.CallbackContext context) {
             _isFireRequested = true;
         }
 
-        void Update() 
-        {
+        void Update() {
             Vector2 input = moveAction.action.ReadValue<Vector2>();
             
             bool isMouse = moveAction.action.activeControl?.device is Pointer;
@@ -48,10 +44,8 @@ namespace _01_Scripts.Turrets
             
             _motor.RotateJoints(input.x * sens * Time.deltaTime, input.y * sens * Time.deltaTime);
             
-            if (_isFireRequested)
-            {
-                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject())
-                {
+            if (_isFireRequested) {
+                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
                     _motor.PullTrigger();
                 }
                 _isFireRequested = false;

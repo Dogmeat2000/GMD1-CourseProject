@@ -67,5 +67,130 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4766232773255912630}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1676004142120318603}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3235393511514104982}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5999840083699226593}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4810367290449271029}
   m_SourcePrefab: {fileID: 100100000, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+--- !u!1 &7235597898165779499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+  m_PrefabInstance: {fileID: 7542236497235591546}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4766232773255912630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf3959aa94241446b97c810cbc49350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.HealthManager
+  maxHealth: 100
+  currentHealth: 100
+--- !u!54 &1676004142120318603
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  serializedVersion: 5
+  m_Mass: 5
+  m_LinearDamping: 7.5
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
+--- !u!65 &3235393511514104982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.75, z: 1.75}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &5999840083699226593
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+  m_Controller: {fileID: 9100000, guid: d4b93efd6d689fc47968a0b3c63c7e37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4810367290449271029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5ad8790b52889428c349e7085cf844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyController
+  pointValue: 10
+  centerMassBone: {fileID: 8871611567736668110}
+  knockbackForce: 30
+  explosionVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
+--- !u!1 &8871611567736668110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7803291653581144396, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+  m_PrefabInstance: {fileID: 7542236497235591546}
+  m_PrefabAsset: {fileID: 0}

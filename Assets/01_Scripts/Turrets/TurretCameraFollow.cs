@@ -14,13 +14,11 @@ namespace _01_Scripts.Turrets
         
         private Quaternion _initialLocalRotation;
 
-        private void Start()
-        {
+        private void Start() {
             _initialLocalRotation = transform.localRotation;
         }
 
-        private void LateUpdate()
-        {
+        private void LateUpdate() {
             if (!barrelPivot) 
                 return;
 

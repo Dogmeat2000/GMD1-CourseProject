@@ -1,3 +1,4 @@
+using _01_Scripts.Core.Scoring;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -9,22 +10,24 @@ namespace _01_Scripts.Turrets
         [SerializeField] private TurretProjectile projectilePrefab;
         [SerializeField] private Transform muzzleExit;
         [SerializeField] private float fireRate = 0.15f;
+        [Tooltip("The scoring manager that assigned to this player")]
+        [SerializeField] private PlayerScore ownerScore;
     
         [Header("Magazine (Pool) Settings")]
-        [SerializeField] private int defaultCapacity = 50;
-        [SerializeField] private int maxSize = 200;
+        [SerializeField] private int defaultCapacity = 40;
+        [SerializeField] private int maxSize = 150;
     
         [Header("Acoustics")]
         [Tooltip("The speaker attached to the turret")]
         [SerializeField] private AudioSource weaponAudioSource;
+        
         [Tooltip("The sound file to play upon firing")]
         [SerializeField] private AudioClip fireSound;
 
         private IObjectPool<TurretProjectile> _projectilePool;
         private float _nextFireTime;
 
-        private void Awake()
-        {
+        private void Awake() {
             _projectilePool = new ObjectPool<TurretProjectile>(
                 createFunc: CreateProjectile,
                 actionOnGet: OnTakeFromPool,
@@ -35,43 +38,39 @@ namespace _01_Scripts.Turrets
                 maxSize: maxSize
             );
         }
-
-        // --- POOL LIFECYCLE DELEGATES ---
-        private TurretProjectile CreateProjectile()
-        {
+        
+        private TurretProjectile CreateProjectile() {
             TurretProjectile projectile = Instantiate(projectilePrefab);
             projectile.SetPool(_projectilePool);
             return projectile;
         }
 
-        private void OnTakeFromPool(TurretProjectile projectile)
-        {
+        private void OnTakeFromPool(TurretProjectile projectile) {
             projectile.transform.position = muzzleExit.position;
             projectile.transform.rotation = muzzleExit.rotation;
             projectile.gameObject.SetActive(true);
         }
 
-        private void OnReturnedToPool(TurretProjectile projectile)
-        {
+        private void OnReturnedToPool(TurretProjectile projectile) {
             projectile.gameObject.SetActive(false);
         }
 
-        private void OnDestroyPoolObject(TurretProjectile projectile)
-        {
+        private void OnDestroyPoolObject(TurretProjectile projectile) {
             Destroy(projectile.gameObject);
         }
 
-        public void Fire()
-        {
-            if (Time.time >= _nextFireTime)
-            {
-                _nextFireTime = Time.time + fireRate;
-                _projectilePool.Get(); 
+        public void Fire() {
+            if (!(Time.time >= _nextFireTime)) 
+                return;
             
-                if (weaponAudioSource && fireSound)
-                {
-                    weaponAudioSource.PlayOneShot(fireSound);
-                }
+            _nextFireTime = Time.time + fireRate;
+            TurretProjectile projectile = _projectilePool.Get(); 
+            
+            GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
+            projectile.SetShooter(shooterIdentity);
+            
+            if (weaponAudioSource && fireSound) {
+                weaponAudioSource.PlayOneShot(fireSound);
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace _01_Scripts.Core
+namespace _01_Scripts.Core.UI
 {
     /**
      * <p>Handles loading new game levels.</p>
@@ -21,23 +21,19 @@ namespace _01_Scripts.Core
         [Tooltip("Optional: A visual slider for loading progress")]
         [SerializeField] private Slider progressBar;
 
-        private void Start()
-        {
+        private void Start() {
             // Ensures the loading screen is hidden when Main Menu is loaded
-            if (loadingScreenPanel)
-            {
+            if (loadingScreenPanel) {
                 loadingScreenPanel.SetActive(false);
             }
         }
 
-        public void LoadGameLevel(string sceneName)
-        {
+        public void LoadGameLevel(string sceneName) {
             Debug.Log($"Loading Game Level: {sceneName}");
             StartCoroutine(LoadGameLevelAsync(sceneName));
         }
 
-        private IEnumerator LoadGameLevelAsync(string sceneName)
-        {
+        private IEnumerator LoadGameLevelAsync(string sceneName) {
             if (loadingScreenPanel) loadingScreenPanel.SetActive(true);
             
             // Ensure the cursor is ready for gameplay during the transition
@@ -50,8 +46,7 @@ namespace _01_Scripts.Core
             // TODO: REVISIT THIS PART LATER! COULD BE GOOD WITH MULTIPLAYER SUPPORT!
             // operation.allowSceneActivation = false; // (Uncomment later if you want a "Press A to Start" prompt)
             
-            while (operation is { isDone: false })
-            {
+            while (operation is { isDone: false }) {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);
                 
                 if (progressBar) progressBar.value = progress;
@@ -60,8 +55,7 @@ namespace _01_Scripts.Core
             }
         }
 
-        public void AbortMission()
-        {
+        public void AbortMission() {
             Debug.Log("Mission Aborted. Terminating application.");
             Application.Quit();
         }
