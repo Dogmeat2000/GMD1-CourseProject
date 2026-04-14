@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe0bd90f190d294c93300628ca953c1, type: 3}
+  m_Name: EnemyProfile_BioDrone01
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyProfile
+  <Prefab>k__BackingField: {fileID: 7235597898165779499, guid: 80787eedac9d15c48becf46cc6474500, type: 3}
+  <ThreatCost>k__BackingField: 10
+  <UnitDesignation>k__BackingField: Kamikaze Drone

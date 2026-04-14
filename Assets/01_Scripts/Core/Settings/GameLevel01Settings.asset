@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7987dfb067ded5345999e5229f4e3dbe, type: 3}
+  m_Name: GameLevel01Settings
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Settings.LevelSettings
+  <SpawnDepthY>k__BackingField: -25
+  <OceanSurfaceY>k__BackingField: 0
+  <MinSpawnDistance>k__BackingField: 400
+  <MaxSpawnDistance>k__BackingField: 750
+  <SpawnAngleLimit>k__BackingField: 60
+  <WaveSpawnDurationMin>k__BackingField: 10
+  <WaveSpawnDurationMax>k__BackingField: 30
+  <KamikazeBreachHeightMin>k__BackingField: 50
+  <KamikazeBreachHeightMax>k__BackingField: 150

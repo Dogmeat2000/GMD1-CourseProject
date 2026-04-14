@@ -1,10 +1,14 @@
+using System;
 using _01_Scripts.Core.Scoring;
+using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Movement;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace _01_Scripts.Core.Enemies
 {
     [RequireComponent(typeof(HealthManager), typeof(Animator))]
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IPoolable
     { 
         [Header("Enemy Details")]
         [Tooltip("The number of highscore points, this type of Enemy is worth")]
@@ -21,15 +25,21 @@ namespace _01_Scripts.Core.Enemies
         [Tooltip("The particle system prefab to spawn upon destruction")]
         [SerializeField] private GameObject explosionVfxPrefab;
         
+        private Action<IPoolable> _returnToPoolCommand;
+        private Collider _collider;
+        
         private HealthManager _healthManager;
         private Animator _animator;
         private Rigidbody _rb;
         private static readonly int DeathTrigger = Animator.StringToHash("Die");
+        private IEntityBrain _brain;
 
         private void Awake() {
             _healthManager = GetComponent<HealthManager>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
+            _collider = GetComponent<Collider>();
+            _brain = GetComponent<IEntityBrain>();
         }
 
         private void OnEnable() {
@@ -42,6 +52,24 @@ namespace _01_Scripts.Core.Enemies
             _healthManager.OnZeroHealth -= HandleDeath;
         }
 
+        public void Initialize(Action<IPoolable> returnAction) {
+            _returnToPoolCommand = returnAction;
+        }
+
+        public void OnSpawned() {
+            _healthManager.ResetHealth();
+            _collider.enabled = true;
+            _rb.isKinematic = false;
+            _rb.useGravity = true;
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            _brain?.WakeUp();
+        }
+
+        public void OnDespawned() {
+            // TODO: Anything I need to clean up after enemy death?
+        }
+        
         private void HandleHit(int currentHealth, int maxHealth, GameObject shooter) {
             if (currentHealth <= 0 || !shooter) 
                 return;
@@ -52,7 +80,7 @@ namespace _01_Scripts.Core.Enemies
             // TODO trigger particle effects or sound here
         }
 
-        private void HandleDeath(GameObject killer) {
+        private void HandleDeath(HealthManager source, GameObject killer) {
             _animator.SetTrigger(DeathTrigger); 
             
             if (killer && killer.TryGetComponent<PlayerScore>(out var scoreComponent)) {
@@ -62,16 +90,22 @@ namespace _01_Scripts.Core.Enemies
             GetComponent<Collider>().enabled = false;
             _rb.isKinematic = true; 
             _rb.useGravity = false;
+            
+            _brain?.ShutDown();
         }
 
         private void DetonatePayload() {
             if (explosionVfxPrefab) {
                 Vector3 detonationPoint = centerMassBone ? centerMassBone.transform.position : transform.position;
                 Instantiate(explosionVfxPrefab, detonationPoint, Quaternion.identity);
+                // TODO: VFX effects should eventually be pooled too!
             }
             
-            Destroy(gameObject); 
-            // TODO: Use Object Pool pattern for enemies combined with dynamic spawning... Release them here instead of Destroy
+            if (_returnToPoolCommand != null) {
+                _returnToPoolCommand.Invoke(this);
+            } else {
+                Destroy(gameObject); // Fallback
+            }
         }
     }
 }
