@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ae053181f988a40bc76fb5299a37d6, type: 3}
+  m_Name: EnemyWaves
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Waves.LevelCampaign
+  <Waves>k__BackingField:
+  - <ThreatBudget>k__BackingField: 100
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}

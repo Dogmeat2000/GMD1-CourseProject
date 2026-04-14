@@ -16,7 +16,7 @@ namespace _01_Scripts.Core
         public int MaxHealth => maxHealth;
 
         public event Action<int, int, GameObject> OnHealthChanged; // Broadcasts: CurrentHealth, MaxHealth
-        public event Action<GameObject> OnZeroHealth;  // Broadcasts: GameObject that destroyed this entity.
+        public event Action<HealthManager, GameObject> OnZeroHealth;  // Broadcasts: GameObject that destroyed this entity.
         
         private void Awake() {
             currentHealth = maxHealth;
@@ -30,9 +30,13 @@ namespace _01_Scripts.Core
             AdjustHealth(Mathf.Abs(amount), null);
         }
         
+        public void ResetHealth() {
+            currentHealth = maxHealth;
+            OnHealthChanged?.Invoke(currentHealth, maxHealth, gameObject);
+        }
+        
         private void AdjustHealth(int changeAmount, GameObject instigator) {
             int previousHealth = currentHealth;
-            
             currentHealth = Mathf.Clamp(currentHealth + changeAmount, 0, maxHealth);
 
             if (currentHealth == previousHealth) 
@@ -41,7 +45,7 @@ namespace _01_Scripts.Core
             OnHealthChanged?.Invoke(currentHealth, maxHealth, instigator);
                 
             if (currentHealth == 0) {
-                OnZeroHealth?.Invoke(instigator);
+                OnZeroHealth?.Invoke(this, instigator);
             }
         }
     }
