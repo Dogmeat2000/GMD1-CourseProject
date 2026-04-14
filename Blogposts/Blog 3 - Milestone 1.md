@@ -84,9 +84,9 @@ I expect more will be added as the game development progresses.
 ## Basic Shooting Mechanics
 The primary gameplay loop currently features 3D aim tracking, frame-independent rotation, and pooled projectile instantiation.
 
-<video src="https://github.com/Dogmeat2000/GMD1-CourseProject/raw/refs/heads/main/Blogposts/Blog%203%20-%20Video%20of%20Basic%20Shooting%20Mechanics.mp4?download=" controls width="860">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/6b8375ce-b796-4bab-8500-7ff9d60660a1
+
 
 <br>
 
