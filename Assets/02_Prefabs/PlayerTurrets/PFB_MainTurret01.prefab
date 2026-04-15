@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3196382446942414092}
   - component: {fileID: 2679235170786090367}
   - component: {fileID: 2485441033119137205}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3134516474967417139}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 347618519103964407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.198, y: -0.0021, z: -0}
+  m_LocalPosition: {x: -1.317, y: -0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5093898682363397777}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Turret_HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 7079021527224338787}
   - component: {fileID: 6320039578523726741}
   - component: {fileID: 8324369140701204835}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text_RemainingEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 2554484486252895192}
   - component: {fileID: 4914338813395664468}
   - component: {fileID: 2479169464312017066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Canvas_HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4511183710375799819}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player_HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 4978318061297438717}
   - component: {fileID: 5913605231328994796}
   - component: {fileID: 2515629670905923612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HUD_Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 4372511031629707612}
   - component: {fileID: 5125636829833023402}
   - component: {fileID: 8612982155451136790}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text_Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 6027775389629359969}
   - component: {fileID: 9222329926461067599}
   - component: {fileID: 2677030519434114328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 6291825636318493704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.908, y: 0.014, z: -0.047}
+  m_LocalPosition: {x: -4.428, y: 0.014, z: -0.047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5663,6 +5663,7 @@ MonoBehaviour:
   ownerScore: {fileID: 0}
   defaultCapacity: 50
   maxSize: 200
+  barrelRecoil: {fileID: 9092613133133827888}
   weaponAudioSource: {fileID: 2677030519434114328}
   fireSound: {fileID: 8300000, guid: 06c7a0fdf4d88e44fac6fcd655542f65, type: 3}
 --- !u!82 &2677030519434114328
@@ -5775,7 +5776,7 @@ GameObject:
   - component: {fileID: 5217081097220325654}
   - component: {fileID: 2386246790397617464}
   - component: {fileID: 5979043745442941362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Turret Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5836,7 +5837,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 1847
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5925,7 +5926,7 @@ GameObject:
   - component: {fileID: 2920232491288894607}
   - component: {fileID: 3561699084163702886}
   - component: {fileID: 6416924125466272180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text_Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6099,9 +6100,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7752954798775141104, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4556313724066460050, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -714260443747625960, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       propertyPath: m_Name
       value: PFB_MainTurret01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098789629087386823, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6095060746503452926, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6122,6 +6143,14 @@ PrefabInstance:
     - target: {fileID: 6095060746503452926, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306833641512000238, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982796509448179334, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6148,6 +6177,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8982796509448179334, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3273050658055507716}
+    - targetCorrespondingSourceObject: {fileID: -7752954798775141104, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9092613133133827888}
   m_SourcePrefab: {fileID: 100100000, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
 --- !u!1 &482095312516544561 stripped
 GameObject:
@@ -6207,6 +6239,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2750431399409383061, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
   m_PrefabInstance: {fileID: 8798330480877041335}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7961812577371163559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7752954798775141104, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+  m_PrefabInstance: {fileID: 8798330480877041335}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9092613133133827888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961812577371163559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d5f3b7684641d4dac88cfda9ad55b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Turrets.TurretBarrelRecoil
+  recoilDistance: 0.15
+  snapBackSpeed: 50
+  recoverySpeed: 10
 --- !u!1 &8563765275016023014 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}

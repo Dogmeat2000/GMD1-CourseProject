@@ -1,5 +1,6 @@
 using _01_Scripts.Core.Targeting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _01_Scripts.Core.Settings
 {
@@ -46,6 +47,22 @@ namespace _01_Scripts.Core.Settings
         [Tooltip("Maximum altitude [m] the Kamikaze drone ascends to after breaching")]
         [field: SerializeField] 
         public float KamikazeBreachHeightMax { get; private set; } = 150f;
+        
+        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [field: SerializeField] 
+        public int PayloadDamageEasy { get; private set; } = 10;
+        
+        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [field: SerializeField] 
+        public int PayloadDamageNormal { get; private set; } = 25;
+        
+        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [field: SerializeField] 
+        public int PayloadDamageHard { get; private set; } = 50;
+                
+        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [field: SerializeField] 
+        public int PayloadDamageNightmare { get; private set; } = 75;
 
         [Header("Difficulty Multipliers")]
         [Tooltip("Budget multiplier for Easy difficulty")]
@@ -97,6 +114,20 @@ namespace _01_Scripts.Core.Settings
                 TargetPriority.High => PriorityWeightHigh,
                 TargetPriority.Critical => PriorityWeightCritical,
                 _ => PriorityWeightStandard
+            };
+        }
+        
+        /** <summary>
+         * Translates the active difficulty level into its mathematical multiplier.
+         * </summary>
+         */
+        public float GetDifficultyMultiplier(GameDifficulty currentDifficulty) {
+            return currentDifficulty switch {
+                GameDifficulty.Easy => EasyDifficultyMultiplier,
+                GameDifficulty.Normal => NormalDifficultyMultiplier,
+                GameDifficulty.Hard => HardDifficultyMultiplier,
+                GameDifficulty.Nightmare => NightmareDifficultyMultiplier,
+                _ => NormalDifficultyMultiplier
             };
         }
         

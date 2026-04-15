@@ -1,9 +1,10 @@
 using System;
+using _01_Scripts.Core.Interfaces;
 using UnityEngine;
 
 namespace _01_Scripts.Core
 {
-    public class HealthManager : MonoBehaviour
+    public class HealthManager : MonoBehaviour, IDamageable
     {
         [Header("Health Settings")]
         [Tooltip("The maximum health this entity can have")]

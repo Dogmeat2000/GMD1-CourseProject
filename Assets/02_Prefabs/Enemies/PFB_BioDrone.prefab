@@ -284,6 +284,9 @@ PrefabInstance:
       addedObject: {fileID: 3086181098216495819}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 3182308281185901545}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3242955761362794226}
   m_SourcePrefab: {fileID: 100100000, guid: 3b2b57f8b7fcec34ba70518dad2e3e4b, type: 3}
 --- !u!1 &7235597898165779499 stripped
@@ -333,7 +336,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -389,8 +392,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyController
   pointValue: 10
   centerMassBone: {fileID: 8871611567736668110}
+  deathVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   knockbackForce: 30
-  explosionVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
+  baseCollisionDamage: 25
+  warhead: {fileID: 3182308281185901545}
 --- !u!114 &3086181098216495819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Movement.KamikazeFlightBrain
   breachSpeed: 100
-  pursuitSpeed: 60
+  pursuitSpeed: 50
   turnSpeed: 5
   allyLayer:
     serializedVersion: 2
@@ -412,9 +417,42 @@ MonoBehaviour:
   seekWeight: 1
   evadeWeight: 0.4
   separateWeight: 0.6
+  hardDeckAltitude: 2
+  pullUpForce: 30
   evasionIntensity: 0.5
   evasionSpeed: 2.5
   repelRadius: 10
+--- !u!114 &3182308281185901545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235597898165779499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15207c5f2f2941d4a9008b6af34fd157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Combat.ImpactWarhead
+  explosionVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
+  validTargetLayers:
+    serializedVersion: 2
+    m_Bits: 1536
+  onDetonate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4810367290449271029}
+        m_TargetAssemblyTypeName: _01_Scripts.Core.Enemies.EnemyController, Assembly-CSharp
+        m_MethodName: DespawnRoutine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3242955761362794226
 MonoBehaviour:
   m_ObjectHideFlags: 0

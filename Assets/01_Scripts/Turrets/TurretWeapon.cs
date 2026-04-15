@@ -7,22 +7,39 @@ namespace _01_Scripts.Turrets
     public class TurretWeapon : MonoBehaviour
     {
         [Header("Hardware Settings")]
-        [SerializeField] private TurretProjectile projectilePrefab;
-        [SerializeField] private Transform muzzleExit;
-        [SerializeField] private float fireRate = 0.15f;
+        [SerializeField] 
+        private TurretProjectile projectilePrefab;
+        
+        [SerializeField] 
+        private Transform muzzleExit;
+        
+        [SerializeField] 
+        private float fireRate = 0.15f;
+        
         [Tooltip("The scoring manager that assigned to this player")]
-        [SerializeField] private PlayerScore ownerScore;
+        [SerializeField] 
+        private PlayerScore ownerScore;
     
         [Header("Magazine (Pool) Settings")]
-        [SerializeField] private int defaultCapacity = 40;
-        [SerializeField] private int maxSize = 150;
+        [SerializeField] 
+        private int defaultCapacity = 40;
+        
+        [SerializeField] 
+        private int maxSize = 150;
     
+        [Header("Visuals")] 
+        [Tooltip("The procedural recoil script attached to the visual barrel mesh")]
+        [SerializeField] 
+        private TurretBarrelRecoil barrelRecoil;
+        
         [Header("Acoustics")]
         [Tooltip("The speaker attached to the turret")]
-        [SerializeField] private AudioSource weaponAudioSource;
+        [SerializeField] 
+        private AudioSource weaponAudioSource;
         
         [Tooltip("The sound file to play upon firing")]
-        [SerializeField] private AudioClip fireSound;
+        [SerializeField] 
+        private AudioClip fireSound;
 
         private IObjectPool<TurretProjectile> _projectilePool;
         private float _nextFireTime;
@@ -71,6 +88,10 @@ namespace _01_Scripts.Turrets
             
             if (weaponAudioSource && fireSound) {
                 weaponAudioSource.PlayOneShot(fireSound);
+            }
+            
+            if (barrelRecoil) {
+                barrelRecoil.TriggerRecoil();
             }
         }
     }

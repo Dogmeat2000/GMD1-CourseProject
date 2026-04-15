@@ -142,8 +142,8 @@ namespace _01_Scripts.Core.Waves
             _activeHostiles++;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            if (pooledObj.gameObject.TryGetComponent<HealthManager>(out var hm)) {
-                hm.OnZeroHealth += HandleEnemyDeath;
+            if (pooledObj.gameObject.TryGetComponent<EnemyController>(out var enemyCtrl)) {
+                enemyCtrl.OnRemovedFromBoard += HandleEnemyRemoved;
             }
 
             // Trigger the water breach splash VFX at the ocean surface
@@ -151,13 +151,13 @@ namespace _01_Scripts.Core.Waves
                 Vector3 surfacePoint = spawnPoint;
                 surfacePoint.y = settings.OceanSurfaceY;
                 
-                // TODO: Make VFX implement IPoolable later!
-                Instantiate(breachVfxPrefab, surfacePoint, Quaternion.identity); 
+                UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity);
             }
         }
         
-        private void HandleEnemyDeath(HealthManager source, GameObject killer) {
-            source.OnZeroHealth -= HandleEnemyDeath;
+        private void HandleEnemyRemoved(EnemyController source) {
+            source.OnRemovedFromBoard -= HandleEnemyRemoved;
+            
             _activeHostiles--;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
