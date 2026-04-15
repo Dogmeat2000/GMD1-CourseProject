@@ -15,8 +15,8 @@ TagManager:
   - WeatherSim
   - 
   - Enemy
-  - 
-  - 
+  - Player
+  - Friendly
   - 
   - 
   - 

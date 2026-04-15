@@ -39,6 +39,12 @@ namespace _01_Scripts.Core.Movement
         [SerializeField] 
         private float separateWeight = 0.6f;
         
+        [Tooltip("The absolute minimum Y altitude before the drone pulls up.")]
+        [SerializeField] private float hardDeckAltitude = 2.0f; 
+
+        [Tooltip("How violently the drone pitches up to avoid the water.")]
+        [SerializeField] private float pullUpForce = 15.0f;
+        
         
         [Header("Evasion Profile")]
         [Tooltip("The width of the zig-zag [m]")]
@@ -101,7 +107,9 @@ namespace _01_Scripts.Core.Movement
 
         private void ExecuteBreachManeuver() {
             _rb.linearVelocity = Vector3.up * breachSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.up), Time.fixedDeltaTime * turnSpeed);
+            
+            Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
+            transform.rotation = Quaternion.Slerp(transform.rotation, upwardRotation, Time.fixedDeltaTime * turnSpeed);
 
             if (transform.position.y >= _targetBreachAltitude) {
                 AcquireTarget();
@@ -129,12 +137,29 @@ namespace _01_Scripts.Core.Movement
             Vector3 seekForce = _seek.CalculateDirection(transform, targetPos);
             Vector3 evadeForce = _evade.CalculateDirection(transform, targetPos);
             Vector3 separateForce = _separate.CalculateDirection(transform, targetPos);
+            Vector3 pullUpForceVector = Vector3.zero;
             
-            Vector3 desiredDirection = (seekForce * seekWeight) + (evadeForce * evadeWeight) + (separateForce * separateWeight);
-            desiredDirection.Normalize();
+            if (transform.position.y < hardDeckAltitude) {
+                float dangerSeverity = Mathf.Clamp01(1.0f - (transform.position.y / hardDeckAltitude));
+                pullUpForceVector = Vector3.up * (pullUpForce * dangerSeverity);
+                
+                if (_rb.linearVelocity.y < 0) {
+                    Vector3 flattenedVelocity = _rb.linearVelocity;
+                    flattenedVelocity.y *= 0.8f; 
+                    _rb.linearVelocity = flattenedVelocity;
+                }
+            }
             
-            Quaternion targetRotation = Quaternion.LookRotation(desiredDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSpeed);
+            Vector3 desiredDirection = (seekForce * seekWeight) + (evadeForce * evadeWeight) + (separateForce * separateWeight) + pullUpForceVector;
+            
+            if (desiredDirection != Vector3.zero) {
+                desiredDirection.Normalize();
+                
+                float singleStep = turnSpeed * Time.fixedDeltaTime;
+                Vector3 newDirection = Vector3.RotateTowards(transform.forward, desiredDirection, singleStep, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
+            }
+            
             _rb.linearVelocity = transform.forward * pursuitSpeed;
         }
     }
