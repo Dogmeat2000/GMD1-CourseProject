@@ -109,7 +109,8 @@ namespace _01_Scripts.Core.Movement
             _rb.linearVelocity = Vector3.up * breachSpeed;
             
             Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
-            transform.rotation = Quaternion.Slerp(transform.rotation, upwardRotation, Time.fixedDeltaTime * turnSpeed);
+            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, upwardRotation, Time.fixedDeltaTime * turnSpeed);
+            _rb.MoveRotation(targetRotation);
 
             if (transform.position.y >= _targetBreachAltitude) {
                 AcquireTarget();
@@ -157,10 +158,12 @@ namespace _01_Scripts.Core.Movement
                 
                 float singleStep = turnSpeed * Time.fixedDeltaTime;
                 Vector3 newDirection = Vector3.RotateTowards(transform.forward, desiredDirection, singleStep, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
+                
+                _rb.MoveRotation(Quaternion.LookRotation(newDirection, Vector3.up));
             }
             
             _rb.linearVelocity = transform.forward * pursuitSpeed;
+            _rb.angularVelocity = Vector3.zero;
         }
     }
 }
