@@ -44,6 +44,8 @@ namespace _01_Scripts.Turrets
 
         private void OnEnable() {
             _currentLifeTime = 0f;
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
             
             if (_warhead) {
                 _warhead.PayloadDamage = damageAmount;
@@ -75,6 +77,7 @@ namespace _01_Scripts.Turrets
                 return;
             
             _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
             _managedPool?.Release(this);
         }
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
 {
@@ -12,18 +13,13 @@ namespace _01_Scripts.Core.UI
     public class CursorManager : MonoBehaviour
     {
         private void Start() {
-            EngageCursorLock();
+            LockAndHideCursor();
         }
 
         private void Update() {
             if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Time.timeScale > 0f) {
-                EngageCursorLock();
+                LockAndHideCursor();
             }
-        }
-
-        private void EngageCursorLock() {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
     }
 }

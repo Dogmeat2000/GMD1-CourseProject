@@ -1,5 +1,5 @@
 using System.Collections;
-using _01_Scripts.Core.Waves;
+using _01_Scripts.Core.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -8,19 +8,25 @@ namespace _01_Scripts.Core.UI.HUD
     public class WaveInformationHUD : MonoBehaviour
     {
         [Header("Readout Displays")]
-        [SerializeField] private TextMeshProUGUI waveText;
-        [SerializeField] private TextMeshProUGUI enemyCountText;
-        [SerializeField] private TextMeshProUGUI statusText;
+        [SerializeField] 
+        private TextMeshProUGUI waveText;
+        
+        [SerializeField] 
+        private TextMeshProUGUI enemyCountText;
+        
+        [SerializeField] 
+        private TextMeshProUGUI statusText;
 
         [Header("HUD Settings")]
         [Tooltip("How long central status messages stay on screen before fading")]
-        [SerializeField] private float statusDisplayDuration = 3f;
+        [SerializeField] 
+        private float statusDisplayDuration = 3f;
 
         private Coroutine _statusClearCoroutine;
 
         private void OnEnable() {
             if (WaveDirector.Instance) {
-                SubscribeToTelemetry();
+                SubscribeToWaveUpdates();
             } else {
                 StartCoroutine(DelayedSubscription());
             }
@@ -36,10 +42,10 @@ namespace _01_Scripts.Core.UI.HUD
 
         private IEnumerator DelayedSubscription() {
             yield return new WaitUntil(() => WaveDirector.Instance);
-            SubscribeToTelemetry();
+            SubscribeToWaveUpdates();
         }
 
-        private void SubscribeToTelemetry() {
+        private void SubscribeToWaveUpdates() {
             WaveDirector.Instance.OnWaveUpdated += UpdateWaveDisplay;
             WaveDirector.Instance.OnEnemyCountChanged += UpdateEnemyCount;
             WaveDirector.Instance.OnStatusMessage += DisplayStatus;

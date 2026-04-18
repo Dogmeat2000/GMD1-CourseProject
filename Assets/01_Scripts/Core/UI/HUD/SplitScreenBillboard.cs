@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace _01_Scripts.Core.UI
+namespace _01_Scripts.Core.UI.HUD
 {
     public class SplitScreenBillboard : MonoBehaviour
     {

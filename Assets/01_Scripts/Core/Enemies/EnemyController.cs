@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _01_Scripts.Core.Combat;
 using _01_Scripts.Core.Scoring;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using UnityEngine;

@@ -22,7 +22,6 @@ namespace _01_Scripts.Core.UI
         [SerializeField] private Slider progressBar;
 
         private void Start() {
-            // Ensures the loading screen is hidden when Main Menu is loaded
             if (loadingScreenPanel) {
                 loadingScreenPanel.SetActive(false);
             }

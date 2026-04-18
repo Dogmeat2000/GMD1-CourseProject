@@ -1,5 +1,6 @@
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Movement.Behaviors;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
