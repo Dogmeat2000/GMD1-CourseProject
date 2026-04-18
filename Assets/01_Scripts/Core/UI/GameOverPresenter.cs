@@ -62,6 +62,11 @@ namespace _01_Scripts.Core.UI
         [SerializeField] 
         private string mainMenuSceneName = "SCN_MainMenu";
         
+        [Header("UI Navigation")]
+        [Tooltip("The button the joystick should snap to after saving a score")]
+        [SerializeField] 
+        private GameObject returnToMainMenuButton;
+        
         private void Start() {
             if (gameOverCanvas) {
                 gameOverCanvas.SetActive(false);
@@ -166,6 +171,17 @@ namespace _01_Scripts.Core.UI
             
             if (rowObj.TryGetComponent<InputLeaderBoardRow>(out var rowScript)) {
                 rowScript.Initialize(rank, localPlayer.CurrentScore, localPlayer.CommitScore);
+                
+                rowScript.Initialize(rank, localPlayer.CurrentScore, (playerName) => {
+                    localPlayer.CommitScore(playerName); 
+                    if (returnToMainMenuButton && UnityEngine.EventSystems.EventSystem.current) {
+                        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+                        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(returnToMainMenuButton);
+                        if (returnToMainMenuButton.TryGetComponent<UnityEngine.UI.Selectable>(out var selectable)) {
+                            selectable.Select();
+                        }
+                    }
+                });
             }
         }
         

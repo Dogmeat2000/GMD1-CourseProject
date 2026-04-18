@@ -1,4 +1,5 @@
 using System;
+using _01_Scripts.Core.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace _01_Scripts.Core.Scoring
         private TextMeshProUGUI rankText;
         
         [SerializeField] 
-        private TMP_InputField nameInputField;
+        private ArcadeNameInput nameInputField;
         
         [SerializeField] 
         private TextMeshProUGUI scoreText;
