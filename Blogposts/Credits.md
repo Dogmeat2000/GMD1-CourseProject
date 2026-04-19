@@ -34,12 +34,22 @@
     * *Note:* Developed using a combination of Image Generation Models (Flux2, Z_Turbo, Qwen-Image & Nano Banana) in conjunction with GIMP.
 
 ### Audio Assets
-* **[Sound Effect] Shipboard_railgun** by deleted_user_1941307
+* **[Sound Effect] SFX_shipboard_railgun** by deleted_user_1941307
     * *Source:* [https://freesound.org/people/deleted_user_1941307/](https://freesound.org/people/deleted_user_1941307/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
-* **[Sound Track] Spearhead_MainMenuBackground** by K. Dashnaw
+
+* **[Sound Track] Music_Spearhead_MainMenuBackground_NonCommercial** by K. Dashnaw
     * *Note:* Sound/music was created using the music software Suno.
     * *License:* Non-Commercial
+
+* **[Sound Effect] SFX_ButtonClick** by Artem_Zaitsev
+    * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+
+* **[Sound Effect] SFX_ButtonHighlight** by Artem_Zaitsev
+    * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ### Tools
 * **Unity** ([6000.3 LTS])

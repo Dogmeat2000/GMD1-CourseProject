@@ -1,5 +1,4 @@
-using _01_Scripts.Core.Settings;
-using TMPro;
+using _01_Scripts.Core.Managers;
 using UnityEngine;
 
 namespace _01_Scripts.Turrets
@@ -29,7 +28,6 @@ namespace _01_Scripts.Turrets
         private void LateUpdate() {
             if (!turretCamera) return;
 
-            // Calculate the 3D target point 750m ahead of the muzzles
             UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
             UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
         }

@@ -37,7 +37,6 @@ namespace _01_Scripts.Core.Scoring
             SaveLeaderboard();
         }
 
-        // TODO: Call this at round end to tell the player exactly where they stand
         public int GetProjectedRank(int scoreToCheck) {
             int rank = 1; 
             foreach (var entry in _saveData.entries) {

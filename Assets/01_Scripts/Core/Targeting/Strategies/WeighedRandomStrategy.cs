@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Settings;
 
 namespace _01_Scripts.Core.Targeting.Strategies

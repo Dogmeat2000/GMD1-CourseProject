@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using _01_Scripts.Core.Combat;
 using _01_Scripts.Core.Scoring;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using UnityEngine;
@@ -24,6 +26,14 @@ namespace _01_Scripts.Core.Enemies
         [SerializeField]
         private GameObject deathVfxPrefab;
         
+        [Tooltip("The exact name of the Animator state this entity should snap to upon spawning.")]
+        [SerializeField] 
+        private string defaultRespawnState = "Idle";
+        
+        [Tooltip("The exact name of the Animator trigger parameter to fire when health reaches zero.")]
+        [SerializeField] 
+        private string deathTriggerName = "Die";
+        
         [Header("Combat Physics")]
         [Tooltip("How much physical force is applied when hit")]
         [SerializeField] 
@@ -40,12 +50,20 @@ namespace _01_Scripts.Core.Enemies
         public event Action<EnemyController> OnRemovedFromBoard;
         private Action<IPoolable> _returnToPoolCommand;
         private Collider _collider;
+        private int _deathTriggerHash;
         
         private HealthManager _healthManager;
         private Animator _animator;
         private Rigidbody _rb;
-        private static readonly int DeathTrigger = Animator.StringToHash("Die");
         private IEntityBrain _brain;
+        
+        private struct TransformBlueprint {
+            public Transform Child;
+            public Vector3 LocalPos;
+            public Quaternion LocalRot;
+        }
+        
+        private readonly List<TransformBlueprint> _structuralBlueprint = new();
 
         private void Awake() {
             _healthManager = GetComponent<HealthManager>();
@@ -53,6 +71,19 @@ namespace _01_Scripts.Core.Enemies
             _rb = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _brain = GetComponent<IEntityBrain>();
+            _deathTriggerHash = Animator.StringToHash(deathTriggerName);
+            
+            Transform[] allChildren = GetComponentsInChildren<Transform>(true); 
+            foreach (Transform child in allChildren) {
+                if (child == transform) 
+                    continue;
+                
+                _structuralBlueprint.Add(new TransformBlueprint {
+                    Child = child,
+                    LocalPos = child.localPosition,
+                    LocalRot = child.localRotation
+                });
+            }
         }
 
         private void OnEnable() {
@@ -70,6 +101,15 @@ namespace _01_Scripts.Core.Enemies
         }
 
         public void OnSpawned() {
+            if (_animator) {
+                _animator.enabled = true;
+                _animator.ResetTrigger(_deathTriggerHash);
+                
+                if (!string.IsNullOrEmpty(defaultRespawnState)) {
+                    _animator.Play(defaultRespawnState, 0, 0f); 
+                }
+            }
+            
             _healthManager.ResetHealth();
             _collider.enabled = true;
             _rb.isKinematic = false;
@@ -100,7 +140,8 @@ namespace _01_Scripts.Core.Enemies
         }
 
         private void HandleDeath(HealthManager source, GameObject killer) {
-            _animator.SetTrigger(DeathTrigger); 
+            if (_animator) 
+                _animator.SetTrigger(_deathTriggerHash); 
             
             if (killer && killer.TryGetComponent<PlayerScore>(out var scoreComponent)) {
                 scoreComponent.AddScore(pointValue);
@@ -120,6 +161,18 @@ namespace _01_Scripts.Core.Enemies
          */
         public void DespawnRoutine() {
             OnRemovedFromBoard?.Invoke(this);
+            
+            if (_animator) {
+                _animator.Rebind();
+                _animator.Update(0f);
+            }
+            
+            foreach (var blueprint in _structuralBlueprint) {
+                if (blueprint.Child) {
+                    blueprint.Child.localPosition = blueprint.LocalPos;
+                    blueprint.Child.localRotation = blueprint.LocalRot;
+                }
+            }
             
             if (_returnToPoolCommand != null) {
                 _returnToPoolCommand.Invoke(this);

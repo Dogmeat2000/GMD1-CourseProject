@@ -1,6 +1,7 @@
+using _01_Scripts.Core.Settings;
 using UnityEngine;
 
-namespace _01_Scripts.Core.Settings
+namespace _01_Scripts.Core.Managers
 {
     public class LevelManager : MonoBehaviour
     {
@@ -39,7 +40,7 @@ namespace _01_Scripts.Core.Settings
          * </summary>
          */
         public float GetDifficultyMultiplier() {
-            if (Settings == null) {
+            if (!Settings) {
                 Debug.LogError("LevelManager: Active Settings is NULL. Defaulting multiplier to 1.0f.");
                 return 1.0f;
             }

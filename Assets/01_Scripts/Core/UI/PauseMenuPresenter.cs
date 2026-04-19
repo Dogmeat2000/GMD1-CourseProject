@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
 {
@@ -11,7 +12,13 @@ namespace _01_Scripts.Core.UI
     {
         [Header("UI Overlay")]
         [Tooltip("The Panel to be displayed when Pause is invoked")]
-        [SerializeField] private GameObject pauseMenuPanel;
+        [SerializeField] 
+        private GameObject pauseMenuPanel;
+        
+        [Header("Scene Navigation")]
+        [Tooltip("The exact name of the Main Menu scene to load upon exit")]
+        [SerializeField] 
+        private string mainMenuSceneName = "SCN_MainMenu";
 
         private bool _isPaused = false;
 
@@ -27,8 +34,7 @@ namespace _01_Scripts.Core.UI
             
             Time.timeScale = 1f;
             _isPaused = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            LockAndHideCursor();
         }
 
         private void Update() {
@@ -43,13 +49,11 @@ namespace _01_Scripts.Core.UI
             if (_isPaused) {
                 Time.timeScale = 0f;
                 pauseMenuPanel.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                UnlockAndShowCursor();
             } else {
                 Time.timeScale = 1f;
                 pauseMenuPanel.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                LockAndHideCursor();
             }
         }
         
@@ -58,9 +62,8 @@ namespace _01_Scripts.Core.UI
         }
         
         public void ReturnToMainMenu() {
-            // Reset the engine's internal clock
             Time.timeScale = 1f;
-            SceneManager.LoadSceneAsync("SCN_MainMenu");
+            SceneManager.LoadSceneAsync(mainMenuSceneName);
         }
     }
 }

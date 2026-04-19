@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _01_Scripts.Core.UI
+namespace _01_Scripts.Core.UI.HUD
 {
     public class FloatingHealthBar : MonoBehaviour
     {

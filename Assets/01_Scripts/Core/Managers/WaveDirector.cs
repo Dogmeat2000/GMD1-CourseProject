@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using _01_Scripts.Core.Settings;
-using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Enemies;
+using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Settings;
+using _01_Scripts.Core.Waves;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _01_Scripts.Core.Waves
+namespace _01_Scripts.Core.Managers
 {
     public class WaveDirector : MonoBehaviour
     {
@@ -33,13 +34,17 @@ namespace _01_Scripts.Core.Waves
         public event Action<int, int> OnWaveUpdated;
         public event Action<int> OnEnemyCountChanged;
         public event Action<string> OnStatusMessage;
+        public event Action OnAllWavesCleared;
         
         private int _currentWaveIndex = 0;
         private int _activeHostiles = 0;
+        private bool _isDeployingWave = false;
         
         private void Awake() {
-            if (Instance && Instance != this) Destroy(gameObject);
-            else Instance = this;
+            if (Instance && Instance != this) 
+                Destroy(gameObject);
+            else 
+                Instance = this;
         }
         
         /** <summary>
@@ -48,15 +53,15 @@ namespace _01_Scripts.Core.Waves
          */
         public void BeginNextWave() {
             if (_currentWaveIndex >= activeCampaign.Waves.Count) {
-                OnStatusMessage?.Invoke("ALL WAVES CLEARED!");
-                // TODO Trigger Victory UI here
+                OnStatusMessage?.Invoke("ALL WAVES CLEARED!"); // TODO: This should become a serialized field!
+                OnAllWavesCleared?.Invoke();
                 return;
             }
 
             WaveData currentWaveData = activeCampaign.Waves[_currentWaveIndex];
             Debug.Log($"Starting Wave {_currentWaveIndex + 1} / {activeCampaign.Waves.Count}");
             OnWaveUpdated?.Invoke(_currentWaveIndex + 1, activeCampaign.Waves.Count);
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INITIATED");
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
             
             StartCoroutine(DeployWaveRoutine(currentWaveData));
         }
@@ -67,14 +72,18 @@ namespace _01_Scripts.Core.Waves
             OnWaveUpdated?.Invoke(_currentWaveIndex, activeCampaign.Waves.Count);
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            OnStatusMessage?.Invoke("PROTECT THE FLEET. PREPARE FOR COMBAT. ");
+            OnStatusMessage?.Invoke("PROTECT THE FLEET."); // TODO: This should become a serialized field!
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
         }
 
         private IEnumerator DeployWaveRoutine(WaveData currentWave) {
+            _isDeployingWave = true;
+            
             List<EnemyProfile> assaultRoster = BuildSpawnRoster(currentWave);
-            if (assaultRoster.Count == 0) yield break;
+            
+            if (assaultRoster.Count == 0) 
+                yield break;
 
             LevelSettings settings = LevelManager.Instance.Settings;
             float totalWaveSpawnDuration = Random.Range(settings.WaveSpawnDurationMin, settings.WaveSpawnDurationMax);
@@ -84,6 +93,18 @@ namespace _01_Scripts.Core.Waves
                 DeploySingleUnit(enemy, settings);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
+            
+            _isDeployingWave = false;
+            
+            if (_activeHostiles <= 0) {
+                AdvanceToNextWave();
+            }
+        }
+        
+        private void AdvanceToNextWave() {
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED");
+            _currentWaveIndex++;
+            BeginNextWave();
         }
 
         private List<EnemyProfile> BuildSpawnRoster(WaveData waveData) {
@@ -145,12 +166,10 @@ namespace _01_Scripts.Core.Waves
             if (pooledObj.gameObject.TryGetComponent<EnemyController>(out var enemyCtrl)) {
                 enemyCtrl.OnRemovedFromBoard += HandleEnemyRemoved;
             }
-
-            // Trigger the water breach splash VFX at the ocean surface
+            
             if (breachVfxPrefab) {
                 Vector3 surfacePoint = spawnPoint;
                 surfacePoint.y = settings.OceanSurfaceY;
-                
                 UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity);
             }
         }
@@ -162,9 +181,7 @@ namespace _01_Scripts.Core.Waves
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
             if (_activeHostiles <= 0) {
-                OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED");
-                _currentWaveIndex++;
-                BeginNextWave();
+                AdvanceToNextWave();
             }
         }
         
@@ -178,8 +195,7 @@ namespace _01_Scripts.Core.Waves
             while (true) {
                 yield return wait;
                 
-                // If the engine counts 0 enemies but the script missed a death event
-                if (_activeHostiles > 0) {
+                if (_activeHostiles > 0 && !_isDeployingWave) {
                     int actualEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length; 
                     
                     if (actualEnemies == 0) {

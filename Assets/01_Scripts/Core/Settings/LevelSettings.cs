@@ -1,10 +1,9 @@
 using _01_Scripts.Core.Targeting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _01_Scripts.Core.Settings
 {
-    [CreateAssetMenu(fileName = "NewLevelSettings", menuName = "Game/Level Settings", order = 1)]
+    [CreateAssetMenu(fileName = "NewLevelSettings", menuName = "Game/Settings/Level Settings", order = 1)]
     public class LevelSettings : ScriptableObject
     { 
         [Header("Environment")]
