@@ -192,6 +192,7 @@ namespace _01_Scripts.Core.UI
         }
         
         public void ReturnToMainMenu() {
+            ServiceLocator.Get<GameStateService>()?.ResumeGame();
             SceneManager.LoadSceneAsync(mainMenuSceneName);
         }
 

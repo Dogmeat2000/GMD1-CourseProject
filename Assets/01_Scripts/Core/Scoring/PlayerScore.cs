@@ -11,7 +11,6 @@ namespace _01_Scripts.Core.Scoring
         
         private int _currentScore;
 
-        // The HUD subscribes to this to update the UI instantly
         public event Action<int> OnScoreChanged;
 
         public int CurrentScore => _currentScore;
@@ -22,8 +21,7 @@ namespace _01_Scripts.Core.Scoring
             _currentScore += points;
             OnScoreChanged?.Invoke(_currentScore);
         }
-
-        // TODO: Called at the end of the round by your Game Manager/UI
+        
         public void CommitScore(string customName = "") {
             string finalName = string.IsNullOrWhiteSpace(customName) ? defaultPlayerName : customName;
             LeaderboardManager.Instance.SubmitScore(finalName, _currentScore);

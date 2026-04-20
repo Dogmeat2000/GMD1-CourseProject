@@ -19,10 +19,9 @@ namespace _01_Scripts.Core.Services
             Instance = this;
         }
 
-        /** <summary>
-         * Requests an object from the pool associated with the given prefab.
-         * </summary>
-         */
+        /// <summary>
+        /// Requests an object from the pool associated with the given prefab.
+        /// </summary>
         public IPoolable Spawn(GameObject prefab, Vector3 position, Quaternion rotation) {
             int prefabId = prefab.GetInstanceID();
             

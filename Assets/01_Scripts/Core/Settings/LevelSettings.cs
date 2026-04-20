@@ -102,10 +102,9 @@ namespace _01_Scripts.Core.Settings
         [field: SerializeField] 
         public float MaxTargetingDistance { get; private set; } = 750f;
         
-        /** <summary>
-         * Translates a target's priority label into its active mathematical weight.
-         * </summary>
-         */
+        /// <summary>
+        /// Translates a target's priority label into its active mathematical weight.
+        /// </summary>
         public int GetPriorityWeight(TargetPriority priorityLabel) {
             return priorityLabel switch {
                 TargetPriority.Low => PriorityWeightLow,
@@ -116,10 +115,9 @@ namespace _01_Scripts.Core.Settings
             };
         }
         
-        /** <summary>
-         * Translates the active difficulty level into its mathematical multiplier.
-         * </summary>
-         */
+        /// <summary>
+        /// Translates the active difficulty level into its mathematical multiplier.
+        /// </summary>
         public float GetDifficultyMultiplier(GameDifficulty currentDifficulty) {
             return currentDifficulty switch {
                 GameDifficulty.Easy => EasyDifficultyMultiplier,
@@ -130,12 +128,10 @@ namespace _01_Scripts.Core.Settings
             };
         }
         
-        /**
-         * <summary>
-         * Unity callback to validate data integrity in the editor.
-         * Acts as a safety check to ensure Min values never exceed Max values.
-         * </summary> 
-         */
+        /// <summary>
+        /// Unity callback to validate data integrity in the editor.
+        /// Acts as a safety check to ensure Min values never exceed Max values.
+        /// </summary> 
         private void OnValidate() {
             if (MinSpawnDistance > MaxSpawnDistance)
                 MaxSpawnDistance = MinSpawnDistance;

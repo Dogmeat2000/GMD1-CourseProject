@@ -50,10 +50,9 @@ namespace _01_Scripts.Core.Managers
         private BattlefieldRadar _battlefieldRadar;
         
        
-        /** <summary>
-         * Initiates the next wave in the sequence.
-         * </summary>
-         */
+        /// <summary>
+        /// Initiates the next wave in the sequence.
+        /// </summary>
         public void BeginNextWave() {
             if (_currentWaveIndex >= activeCampaign.Waves.Count) {
                 OnStatusMessage?.Invoke(clearMessage);

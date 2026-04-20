@@ -183,11 +183,10 @@ namespace _01_Scripts.Core.Enemies
             }
         }
         
-        /** <summary>
-         * Called by an Animation Event on the final frame of the Death animation.
-         * Handles spawning any optional pooled VFX before removing the entity.
-         * </summary>
-         */
+        /// <summary>
+        /// Called by an Animation Event on the final frame of the Death animation.
+        /// Handles spawning any optional pooled VFX before removing the entity.
+        /// </summary>
         public void FinalizeDeathSequence() {
             if (deathVfxPrefab && UniversalPoolService.Instance) {
                 Vector3 spawnPoint = centerMassBone ? centerMassBone.transform.position : transform.position;

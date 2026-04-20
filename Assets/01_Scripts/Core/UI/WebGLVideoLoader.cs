@@ -3,10 +3,10 @@ using UnityEngine.Video;
 
 namespace _01_Scripts.Core.UI
 {
-    /**
-     * <p>This script handles compatibility between video playing in webgl builds (through browser) and playing video through windows builds -
-     * where the direction of the '/' or '\' differs from platform to platform.</p>
-     */
+    /// <summary>
+    /// <p>This script handles compatibility between video playing in webgl builds (through browser) and playing video through windows builds -
+    /// where the direction of the '/' or '\' differs from platform to platform.</p>
+    /// </summary>
     [RequireComponent(typeof(VideoPlayer))]
     public class WebGLVideoLoader : MonoBehaviour
     {

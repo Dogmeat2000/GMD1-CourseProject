@@ -25,10 +25,9 @@ namespace _01_Scripts.Core.Targeting
             }
         }
 
-        /** <summary>
-         * Retrieves the optimal target of the requested faction using the provided tactical strategy.
-         * </summary>
-         */
+        /// <summary>
+        /// Retrieves the optimal target of the requested faction using the provided tactical strategy.
+        /// </summary>
         public ITargetable GetOptimalTarget(Vector3 requesterPosition, Faction targetFaction, ITargetingStrategy strategy) {
             if (!_radarBlips.ContainsKey(targetFaction) || _radarBlips[targetFaction].Count == 0) 
                 return null;
