@@ -9,10 +9,9 @@ using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
 {
-    /** <summary>
-     * <p>Handles the Game Over Menu, that is displayed after win/lose condition for game level is reached</p>
-     * </summary>
-     * */
+    /// <summary>
+    /// <p>Handles the Game Over Menu, that is displayed after win/lose condition for game level is reached</p>
+    ///</summary>
     public class GameOverPresenter : BaseHighscorePresenter
     { 
         [Header("UI Data and Bindings")]
@@ -193,7 +192,6 @@ namespace _01_Scripts.Core.UI
         }
         
         public void ReturnToMainMenu() {
-            Time.timeScale = 1f;
             SceneManager.LoadSceneAsync(mainMenuSceneName);
         }
 

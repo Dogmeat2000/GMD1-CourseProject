@@ -17,14 +17,15 @@ namespace _01_Scripts.Core.Managers
         public event Action<MatchResult> OnMatchEnded;
 
         private int _alivePlayers;
-        private bool _matchIsOver = false;
-
         private WaveDirector _waveDirector;
         private FleetDirector _fleetDirector;
+        
+        private GameStateService _gameState;
 
         private void Awake() {
             _waveDirector = ServiceLocator.Get<WaveDirector>();
             _fleetDirector = ServiceLocator.Get < FleetDirector>();
+            _gameState = ServiceLocator.Get<GameStateService>();
         }
         
         private void Start() {
@@ -57,7 +58,7 @@ namespace _01_Scripts.Core.Managers
         }
 
         private void HandlePlayerDeath(HealthManager player, GameObject killer) {
-            if (_matchIsOver) 
+            if (_gameState.CurrentState == GameState.GameOver) 
                 return;
 
             player.OnZeroHealth -= HandlePlayerDeath;
@@ -69,22 +70,20 @@ namespace _01_Scripts.Core.Managers
         }
 
         private void HandleVictory() {
-            StartCoroutine(EndMatchRoutine(MatchResult.Victory, 4f));
+            StartCoroutine(EndGameRoutine(MatchResult.Victory, 4f));
         }
 
         private void HandleDefeat() {
-            StartCoroutine(EndMatchRoutine(MatchResult.Defeat, 1.5f));
+            StartCoroutine(EndGameRoutine(MatchResult.Defeat, 1.5f));
         }
 
-        private IEnumerator EndMatchRoutine(MatchResult result, float delay) {
-            if (_matchIsOver) 
+        private IEnumerator EndGameRoutine(MatchResult result, float delay) {
+            if (_gameState.CurrentState == GameState.GameOver) 
                 yield break;
-            
-            _matchIsOver = true;
             
             yield return new WaitForSeconds(delay);
             
-            Time.timeScale = 0f; 
+            _gameState.EndGame();
             OnMatchEnded?.Invoke(result);
         }
     }

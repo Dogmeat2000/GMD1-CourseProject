@@ -30,13 +30,25 @@ namespace _01_Scripts.Core.Managers
         private void Awake() {
             ServiceLocator.Clear(); 
             
-            if (levelManager) ServiceLocator.Register(levelManager);
-            if (gameDirector) ServiceLocator.Register(gameDirector);
-            if (waveDirector) ServiceLocator.Register(waveDirector);
-            if (fleetDirector) ServiceLocator.Register(fleetDirector);
-            if (battlefieldRadar) ServiceLocator.Register(battlefieldRadar);
+            GameStateService stateService = new GameStateService();
+            ServiceLocator.Register(stateService);
             
-            Debug.Log("Level Bootstrapper: All directors/managers online and registered.");
+            if (levelManager) 
+                ServiceLocator.Register(levelManager);
+            
+            if (gameDirector) 
+                ServiceLocator.Register(gameDirector);
+            
+            if (waveDirector) 
+                ServiceLocator.Register(waveDirector);
+            
+            if (fleetDirector) 
+                ServiceLocator.Register(fleetDirector);
+            
+            if (battlefieldRadar) 
+                ServiceLocator.Register(battlefieldRadar);
+            
+            Debug.Log("All directors/managers online and registered.");
         }
 
         private void OnDestroy() {
