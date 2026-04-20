@@ -1,3 +1,4 @@
+using _01_Scripts.Core.Services;
 using UnityEngine;
 
 namespace _01_Scripts.Turrets
@@ -19,6 +20,11 @@ namespace _01_Scripts.Turrets
         [SerializeField] private float maxPitch = 45f;  
 
         private float _currentPitch = 0f;
+        private GameStateService _gameStateService;
+        
+        private void Awake() {
+            _gameStateService = ServiceLocator.Get<GameStateService>();
+        }
 
         public void RotateJoints(float yawDelta, float pitchDelta) {
             // Pitch Axis (Up/Down)
@@ -38,8 +44,7 @@ namespace _01_Scripts.Turrets
         }
 
         public void PullTrigger() { 
-            // Do not fire, if game is paused
-            if (Time.timeScale <= 0f) 
+            if (_gameStateService != null && _gameStateService.CurrentState != GameState.Playing) 
                 return;
             
             if (mainWeapon) {

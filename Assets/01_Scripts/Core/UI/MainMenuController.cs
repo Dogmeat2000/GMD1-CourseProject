@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI
 {
-    /**
-     * <p>Handles loading new game levels.</p>
-     */
+    ///<summary>
+    /// <p>Handles loading new game levels.</p>
+    ///</summary>
     public class MainMenuController : MonoBehaviour
     {
         [Header("UI Readouts")]
@@ -48,8 +48,11 @@ namespace _01_Scripts.Core.UI
             while (operation is { isDone: false }) {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);
                 
-                if (progressBar) progressBar.value = progress;
-                if (progressText) progressText.text = $"DEPLOYING: {Mathf.RoundToInt(progress * 100)}%";
+                if (progressBar) 
+                    progressBar.value = progress;
+                
+                if (progressText) 
+                    progressText.SetText("DEPLOYING: {0}%", Mathf.RoundToInt(progress * 100));
                 yield return null;
             }
         }

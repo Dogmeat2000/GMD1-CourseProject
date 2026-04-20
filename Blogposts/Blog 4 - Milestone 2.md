@@ -1,3 +1,10 @@
 - Write about:
 -- UI / GUI Design (I'm using the uGUI approach)
 -- 9-Slicing of buttons and stuff!
+-- Design Pattern use:
+--- Service Locator Pattern (Structural) -> Allows scripts to find their required managers without relying on rigid Singletons (Dependency Inversion)
+--- State Pattern (Behavioral) -> Dictates the current rules of the game. Instead of scripts guessing what phase the game is in via scattered boolean flags (_isPaused, _matchOver), a central authority defines the active reality (Deploying, Playing, Paused, GameOver).
+--- Strategy Pattern (Behaviral) -> Allows the hot-swap complex algorithms on the fly without changing the entity that uses them. A Kamikaze drone doesn't need to know how to pick a target; it simply asks the Radar to use a specific Strategy to hand it the best target mathematically available.
+--- Object Pool Pattern (Creational) -> Recycles Memory. Instead of forcing the Unity engine to aggressively allocate and destroy memory (which causes frame-rate stutters), I keep a hidden pool of inactive objects ready for instant deployment. Used in Enemy spawning (WaveDirector), VFX explosions (ImpactWarhead), and heavy machine gun fire (TurretProjectile).
+--- Observer Pattern / Events (Behavioral) -> Instead of UI scripts constantly asking "Are you dead yet?" every frame, the subjects broadcast a radio signal only when something actually happens. HealthManager broadcasting OnHealthChanged to update the PlayerHealthHUD. GameDirector listening to WaveDirector.OnAllWavesCleared and FleetDirector.OnFleetDestroyed to trigger match endings.
+--- Singleton Pattern (Creational) -> A vital pattern when used strictly for persistent, cross-scene data. Features using it: Saving/Loading high scores, carrying global audio/visual settings between the Main Menu and the battlefield, and maintaining the global VFX memory pool.

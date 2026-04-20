@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
-    /**
-     * <p>Handles the audio that is played inside menus</p>
-     */
+    /// <summary>
+    /// <p>Handles the audio that is played inside menus</p>
+    /// </summary>
     public class MenuAudioController : MonoBehaviour
     {
         [SerializeField] private AudioSource menuMusic;

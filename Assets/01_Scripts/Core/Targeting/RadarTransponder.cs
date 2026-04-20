@@ -1,5 +1,6 @@
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Services;
 
 namespace _01_Scripts.Core.Targeting
 {
@@ -14,18 +15,26 @@ namespace _01_Scripts.Core.Targeting
 
         public Transform TargetTransform => transform;
         
-        public bool IsTargetable => gameObject.activeInHierarchy; 
+        public bool IsTargetable => gameObject.activeInHierarchy;
+        private BattlefieldRadar _battlefieldRadar;
 
         private void OnEnable() {
-            if (BattlefieldRadar.Instance) BattlefieldRadar.Instance.RegisterTarget(this);
+            if (_battlefieldRadar) 
+                _battlefieldRadar.RegisterTarget(this);
         }
 
         private void OnDisable() {
-            if (BattlefieldRadar.Instance) BattlefieldRadar.Instance.UnregisterTarget(this);
+            if (_battlefieldRadar) 
+                _battlefieldRadar.UnregisterTarget(this);
+        }
+
+        private void Awake() {
+            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
         }
         
         private void Start() {
-            if (BattlefieldRadar.Instance) BattlefieldRadar.Instance.RegisterTarget(this);
+            if (_battlefieldRadar) 
+                _battlefieldRadar.RegisterTarget(this);
         }
     }
 }

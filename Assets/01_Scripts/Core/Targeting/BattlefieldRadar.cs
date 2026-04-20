@@ -7,21 +7,11 @@ namespace _01_Scripts.Core.Targeting
 {
     public class BattlefieldRadar : MonoBehaviour
     {
-        public static BattlefieldRadar Instance { get; private set; }
-        
-        private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new();
-
-        private void Awake() {
-            if (Instance && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-            
-            _radarBlips[Faction.Friendly] = new List<ITargetable>();
-            _radarBlips[Faction.Hostile] = new List<ITargetable>();
-            _radarBlips[Faction.Neutral] = new List<ITargetable>();
-        }
+        private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new Dictionary<Faction, List<ITargetable>> {
+            { Faction.Friendly, new List<ITargetable>() },
+            { Faction.Hostile, new List<ITargetable>() },
+            { Faction.Neutral, new List<ITargetable>() }
+        };
 
         public void RegisterTarget(ITargetable target) {
             if (!_radarBlips[target.Faction].Contains(target)) {
@@ -35,15 +25,23 @@ namespace _01_Scripts.Core.Targeting
             }
         }
 
-        /** <summary>
-         * Retrieves the optimal target of the requested faction using the provided tactical strategy.
-         * </summary>
-         */
+        /// <summary>
+        /// Retrieves the optimal target of the requested faction using the provided tactical strategy.
+        /// </summary>
         public ITargetable GetOptimalTarget(Vector3 requesterPosition, Faction targetFaction, ITargetingStrategy strategy) {
             if (!_radarBlips.ContainsKey(targetFaction) || _radarBlips[targetFaction].Count == 0) 
                 return null;
 
             return strategy.SelectTarget(_radarBlips[targetFaction], requesterPosition);
+        }
+        
+        public int GetActiveHostileCount() {
+            if (!_radarBlips.TryGetValue(Faction.Hostile, out var blip)) 
+                return 0;
+
+            blip.RemoveAll(target => target == null || !target.IsTargetable);
+            
+            return _radarBlips[Faction.Hostile].Count;
         }
     }
 }

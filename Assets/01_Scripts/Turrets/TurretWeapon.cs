@@ -43,6 +43,7 @@ namespace _01_Scripts.Turrets
 
         private IObjectPool<TurretProjectile> _projectilePool;
         private float _nextFireTime;
+        private Collider[] _myColliders;
 
         private void Awake() {
             _projectilePool = new ObjectPool<TurretProjectile>(
@@ -54,6 +55,9 @@ namespace _01_Scripts.Turrets
                 defaultCapacity: defaultCapacity,
                 maxSize: maxSize
             );
+            
+            GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
+            _myColliders = shooterIdentity.GetComponentsInChildren<Collider>();
         }
         
         private TurretProjectile CreateProjectile() {
@@ -84,7 +88,7 @@ namespace _01_Scripts.Turrets
             TurretProjectile projectile = _projectilePool.Get(); 
             
             GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
-            projectile.SetShooter(shooterIdentity);
+            projectile.SetShooter(shooterIdentity, _myColliders);
             
             if (weaponAudioSource && fireSound) {
                 weaponAudioSource.PlayOneShot(fireSound);

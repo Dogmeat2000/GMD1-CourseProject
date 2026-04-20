@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _01_Scripts.Core.Enemies;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
+using _01_Scripts.Core.Targeting;
 using _01_Scripts.Core.Waves;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,7 +13,7 @@ namespace _01_Scripts.Core.Managers
 {
     public class WaveDirector : MonoBehaviour
     {
-        [Header("Telemetry")]
+        [Header("Setup")]
         [Tooltip("The player ship to use as the center of the forward spawn cone")]
         [SerializeField] 
         private Transform playerShip;
@@ -30,30 +31,31 @@ namespace _01_Scripts.Core.Managers
         [SerializeField] 
         private int firstWaveDelay;
         
-        public static WaveDirector Instance { get; private set; }
+        [Header("Narrative Broadcasts")]
+        [SerializeField] 
+        private string startMessage = "PROTECT THE FLEET.";
+        
+        [SerializeField] 
+        private string clearMessage = "ALL WAVES CLEARED!";
+        
         public event Action<int, int> OnWaveUpdated;
         public event Action<int> OnEnemyCountChanged;
         public event Action<string> OnStatusMessage;
         public event Action OnAllWavesCleared;
         
-        private int _currentWaveIndex = 0;
-        private int _activeHostiles = 0;
-        private bool _isDeployingWave = false;
+        private int _currentWaveIndex;
+        private int _activeHostiles;
+        private bool _isDeployingWave;
+        private LevelManager _levelManager;
+        private BattlefieldRadar _battlefieldRadar;
         
-        private void Awake() {
-            if (Instance && Instance != this) 
-                Destroy(gameObject);
-            else 
-                Instance = this;
-        }
-        
-        /** <summary>
-         * Initiates the next wave in the sequence.
-         * </summary>
-         */
+       
+        /// <summary>
+        /// Initiates the next wave in the sequence.
+        /// </summary>
         public void BeginNextWave() {
             if (_currentWaveIndex >= activeCampaign.Waves.Count) {
-                OnStatusMessage?.Invoke("ALL WAVES CLEARED!"); // TODO: This should become a serialized field!
+                OnStatusMessage?.Invoke(clearMessage);
                 OnAllWavesCleared?.Invoke();
                 return;
             }
@@ -65,6 +67,11 @@ namespace _01_Scripts.Core.Managers
             
             StartCoroutine(DeployWaveRoutine(currentWaveData));
         }
+
+        private void Awake() {
+            _levelManager = ServiceLocator.Get<LevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
+        }
         
         private void Start() {
             StartCoroutine(RadarSweepFailSafe());
@@ -72,7 +79,7 @@ namespace _01_Scripts.Core.Managers
             OnWaveUpdated?.Invoke(_currentWaveIndex, activeCampaign.Waves.Count);
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            OnStatusMessage?.Invoke("PROTECT THE FLEET."); // TODO: This should become a serialized field!
+            OnStatusMessage?.Invoke(startMessage);
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
         }
@@ -85,7 +92,7 @@ namespace _01_Scripts.Core.Managers
             if (assaultRoster.Count == 0) 
                 yield break;
 
-            LevelSettings settings = LevelManager.Instance.Settings;
+            LevelSettings settings = _levelManager.Settings;
             float totalWaveSpawnDuration = Random.Range(settings.WaveSpawnDurationMin, settings.WaveSpawnDurationMax);
             float timeBetweenSpawns = totalWaveSpawnDuration / assaultRoster.Count;
             
@@ -111,12 +118,12 @@ namespace _01_Scripts.Core.Managers
             List<EnemyProfile> roster = new List<EnemyProfile>();
             
             if (waveData.AllowedEnemies == null || waveData.AllowedEnemies.Count == 0) {
-                Debug.LogError($"WaveDirector: WaveData at index {_currentWaveIndex} has no Allowed Enemies! Aborting roster build.");
+                Debug.LogError($"WaveData at index {_currentWaveIndex} has no Allowed Enemies! Aborting roster build.");
                 return roster;
             }
             
-            int players = LevelManager.Instance.ActivePlayerCount;
-            float difficultyMod = LevelManager.Instance.GetDifficultyMultiplier();
+            int players = _levelManager.ActivePlayerCount;
+            float difficultyMod = _levelManager.GetDifficultyMultiplier();
             
             int adjustedBudget = Mathf.RoundToInt(waveData.ThreatBudget * players * difficultyMod);
             
@@ -185,21 +192,20 @@ namespace _01_Scripts.Core.Managers
             }
         }
         
-        /** <summary>
-         * Sweeps the battlefield every 10 seconds. If active hostiles dropped below 0 due to 
-         * engine deletion (falling out of bounds) rather than combat, it forces the next wave.
-         * </summary>
-         */
+        /// <summary>
+        /// Sweeps the battlefield every 10 seconds. If active hostiles dropped below 0 due to 
+        /// engine deletion (falling out of bounds) rather than combat, it forces the next wave.
+        /// </summary>
         private IEnumerator RadarSweepFailSafe() {
             WaitForSeconds wait = new WaitForSeconds(10f);
             while (true) {
                 yield return wait;
                 
                 if (_activeHostiles > 0 && !_isDeployingWave) {
-                    int actualEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length; 
+                    int actualEnemies = _battlefieldRadar.GetActiveHostileCount();
                     
                     if (actualEnemies == 0) {
-                        Debug.LogWarning("WaveDirector: Failsafe sweep detected 0 physical enemies, but ActiveHostiles was > 0. Resolving soft-lock.");
+                        Debug.LogWarning("Failsafe sweep detected 0 physical enemies, but ActiveHostiles was > 0. Resolving soft-lock.");
                         _activeHostiles = 0;
                         _currentWaveIndex++;
                         BeginNextWave();

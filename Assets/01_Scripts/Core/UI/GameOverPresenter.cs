@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Scoring;
+using _01_Scripts.Core.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,10 +9,9 @@ using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
 {
-    /** <summary>
-     * <p>Handles the Game Over Menu, that is displayed after win/lose condition for game level is reached</p>
-     * </summary>
-     * */
+    /// <summary>
+    /// <p>Handles the Game Over Menu, that is displayed after win/lose condition for game level is reached</p>
+    ///</summary>
     public class GameOverPresenter : BaseHighscorePresenter
     { 
         [Header("UI Data and Bindings")]
@@ -66,20 +66,26 @@ namespace _01_Scripts.Core.UI
         [Tooltip("The button the joystick should snap to after saving a score")]
         [SerializeField] 
         private GameObject returnToMainMenuButton;
+
+        private GameDirector _gameDirector;
+
+        private void Awake() {
+            _gameDirector = ServiceLocator.Get<GameDirector>();
+        }
         
         private void Start() {
             if (gameOverCanvas) {
                 gameOverCanvas.SetActive(false);
             }
             
-            if (GameDirector.Instance) {
-                GameDirector.Instance.OnMatchEnded += ShowGameOverMenu;
+            if (_gameDirector) {
+                _gameDirector.OnMatchEnded += ShowGameOverMenu;
             }
         }
         
         private void OnDestroy() {
-            if (GameDirector.Instance) {
-                GameDirector.Instance.OnMatchEnded -= ShowGameOverMenu;
+            if (_gameDirector) {
+                _gameDirector.OnMatchEnded -= ShowGameOverMenu;
             }
         }
 
@@ -186,7 +192,7 @@ namespace _01_Scripts.Core.UI
         }
         
         public void ReturnToMainMenu() {
-            Time.timeScale = 1f;
+            ServiceLocator.Get<GameStateService>()?.ResumeGame();
             SceneManager.LoadSceneAsync(mainMenuSceneName);
         }
 
