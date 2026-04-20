@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _01_Scripts.Core.Enemies;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
+using _01_Scripts.Core.Targeting;
 using _01_Scripts.Core.Waves;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -46,6 +47,7 @@ namespace _01_Scripts.Core.Managers
         private int _activeHostiles;
         private bool _isDeployingWave;
         private LevelManager _levelManager;
+        private BattlefieldRadar _battlefieldRadar;
         
        
         /** <summary>
@@ -54,7 +56,7 @@ namespace _01_Scripts.Core.Managers
          */
         public void BeginNextWave() {
             if (_currentWaveIndex >= activeCampaign.Waves.Count) {
-                OnStatusMessage?.Invoke(startMessage);
+                OnStatusMessage?.Invoke(clearMessage);
                 OnAllWavesCleared?.Invoke();
                 return;
             }
@@ -69,6 +71,7 @@ namespace _01_Scripts.Core.Managers
 
         private void Awake() {
             _levelManager = ServiceLocator.Get<LevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
         }
         
         private void Start() {
@@ -77,7 +80,7 @@ namespace _01_Scripts.Core.Managers
             OnWaveUpdated?.Invoke(_currentWaveIndex, activeCampaign.Waves.Count);
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            OnStatusMessage?.Invoke(clearMessage);
+            OnStatusMessage?.Invoke(startMessage);
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
         }
@@ -200,7 +203,7 @@ namespace _01_Scripts.Core.Managers
                 yield return wait;
                 
                 if (_activeHostiles > 0 && !_isDeployingWave) {
-                    int actualEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length; 
+                    int actualEnemies = _battlefieldRadar.GetActiveHostileCount();
                     
                     if (actualEnemies == 0) {
                         Debug.LogWarning("Failsafe sweep detected 0 physical enemies, but ActiveHostiles was > 0. Resolving soft-lock.");

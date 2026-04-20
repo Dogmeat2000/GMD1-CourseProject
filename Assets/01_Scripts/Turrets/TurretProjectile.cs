@@ -30,12 +30,12 @@ namespace _01_Scripts.Turrets
             _managedPool = pool;
         }
         
-        public void SetShooter(GameObject shooter) {
+        public void SetShooter(GameObject shooter, Collider[] cachedColliders) {
             if (_warhead) {
                 _warhead.Instigator = shooter;
             }
             
-            _ignoredColliders = shooter.GetComponentsInChildren<Collider>();
+            _ignoredColliders = cachedColliders;
             
             foreach (var col in _ignoredColliders) {
                 Physics.IgnoreCollision(_myCollider, col, true);

@@ -35,5 +35,14 @@ namespace _01_Scripts.Core.Targeting
 
             return strategy.SelectTarget(_radarBlips[targetFaction], requesterPosition);
         }
+        
+        public int GetActiveHostileCount() {
+            if (!_radarBlips.TryGetValue(Faction.Hostile, out var blip)) 
+                return 0;
+
+            blip.RemoveAll(target => target == null || !target.IsTargetable);
+            
+            return _radarBlips[Faction.Hostile].Count;
+        }
     }
 }
