@@ -6,8 +6,6 @@ namespace _01_Scripts.Core.Managers
 {
     public class FleetDirector : MonoBehaviour
     { 
-        public static FleetDirector Instance { get; private set; }
-
         [Header("Fleet Roster")]
         [Tooltip("Drag and drop the HealthManagers of all pre-placed allied ships into this list.")]
         [SerializeField] private List<HealthManager> alliedFleet = new();
@@ -20,17 +18,11 @@ namespace _01_Scripts.Core.Managers
         private int _currentAliveShips;
 
         private void Awake() {
-            if (Instance && Instance != this) {
-                Destroy(gameObject);
-            } else {
-                Instance = this;
-            }
-        }
-
-        private void Start() {
             _totalStartingShips = alliedFleet.Count;
             _currentAliveShips = _totalStartingShips;
-            
+        }
+        
+        private void Start() {
             foreach (var ship in alliedFleet) {
                 if (!ship) 
                     continue;

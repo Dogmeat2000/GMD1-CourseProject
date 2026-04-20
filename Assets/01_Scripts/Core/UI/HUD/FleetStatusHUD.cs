@@ -1,5 +1,6 @@
 using System.Collections;
 using _01_Scripts.Core.Managers;
+using _01_Scripts.Core.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,13 +10,26 @@ namespace _01_Scripts.Core.UI.HUD
     public class FleetStatusHUD : MonoBehaviour
     {
         [Header("Readout Displays")]
-        [SerializeField] private TextMeshProUGUI fleetCountText;
-        [SerializeField] private Slider fleetAverageHealthSlider;
-        [SerializeField] private Image sliderFillImage; 
-        [SerializeField] private Gradient healthGradient;
+        [SerializeField] 
+        private TextMeshProUGUI fleetCountText;
+        
+        [SerializeField] 
+        private Slider fleetAverageHealthSlider;
+        
+        [SerializeField] 
+        private Image sliderFillImage; 
+        
+        [SerializeField] 
+        private Gradient healthGradient;
 
+        private FleetDirector _fleetDirector;
+
+        private void Awake() {
+            _fleetDirector = ServiceLocator.Get<FleetDirector>();
+        }
+        
         private void OnEnable() {
-            if (FleetDirector.Instance) {
+            if (_fleetDirector) {
                 SubscribeToTelemetry();
             } else {
                 StartCoroutine(DelayedSubscription());
@@ -23,21 +37,21 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (FleetDirector.Instance) {
-                FleetDirector.Instance.OnFleetCountChanged -= UpdateFleetCount;
-                FleetDirector.Instance.OnFleetHealthAverageChanged -= UpdateFleetHealth;
+            if (_fleetDirector) {
+                _fleetDirector.OnFleetCountChanged -= UpdateFleetCount;
+                _fleetDirector.OnFleetHealthAverageChanged -= UpdateFleetHealth;
             }
         }
 
         private IEnumerator DelayedSubscription() {
-            yield return new WaitUntil(() => FleetDirector.Instance);
+            yield return new WaitUntil(() => _fleetDirector);
             SubscribeToTelemetry();
         }
 
         private void SubscribeToTelemetry() {
-            FleetDirector.Instance.OnFleetCountChanged += UpdateFleetCount;
-            FleetDirector.Instance.OnFleetHealthAverageChanged += UpdateFleetHealth;
-            FleetDirector.Instance.RequestFleetStatusUpdate();
+            _fleetDirector.OnFleetCountChanged += UpdateFleetCount;
+            _fleetDirector.OnFleetHealthAverageChanged += UpdateFleetHealth;
+            _fleetDirector.RequestFleetStatusUpdate();
         }
 
         private void UpdateFleetCount(int currentAlive, int totalStarting) {

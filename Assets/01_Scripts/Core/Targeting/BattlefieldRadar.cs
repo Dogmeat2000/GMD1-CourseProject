@@ -7,21 +7,11 @@ namespace _01_Scripts.Core.Targeting
 {
     public class BattlefieldRadar : MonoBehaviour
     {
-        public static BattlefieldRadar Instance { get; private set; }
-        
-        private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new();
-
-        private void Awake() {
-            if (Instance && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-            
-            _radarBlips[Faction.Friendly] = new List<ITargetable>();
-            _radarBlips[Faction.Hostile] = new List<ITargetable>();
-            _radarBlips[Faction.Neutral] = new List<ITargetable>();
-        }
+        private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new Dictionary<Faction, List<ITargetable>> {
+            { Faction.Friendly, new List<ITargetable>() },
+            { Faction.Hostile, new List<ITargetable>() },
+            { Faction.Neutral, new List<ITargetable>() }
+        };
 
         public void RegisterTarget(ITargetable target) {
             if (!_radarBlips[target.Faction].Contains(target)) {

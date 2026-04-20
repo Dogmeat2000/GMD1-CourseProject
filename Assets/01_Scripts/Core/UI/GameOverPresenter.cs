@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Scoring;
+using _01_Scripts.Core.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -66,20 +67,26 @@ namespace _01_Scripts.Core.UI
         [Tooltip("The button the joystick should snap to after saving a score")]
         [SerializeField] 
         private GameObject returnToMainMenuButton;
+
+        private GameDirector _gameDirector;
+
+        private void Awake() {
+            _gameDirector = ServiceLocator.Get<GameDirector>();
+        }
         
         private void Start() {
             if (gameOverCanvas) {
                 gameOverCanvas.SetActive(false);
             }
             
-            if (GameDirector.Instance) {
-                GameDirector.Instance.OnMatchEnded += ShowGameOverMenu;
+            if (_gameDirector) {
+                _gameDirector.OnMatchEnded += ShowGameOverMenu;
             }
         }
         
         private void OnDestroy() {
-            if (GameDirector.Instance) {
-                GameDirector.Instance.OnMatchEnded -= ShowGameOverMenu;
+            if (_gameDirector) {
+                _gameDirector.OnMatchEnded -= ShowGameOverMenu;
             }
         }
 

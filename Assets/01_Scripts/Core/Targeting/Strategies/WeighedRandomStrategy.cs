@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Managers;
+using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 
 namespace _01_Scripts.Core.Targeting.Strategies
@@ -12,7 +13,8 @@ namespace _01_Scripts.Core.Targeting.Strategies
             int totalWeight = 0;
             List<ITargetable> validTargets = new List<ITargetable>();
 
-            LevelSettings settings = LevelManager.Instance.Settings;
+            LevelManager levelManager = ServiceLocator.Get<LevelManager>();
+            LevelSettings settings = levelManager.Settings;
             
             foreach (var target in availableTargets) {
                 if (target != null && target.IsTargetable) {

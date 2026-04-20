@@ -30,23 +30,17 @@ namespace _01_Scripts.Core.Managers
         [SerializeField] 
         private int firstWaveDelay;
         
-        public static WaveDirector Instance { get; private set; }
         public event Action<int, int> OnWaveUpdated;
         public event Action<int> OnEnemyCountChanged;
         public event Action<string> OnStatusMessage;
         public event Action OnAllWavesCleared;
         
-        private int _currentWaveIndex = 0;
-        private int _activeHostiles = 0;
-        private bool _isDeployingWave = false;
+        private int _currentWaveIndex;
+        private int _activeHostiles;
+        private bool _isDeployingWave;
+        private LevelManager _levelManager;
         
-        private void Awake() {
-            if (Instance && Instance != this) 
-                Destroy(gameObject);
-            else 
-                Instance = this;
-        }
-        
+       
         /** <summary>
          * Initiates the next wave in the sequence.
          * </summary>
@@ -64,6 +58,10 @@ namespace _01_Scripts.Core.Managers
             OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
             
             StartCoroutine(DeployWaveRoutine(currentWaveData));
+        }
+
+        private void Awake() {
+            _levelManager = ServiceLocator.Get<LevelManager>();
         }
         
         private void Start() {
@@ -85,7 +83,7 @@ namespace _01_Scripts.Core.Managers
             if (assaultRoster.Count == 0) 
                 yield break;
 
-            LevelSettings settings = LevelManager.Instance.Settings;
+            LevelSettings settings = _levelManager.Settings;
             float totalWaveSpawnDuration = Random.Range(settings.WaveSpawnDurationMin, settings.WaveSpawnDurationMax);
             float timeBetweenSpawns = totalWaveSpawnDuration / assaultRoster.Count;
             
@@ -115,8 +113,8 @@ namespace _01_Scripts.Core.Managers
                 return roster;
             }
             
-            int players = LevelManager.Instance.ActivePlayerCount;
-            float difficultyMod = LevelManager.Instance.GetDifficultyMultiplier();
+            int players = _levelManager.ActivePlayerCount;
+            float difficultyMod = _levelManager.GetDifficultyMultiplier();
             
             int adjustedBudget = Mathf.RoundToInt(waveData.ThreatBudget * players * difficultyMod);
             
@@ -199,7 +197,7 @@ namespace _01_Scripts.Core.Managers
                     int actualEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length; 
                     
                     if (actualEnemies == 0) {
-                        Debug.LogWarning("WaveDirector: Failsafe sweep detected 0 physical enemies, but ActiveHostiles was > 0. Resolving soft-lock.");
+                        Debug.LogWarning("Failsafe sweep detected 0 physical enemies, but ActiveHostiles was > 0. Resolving soft-lock.");
                         _activeHostiles = 0;
                         _currentWaveIndex++;
                         BeginNextWave();

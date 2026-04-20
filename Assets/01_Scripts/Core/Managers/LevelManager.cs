@@ -5,8 +5,6 @@ namespace _01_Scripts.Core.Managers
 {
     public class LevelManager : MonoBehaviour
     {
-        public static LevelManager Instance { get; private set; }
-
         [Header("Level Configuration")]
         [Tooltip("Slot the active LevelSettings ScriptableObject here")]
         [SerializeField] 
@@ -26,14 +24,6 @@ namespace _01_Scripts.Core.Managers
          * </summary>
          */
         public LevelSettings Settings => activeSettings;
-
-        private void Awake() {
-            if (Instance && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-        }
         
         /** <summary>
          * Returns a mathematical multiplier based on the chosen difficulty.
@@ -41,7 +31,7 @@ namespace _01_Scripts.Core.Managers
          */
         public float GetDifficultyMultiplier() {
             if (!Settings) {
-                Debug.LogError("LevelManager: Active Settings is NULL. Defaulting multiplier to 1.0f.");
+                Debug.LogError("Active Settings is NULL. Defaulting multiplier to 1.0f.");
                 return 1.0f;
             }
             

@@ -1,5 +1,6 @@
 using System.Collections;
 using _01_Scripts.Core.Managers;
+using _01_Scripts.Core.Services;
 using TMPro;
 using UnityEngine;
 
@@ -23,9 +24,14 @@ namespace _01_Scripts.Core.UI.HUD
         private float statusDisplayDuration = 3f;
 
         private Coroutine _statusClearCoroutine;
+        private WaveDirector _waveDirector;
 
+        private void Awake() {
+            _waveDirector = ServiceLocator.Get<WaveDirector>();
+        }
+        
         private void OnEnable() {
-            if (WaveDirector.Instance) {
+            if (_waveDirector) {
                 SubscribeToWaveUpdates();
             } else {
                 StartCoroutine(DelayedSubscription());
@@ -33,22 +39,22 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (WaveDirector.Instance) {
-                WaveDirector.Instance.OnWaveUpdated -= UpdateWaveDisplay;
-                WaveDirector.Instance.OnEnemyCountChanged -= UpdateEnemyCount;
-                WaveDirector.Instance.OnStatusMessage -= DisplayStatus;
+            if (_waveDirector) {
+                _waveDirector.OnWaveUpdated -= UpdateWaveDisplay;
+                _waveDirector.OnEnemyCountChanged -= UpdateEnemyCount;
+                _waveDirector.OnStatusMessage -= DisplayStatus;
             }
         }
 
         private IEnumerator DelayedSubscription() {
-            yield return new WaitUntil(() => WaveDirector.Instance);
+            yield return new WaitUntil(() => _waveDirector);
             SubscribeToWaveUpdates();
         }
 
         private void SubscribeToWaveUpdates() {
-            WaveDirector.Instance.OnWaveUpdated += UpdateWaveDisplay;
-            WaveDirector.Instance.OnEnemyCountChanged += UpdateEnemyCount;
-            WaveDirector.Instance.OnStatusMessage += DisplayStatus;
+            _waveDirector.OnWaveUpdated += UpdateWaveDisplay;
+            _waveDirector.OnEnemyCountChanged += UpdateEnemyCount;
+            _waveDirector.OnStatusMessage += DisplayStatus;
             
             if (statusText) 
                 statusText.gameObject.SetActive(false);

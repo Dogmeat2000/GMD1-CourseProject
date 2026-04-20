@@ -2,6 +2,7 @@ using UnityEngine;
 using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Movement.Behaviors;
+using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
 using _01_Scripts.Core.Targeting.Strategies;
@@ -65,6 +66,8 @@ namespace _01_Scripts.Core.Movement
         private FlightPhase _currentPhase = FlightPhase.Asleep;
         private Rigidbody _rb;
         private ITargetable _assignedTarget;
+        private LevelManager _levelManager;
+        private BattlefieldRadar _battlefieldRadar;
         
         private ITargetingStrategy _targetingStrategy;
         private SeekBehavior _seek;
@@ -72,14 +75,16 @@ namespace _01_Scripts.Core.Movement
         private SeparationBehavior _separate;
 
         private float _targetBreachAltitude;
-
+        
         private void Awake() {
+            _levelManager = ServiceLocator.Get<LevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
             _rb = GetComponent<Rigidbody>();
             _targetingStrategy = new WeightedRandomStrategy();
         }
         
         public void WakeUp() {
-            LevelSettings settings = LevelManager.Instance.Settings;
+            LevelSettings settings = _levelManager.Settings;
             _targetBreachAltitude = Random.Range(settings.KamikazeBreachHeightMin, settings.KamikazeBreachHeightMax);
             
             _seek = new SeekBehavior();
@@ -119,7 +124,7 @@ namespace _01_Scripts.Core.Movement
         }
 
         private void AcquireTarget() {
-            _assignedTarget = BattlefieldRadar.Instance.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
+            _assignedTarget = _battlefieldRadar.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
 
             if (_assignedTarget != null) {
                 _currentPhase = FlightPhase.Pursuing;

@@ -1,4 +1,5 @@
 using _01_Scripts.Core.Managers;
+using _01_Scripts.Core.Services;
 using UnityEngine;
 
 namespace _01_Scripts.Turrets
@@ -25,6 +26,12 @@ namespace _01_Scripts.Turrets
         [SerializeField] 
         private LayerMask targetingMask = ~0; // ~0 means 'Everything'
 
+        private LevelManager _levelManager;
+
+        private void Awake() {
+            _levelManager = ServiceLocator.Get<LevelManager>();
+        }
+
         private void LateUpdate() {
             if (!turretCamera) return;
 
@@ -37,9 +44,9 @@ namespace _01_Scripts.Turrets
 
             Ray targetRay = new Ray(muzzle.position, muzzle.forward);
             
-            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, LevelManager.Instance.Settings.MaxTargetingDistance, targetingMask) 
+            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, _levelManager.Settings.MaxTargetingDistance, targetingMask) 
                 ? hit.point 
-                : targetRay.GetPoint(LevelManager.Instance.Settings.MaxTargetingDistance);
+                : targetRay.GetPoint(_levelManager.Settings.MaxTargetingDistance);
 
             Vector3 screenPoint = turretCamera.WorldToScreenPoint(worldImpactPoint);
             

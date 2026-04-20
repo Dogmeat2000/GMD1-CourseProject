@@ -51,6 +51,7 @@ namespace _01_Scripts.Core.Enemies
         private Action<IPoolable> _returnToPoolCommand;
         private Collider _collider;
         private int _deathTriggerHash;
+        private LevelManager _levelManager;
         
         private HealthManager _healthManager;
         private Animator _animator;
@@ -64,8 +65,9 @@ namespace _01_Scripts.Core.Enemies
         }
         
         private readonly List<TransformBlueprint> _structuralBlueprint = new();
-
+        
         private void Awake() {
+            _levelManager = ServiceLocator.Get<LevelManager>();
             _healthManager = GetComponent<HealthManager>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
@@ -117,9 +119,9 @@ namespace _01_Scripts.Core.Enemies
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             
-            if (warhead && LevelManager.Instance) {
-                GameDifficulty currentDiff = LevelManager.Instance.CurrentDifficulty;
-                float difficultyMultiplier = LevelManager.Instance.Settings.GetDifficultyMultiplier(currentDiff);
+            if (warhead && _levelManager) {
+                GameDifficulty currentDiff = _levelManager.CurrentDifficulty;
+                float difficultyMultiplier = _levelManager.Settings.GetDifficultyMultiplier(currentDiff);
                 warhead.PayloadDamage = Mathf.RoundToInt(baseCollisionDamage * difficultyMultiplier);
             }
             
