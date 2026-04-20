@@ -12,7 +12,7 @@ namespace _01_Scripts.Core.Managers
         
         public event Action<float> OnFleetHealthAverageChanged; // Broadcasts: 0.0f to 1.0f (Percentage)
         public event Action<int, int> OnFleetCountChanged;      // Broadcasts: Current Alive, Total Starting
-        public event Action OnFleetDestroyed;                   // TODO Triggers the Defeat Sequence
+        public event Action OnFleetDestroyed;
 
         private int _totalStartingShips;
         private int _currentAliveShips;
@@ -58,16 +58,14 @@ namespace _01_Scripts.Core.Managers
             
             if (_currentAliveShips <= 0) {
                 OnFleetDestroyed?.Invoke();
-                Debug.LogWarning("CRITICAL FAILURE: All allied ships lost. Triggering Defeat.");
-                // TODO: Wire this into Game Over UI
+                Debug.LogWarning("GameOver: All allied ships lost. Triggering Defeat.");
             }
         }
         
-        /** <summary>
-         * Allows late-joining UI elements to request an immediate update
-         * without waiting for a ship to take damage.
-         * </summary>
-         */
+        /// <summary>
+        /// Allows late-joining UI elements to request an immediate update
+        /// without waiting for a ship to take damage.
+        /// </summary>
         public void RequestFleetStatusUpdate() {
             BroadcastFleetStatus();
         }

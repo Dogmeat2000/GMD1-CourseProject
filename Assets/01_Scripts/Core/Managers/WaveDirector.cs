@@ -12,7 +12,7 @@ namespace _01_Scripts.Core.Managers
 {
     public class WaveDirector : MonoBehaviour
     {
-        [Header("Telemetry")]
+        [Header("Setup")]
         [Tooltip("The player ship to use as the center of the forward spawn cone")]
         [SerializeField] 
         private Transform playerShip;
@@ -29,6 +29,13 @@ namespace _01_Scripts.Core.Managers
         [Tooltip("The time [s] to wait before starting the first wave")]
         [SerializeField] 
         private int firstWaveDelay;
+        
+        [Header("Narrative Broadcasts")]
+        [SerializeField] 
+        private string startMessage = "PROTECT THE FLEET.";
+        
+        [SerializeField] 
+        private string clearMessage = "ALL WAVES CLEARED!";
         
         public event Action<int, int> OnWaveUpdated;
         public event Action<int> OnEnemyCountChanged;
@@ -47,7 +54,7 @@ namespace _01_Scripts.Core.Managers
          */
         public void BeginNextWave() {
             if (_currentWaveIndex >= activeCampaign.Waves.Count) {
-                OnStatusMessage?.Invoke("ALL WAVES CLEARED!"); // TODO: This should become a serialized field!
+                OnStatusMessage?.Invoke(startMessage);
                 OnAllWavesCleared?.Invoke();
                 return;
             }
@@ -70,7 +77,7 @@ namespace _01_Scripts.Core.Managers
             OnWaveUpdated?.Invoke(_currentWaveIndex, activeCampaign.Waves.Count);
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            OnStatusMessage?.Invoke("PROTECT THE FLEET."); // TODO: This should become a serialized field!
+            OnStatusMessage?.Invoke(clearMessage);
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
         }
@@ -109,7 +116,7 @@ namespace _01_Scripts.Core.Managers
             List<EnemyProfile> roster = new List<EnemyProfile>();
             
             if (waveData.AllowedEnemies == null || waveData.AllowedEnemies.Count == 0) {
-                Debug.LogError($"WaveDirector: WaveData at index {_currentWaveIndex} has no Allowed Enemies! Aborting roster build.");
+                Debug.LogError($"WaveData at index {_currentWaveIndex} has no Allowed Enemies! Aborting roster build.");
                 return roster;
             }
             
@@ -183,11 +190,10 @@ namespace _01_Scripts.Core.Managers
             }
         }
         
-        /** <summary>
-         * Sweeps the battlefield every 10 seconds. If active hostiles dropped below 0 due to 
-         * engine deletion (falling out of bounds) rather than combat, it forces the next wave.
-         * </summary>
-         */
+        /// <summary>
+        /// Sweeps the battlefield every 10 seconds. If active hostiles dropped below 0 due to 
+        /// engine deletion (falling out of bounds) rather than combat, it forces the next wave.
+        /// </summary>
         private IEnumerator RadarSweepFailSafe() {
             WaitForSeconds wait = new WaitForSeconds(10f);
             while (true) {

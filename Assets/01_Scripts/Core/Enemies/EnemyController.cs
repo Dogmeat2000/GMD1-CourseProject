@@ -129,7 +129,8 @@ namespace _01_Scripts.Core.Enemies
         }
 
         public void OnDespawned() {
-            // TODO: Anything I need to clean up after enemy death?
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
         }
         
         private void HandleHit(int currentHealth, int maxHealth, GameObject shooter) {
@@ -156,11 +157,10 @@ namespace _01_Scripts.Core.Enemies
             _brain?.ShutDown();
         }
 
-        /** <summary>
-         * Called by the ImpactWarhead UnityEvent after it successfully strikes a target.
-         * The warhead handles its own VFX, so this simply removes the drone from the board.
-         * </summary>
-         */
+        /// <summary>
+        /// Called by the ImpactWarhead UnityEvent after it successfully strikes a target.
+        /// The warhead handles its own VFX, so this simply removes the drone from the board.
+        /// </summary>
         public void DespawnRoutine() {
             OnRemovedFromBoard?.Invoke(this);
             
