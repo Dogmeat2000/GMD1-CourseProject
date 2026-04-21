@@ -1912,7 +1912,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -2082,7 +2082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 1946491263}
-  inputDelay: 0.5
+  inputDelay: 1
 --- !u!225 &1084178157
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2931,7 +2931,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -3096,8 +3096,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Version 0.1.0 Pre-Alpha  \nDeveloped by Kristian M. Dashnaw.   \nAll Rights
-    reserved.  "
+  m_text: "Version 0.1.0 Pre-Alpha  \nDeveloped by Kristian M. Dashnaw.   \n2026,
+    All Rights reserved.  "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22b0058d77af49840bb62b1615932d49, type: 2}
   m_sharedMaterial: {fileID: 5019095094695234112, guid: 22b0058d77af49840bb62b1615932d49, type: 2}

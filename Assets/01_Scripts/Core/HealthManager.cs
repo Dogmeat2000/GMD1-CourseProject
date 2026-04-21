@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace _01_Scripts.Core
 {
+    /// <summary>
+    /// Responsible for tracking entity vitality, applying damage/healing, 
+    /// and broadcasting life-cycle events (e.g., OnZeroHealth) to the observer network.
+    /// </summary>
     public class HealthManager : MonoBehaviour, IDamageable
     {
         [Header("Health Settings")]

@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Enemies
 {
+    /// <summary>
+    /// The central control system for hostile entities. Bridges physical movement, 
+    /// combat telemetry, animations, and object pooling lifecycle management.
+    /// </summary>
     [RequireComponent(typeof(HealthManager), typeof(Animator))]
     public class EnemyController : MonoBehaviour, IPoolable
     { 

@@ -42,14 +42,39 @@
     * *Note:* Sound/music was created using the music software Suno.
     * *License:* Non-Commercial
 
+* **[Sound Track] Music_Spearhead_GameIntroVoices_NonCommercial** by K. Dashnaw
+    * *Note:* Sound/music was created using the music software Suno.
+    * *License:* Non-Commercial
+
 * **[Sound Effect] SFX_ButtonClick** by Artem_Zaitsev
     * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
-
 * **[Sound Effect] SFX_ButtonHighlight** by Artem_Zaitsev
     * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_DroneExplosion** by AudioPapkin
+    * *Source:* [https://freesound.org/people/AudioPapkin/sounds/822731/](https://freesound.org/people/AudioPapkin/sounds/822731/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_DroneExplosion** by AudioPapkin
+    * *Source:* [https://freesound.org/people/AudioPapkin/sounds/822731/](https://freesound.org/people/AudioPapkin/sounds/822731/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_DroneFlying** by Dogma_Reloaded
+    * *Source:* [https://freesound.org/people/Dogma_Reloaded/sounds/558835/](https://freesound.org/people/Dogma_Reloaded/sounds/558835/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_WaterExplosion** by Sheyvan
+    * *Source:* [https://freesound.org/people/Sheyvan/sounds/519008/](https://freesound.org/people/Sheyvan/sounds/519008/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_AmbientAlienOcean** by SecureSubset
+    * *Source:* [https://freesound.org/people/SecureSubset/sounds/817076/](https://freesound.org/people/SecureSubset/sounds/817076/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+
 
 ### Tools
 * **Unity** ([6000.3 LTS])
