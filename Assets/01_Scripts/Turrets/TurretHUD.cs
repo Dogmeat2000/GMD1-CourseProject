@@ -1,5 +1,6 @@
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Utilities;
 using UnityEngine;
 
 namespace _01_Scripts.Turrets
@@ -26,6 +27,15 @@ namespace _01_Scripts.Turrets
         [SerializeField] 
         private LayerMask targetingMask = ~0; // ~0 means 'Everything'
 
+        [Header("Aim Assist Settings")]
+        [Tooltip("Link to the concrete player input handler")]
+        [SerializeField] 
+        private TurretPlayerInput playerInputHandler;
+        
+        [Tooltip("Which layers contain the enemies that trigger friction?")]
+        [SerializeField] 
+        private LayerMask enemyLayerMask;
+        
         private LevelManager _levelManager;
 
         private void Awake() {
@@ -33,18 +43,30 @@ namespace _01_Scripts.Turrets
         }
 
         private void LateUpdate() {
-            if (!turretCamera) return;
+            if (!turretCamera) 
+                return;
 
-            UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
-            UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
+            bool isPaintingTarget = false;
+            
+            isPaintingTarget |= UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
+            isPaintingTarget |= UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
+            
+            if (playerInputHandler) {
+                playerInputHandler.SetTargetFriction(isPaintingTarget);
+            }
         }
     
-        private void UpdateReticlePosition(Transform muzzle, RectTransform reticle) {
-            if (!muzzle || !reticle) return;
+        /// <summary>
+        /// Updates the UI reticle position and returns true if the targeting ray struck an enemy layer.
+        /// </summary>
+        private bool UpdateReticlePosition(Transform muzzle, RectTransform reticle) {
+            if (!muzzle || !reticle) 
+                return false;
 
             Ray targetRay = new Ray(muzzle.position, muzzle.forward);
             
-            Vector3 worldImpactPoint = Physics.Raycast(targetRay, out RaycastHit hit, _levelManager.Settings.MaxTargetingDistance, targetingMask) 
+            bool hitSomething = Physics.Raycast(targetRay, out RaycastHit hit, _levelManager.Settings.MaxTargetingDistance, targetingMask);
+            Vector3 worldImpactPoint = hitSomething 
                 ? hit.point 
                 : targetRay.GetPoint(_levelManager.Settings.MaxTargetingDistance);
 
@@ -63,6 +85,12 @@ namespace _01_Scripts.Turrets
                 
                 reticle.localPosition = localPoint;
             }
+            
+            if (hitSomething) {
+                return enemyLayerMask.Contains(hit.collider.gameObject.layer);
+            }
+            
+            return false;
         }
     }
 }

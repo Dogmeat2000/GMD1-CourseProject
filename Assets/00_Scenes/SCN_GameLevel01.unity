@@ -335,6 +335,8 @@ MonoBehaviour:
   breachVfxPrefab: {fileID: 8352066597300816902, guid: 1c9bc19bec6304941ae7722bd2e74753, type: 3}
   activeCampaign: {fileID: 11400000, guid: 694d163ac3544cc42814b449aa668644, type: 2}
   firstWaveDelay: 10
+  startMessage: PROTECT THE FLEET.
+  clearMessage: ALL WAVES CLEARED!
 --- !u!114 &792851146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +657,26 @@ PrefabInstance:
     - target: {fileID: 3196382446942414092, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 453
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: arcadeSens
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: maxSlewSens
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: precisionSens
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: slideDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: timeToMaxSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
