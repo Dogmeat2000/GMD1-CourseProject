@@ -1006,7 +1006,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1889944882977173338, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_Name
-      value: PFB_MenuButton
+      value: PFB_BTN_Quit
       objectReference: {fileID: 0}
     - target: {fileID: 3725247548906161294, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: overrideSelectSound

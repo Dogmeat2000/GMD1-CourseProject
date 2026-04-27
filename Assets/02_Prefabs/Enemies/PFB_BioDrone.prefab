@@ -420,12 +420,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   seekWeight: 1
-  evadeWeight: 0.4
+  evadeWeight: 0.2
   separateWeight: 0.6
   hardDeckAltitude: 2
   pullUpForce: 30
-  evasionIntensity: 0.5
-  evasionSpeed: 2.5
+  evasionIntensity: 1.5
+  evasionSpeed: 1.25
   repelRadius: 10
 --- !u!114 &3182308281185901545
 MonoBehaviour:
