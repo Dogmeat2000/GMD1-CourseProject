@@ -19,7 +19,7 @@ This repository features the result of my first course on Game Development with 
   - [#1 Roll-a-Ball: A Technical perspective on my first Unity 3D game](./Blogposts/Blog%201%20-%20Rollaball%2C%20a%20Technical%20perspective%20on%20my%20first%20Unity%20game.md)
   - [#2 Game Design Document: Spearhead: Nereus Protocol](./Blogposts/Blog%202%20-%20Game%20Design%20Document.md)
   - [#3 Milestone 1](./Blogposts/Blog%203%20-%20Milestone%201.md)
-  - #4 TBD
+  - [#4 Milestone 2](./Blogposts/Blog%204%20-%20Milestone%202.md)
   - #5 TBD
   - #6 TBD
 - **Credits:** [Click here](./Blogposts/Credits.md)
