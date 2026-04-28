@@ -4942,6 +4942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ab033c1615bb04f85d3bfa491cb730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.VFX.VfxPoolReturn
+  vfxAudioSource: {fileID: 6346697086478972578}
+  vfxSound: {fileID: 8300000, guid: da4bcffd334ac0b4a879a1a3b1e1a4aa, type: 3}
 --- !u!1 &948112519551533905
 GameObject:
   m_ObjectHideFlags: 0
@@ -9881,18 +9883,18 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  DopplerLevel: 0
+  MinDistance: 20
+  MaxDistance: 750
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -9925,7 +9927,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

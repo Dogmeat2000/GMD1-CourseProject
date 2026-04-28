@@ -41,9 +41,9 @@ namespace _01_Scripts.Core.UI
             
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
-            // Prevent the scene from activating instantly if you want to hold players on the loading screen
+            // Prevent the scene from activating instantly if I want to hold players on the loading screen
             // TODO: REVISIT THIS PART LATER! COULD BE GOOD WITH MULTIPLAYER SUPPORT!
-            // operation.allowSceneActivation = false; // (Uncomment later if you want a "Press A to Start" prompt)
+            // operation.allowSceneActivation = false; // (Uncomment later if I want a "Press A to Start" prompt)
             
             while (operation is { isDone: false }) {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);
@@ -57,8 +57,11 @@ namespace _01_Scripts.Core.UI
             }
         }
 
-        public void AbortMission() {
-            Debug.Log("Mission Aborted. Terminating application.");
+        /// <summary>
+        /// Terminates the application, shutting down the game.
+        /// </summary>
+        public void QuitGame() {
+            Debug.Log("Terminating the application.");
             Application.Quit();
         }
     }

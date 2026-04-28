@@ -1,10 +1,136 @@
-- Write about:
--- UI / GUI Design (I'm using the uGUI approach)
--- 9-Slicing of buttons and stuff!
--- Design Pattern use:
---- Service Locator Pattern (Structural) -> Allows scripts to find their required managers without relying on rigid Singletons (Dependency Inversion)
---- State Pattern (Behavioral) -> Dictates the current rules of the game. Instead of scripts guessing what phase the game is in via scattered boolean flags (_isPaused, _matchOver), a central authority defines the active reality (Deploying, Playing, Paused, GameOver).
---- Strategy Pattern (Behaviral) -> Allows the hot-swap complex algorithms on the fly without changing the entity that uses them. A Kamikaze drone doesn't need to know how to pick a target; it simply asks the Radar to use a specific Strategy to hand it the best target mathematically available.
---- Object Pool Pattern (Creational) -> Recycles Memory. Instead of forcing the Unity engine to aggressively allocate and destroy memory (which causes frame-rate stutters), I keep a hidden pool of inactive objects ready for instant deployment. Used in Enemy spawning (WaveDirector), VFX explosions (ImpactWarhead), and heavy machine gun fire (TurretProjectile).
---- Observer Pattern / Events (Behavioral) -> Instead of UI scripts constantly asking "Are you dead yet?" every frame, the subjects broadcast a radio signal only when something actually happens. HealthManager broadcasting OnHealthChanged to update the PlayerHealthHUD. GameDirector listening to WaveDirector.OnAllWavesCleared and FleetDirector.OnFleetDestroyed to trigger match endings.
---- Singleton Pattern (Creational) -> A vital pattern when used strictly for persistent, cross-scene data. Features using it: Saving/Loading high scores, carrying global audio/visual settings between the Main Menu and the battlefield, and maintaining the global VFX memory pool.
+# Milestone 2
+## Introduction
+This milestone focused on implementing the core gameplay loop - from level start to level win/lose.
+
+<img src="Blog%204%20-%20Appetizer.jpg" alt="Overview" width="860">
+
+## Enemy Spawning and Behavior
+Enemies are no longer static, hard-coded entities. They are spawned dynamically via the ``WaveDirector`` script. It uses a "Threat Budget" calculation to dynamically "buy" enemies from a defined threat size for each wave. This allows for progressively more challenging waves, and adds a random element, since the ``WaveDirector`` can buy different amounts of enemy types on each playthrough. I also implemented support for allowed/disallowed enemy types.
+
+<img src="Blog%204%20-%20Spawning%20and%20Flight.gif" alt="Enemies Spawn and Attack" width="860">
+
+## Handling Settings
+To adhere to the Single Responsibility Principle I implemented Unity's ``ScriptableObject`` architecture to create ``LevelSettings`` and ``GlobalSettings``.
+
+This allows scripts to query the active ``LevelSettings`` asset for data, allowing balancing the game without ever opening a script.
+
+```csharp
+[CreateAssetMenu(fileName = "NewLevelSettings", menuName = "Game/Settings/Level Settings")]
+public class LevelSettings : ScriptableObject {
+    // ... Many other configurations and settings
+    [field: SerializeField] public float MinSpawnDistance { get; private set; } = 500f;
+    [field: SerializeField] public float MaxSpawnDistance { get; private set; } = 1000f;
+    // ... Many other configurations and settings
+
+    // ...
+    public float GetDifficultyMultiplier(GameDifficulty currentDifficulty) {
+        return currentDifficulty switch {
+            GameDifficulty.Easy => EasyDifficultyMultiplier,
+            GameDifficulty.Normal => NormalDifficultyMultiplier,
+            GameDifficulty.Hard => HardDifficultyMultiplier,
+            GameDifficulty.Nightmare => NightmareDifficultyMultiplier,
+            _ => NormalDifficultyMultiplier
+        };
+    }
+    // ...
+}
+```
+
+Here's the settings object in the Unity Inspector:
+<img src="Blog%204%20-%20Settings.jpg" alt="Settings overview in Unity" width="860">
+
+```csharp
+// Example of how Settings are queried from other scripts.
+public class LevelManager : MonoBehaviour
+    {
+        [SerializeField] private LevelSettings activeSettings;
+        
+        ///...
+        
+        /// Other scripts within the level can then retrieve the settings through the LevelManagers public property.
+        public LevelSettings Settings => activeSettings;
+        
+        ///...
+    }
+```
+
+## Win/Lose Conditions
+The game lifecycle is controlled by the ```GameDirector```. Using event-driven programming, it listens for global broadcasts without tightly coupling to individual scripts.
+
+<img src="Blog%204%20-%20Victory%20and%20Defeat.jpg" alt="Victory and Defeat" width="860"> <br>
+
+
+- **Victory:** Triggered when the ```WaveDirector``` broadcasts ```OnAllWavesCleared```. The ```GameDirector``` commands the state machine to trigger the victory sequence. 
+- **Defeat:** Triggered when either the ```FleetDirector``` broadcasts ```OnFleetDestroyed``` (all ships in the convoy have died), or all player' health reaches 0.
+
+
+This snippet displays the events subscribed to upon starting a level:
+
+```csharp
+public class GameDirector : MonoBehaviour {
+        ///...
+        private void Start() {
+        _alivePlayers = playerHealths.Count;
+        
+        if (_waveDirector) {
+            _waveDirector.OnAllWavesCleared += HandleVictory; //Subscribe to Win condition (OnAllWavesCleared)
+        }
+        
+        if (_fleetDirector) {
+            _fleetDirector.OnFleetDestroyed += HandleDefeat; //Subscribe to Defeat condition 1 (OnFleetDestroyed)
+        }
+
+        foreach (var player in playerHealths) {
+            if (player) player.OnZeroHealth += HandlePlayerDeath; //Subscribe to Defeat condition 2 (player.OnZeroHealth)
+        }
+    }
+    ///...
+}
+```
+
+## Menu & HUD
+**Menus** were expanded to support the core gameplay loop:
+- Traversing menus with keyboard, mouse and/or gamepad (verified on VIA Arcade Machine).
+- Player feedback when hovering over or selecting buttons.
+
+<img src="Blog%204%20-%20Menus.jpg" alt="Victory and Defeat" width="860"> <br>
+
+The menu system utilizes the built-in Unity ``uGUI system`` and ``EventSystem``. Navigation is handled through ``On Click()`` methods. To add visual effects and sounds, I implemented a ``UIButtonVisuals.cs`` script, drawing default effects from the central game settings but allowing for overrides.
+
+<img src="Blog%204%20-%20Menu%20Change%20in%20Unity.jpg" alt="Victory and Defeat" width="860"> <br>
+
+
+**Heads Up Display (HUD)** was implemented using the Model-View-Controller (MVC) pattern. This allows for a clean separation of concerns, as well as loose coupling via dependency inversion and the observer pattern (events) to present updated info.
+
+<img src="Blog%204%20-%20HUD%20Details.jpg" alt="HUD Details" width="860"> <br>
+
+
+
+## The Architecture
+I put care into improving the foundation going into Milestone 3 using these design patterns:
+
+**Service Locator (Structural):** Allows scripts to find managers via ``ServiceLocator.Get<T>()`` without relying on rigid dependencies or Singletons. ``LevelManager``, ``GameDirector``, ``WaveDirector``, ``FleetDirector``, ``BattlefieldRadar`` all register with this.
+
+```csharp
+// LevelBootstrapper.cs
+ServiceLocator.Register(waveDirector);
+
+// Usage in any other script
+_waveDirector = ServiceLocator.Get<WaveDirector>();
+```
+
+**State Pattern (Behavioral):** ``GameStateService`` dictates the current rules of the game (``Deploying``, ``Playing``, ``Paused``, ``GameOver``). Instead of scattered boolean flags (_isPaused), a central authority defines the active state, centralizing logic like ``Time.timescale`` handling.
+
+**Strategy Pattern (Behavioral):** Allows hot-swapping complex algorithms. A Kamikaze drone doesn't need to know how to pick a target; it simply asks the Radar to use a specific Strategy to hand it the best target mathematically available. Also used when determining flight behavior via ``IMovementBehavior``  (``SeekBehavior``, ``EvasiveBehavior``, ``SeparationBehavior``).
+
+```csharp
+public ITargetable SelectTarget(List<ITargetable> targets, Vector3 position) {
+    // Concrete implementations like 'WeightedRandomStrategy' or 'ProximityThreatStrategy' live here.
+}
+```
+
+**Observer Pattern (Behavioral):** UI scripts don't ask "Are you dead yet?" every frame. The ``HealthManager`` broadcasts ``OnHealthChanged`` only when health changes, vastly improving performance. Also used in ``PlayerScoreHUD``, ``GameDirector``, ``WaveDirector`` and ``FleetDirector``.
+
+**Object Pool (Creational):** Recycles Memory. Instead of forcing the Unity engine to aggressively allocate and destroy memory, ``UniversalPoolService`` keeps a hidden pool of inactive objects ready for instant deployment (used for projectiles, VFX, and enemies).
+
+**Singleton (Creational):** Used strictly for persisting cross-scene data, such as ```LeaderboardManager.Instance``` saving high scores between the Main Menu and the battlefield. Also used in the ``GlobalManager`` and ``UniversalPoolService``.

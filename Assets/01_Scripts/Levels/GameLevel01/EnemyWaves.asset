@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: EnemyWaves
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Waves.LevelCampaign
   <Waves>k__BackingField:
+  - <ThreatBudget>k__BackingField: 50
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
   - <ThreatBudget>k__BackingField: 100
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+  - <ThreatBudget>k__BackingField: 150
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+  - <ThreatBudget>k__BackingField: 200
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}

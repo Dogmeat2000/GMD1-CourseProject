@@ -1,9 +1,14 @@
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Scoring;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace _01_Scripts.Turrets
 {
+    /// <summary>
+    /// Hardware controller for the turret's weapon systems. Manages the localized 
+    /// object pool for projectiles, firing rates, acoustics, and recoil animations.
+    /// </summary>
     public class TurretWeapon : MonoBehaviour
     {
         [Header("Hardware Settings")]
@@ -55,6 +60,10 @@ namespace _01_Scripts.Turrets
                 defaultCapacity: defaultCapacity,
                 maxSize: maxSize
             );
+            
+            if (weaponAudioSource && GlobalManager.Instance) {
+                weaponAudioSource.outputAudioMixerGroup = GlobalManager.Instance.GlobalSettings.SfxMixerGroup;
+            }
             
             GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
             _myColliders = shooterIdentity.GetComponentsInChildren<Collider>();

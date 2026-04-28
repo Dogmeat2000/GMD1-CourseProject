@@ -32,14 +32,7 @@ namespace _01_Scripts.Core.Managers
                 Debug.LogError("Active Settings is NULL. Defaulting multiplier to 1.0f.");
                 return 1.0f;
             }
-            
-            return CurrentDifficulty switch {
-                GameDifficulty.Easy => Settings.EasyDifficultyMultiplier,
-                GameDifficulty.Normal => Settings.NormalDifficultyMultiplier,
-                GameDifficulty.Hard => Settings.HardDifficultyMultiplier,
-                GameDifficulty.Nightmare => Settings.NightmareDifficultyMultiplier,
-                _ => Settings.NormalDifficultyMultiplier
-            };
+            return activeSettings.GetDifficultyMultiplier(CurrentDifficulty);
         }
     }
 }

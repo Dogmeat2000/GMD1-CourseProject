@@ -31,6 +31,10 @@ namespace _01_Scripts.Core.Managers
         [SerializeField] 
         private int firstWaveDelay;
         
+        [Tooltip("The time [s] to wait between each wave")]
+        [SerializeField] 
+        private int otherWaveDelay;
+        
         [Header("Narrative Broadcasts")]
         [SerializeField] 
         private string startMessage = "PROTECT THE FLEET.";
@@ -46,28 +50,10 @@ namespace _01_Scripts.Core.Managers
         private int _currentWaveIndex;
         private int _activeHostiles;
         private bool _isDeployingWave;
+        private bool _isTransitioning;
         private LevelManager _levelManager;
         private BattlefieldRadar _battlefieldRadar;
         
-       
-        /// <summary>
-        /// Initiates the next wave in the sequence.
-        /// </summary>
-        public void BeginNextWave() {
-            if (_currentWaveIndex >= activeCampaign.Waves.Count) {
-                OnStatusMessage?.Invoke(clearMessage);
-                OnAllWavesCleared?.Invoke();
-                return;
-            }
-
-            WaveData currentWaveData = activeCampaign.Waves[_currentWaveIndex];
-            Debug.Log($"Starting Wave {_currentWaveIndex + 1} / {activeCampaign.Waves.Count}");
-            OnWaveUpdated?.Invoke(_currentWaveIndex + 1, activeCampaign.Waves.Count);
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
-            
-            StartCoroutine(DeployWaveRoutine(currentWaveData));
-        }
-
         private void Awake() {
             _levelManager = ServiceLocator.Get<LevelManager>();
             _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
@@ -83,14 +69,37 @@ namespace _01_Scripts.Core.Managers
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
         }
+       
+        /// <summary>
+        /// Initiates the next wave in the sequence.
+        /// </summary>
+        public void BeginNextWave() {
+            _isTransitioning = false;
+            
+            if (_currentWaveIndex >= activeCampaign.Waves.Count) {
+                OnStatusMessage?.Invoke(clearMessage);
+                OnAllWavesCleared?.Invoke();
+                return;
+            }
+
+            WaveData currentWaveData = activeCampaign.Waves[_currentWaveIndex];
+            Debug.Log($"Starting Wave {_currentWaveIndex + 1} / {activeCampaign.Waves.Count}");
+            OnWaveUpdated?.Invoke(_currentWaveIndex + 1, activeCampaign.Waves.Count);
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
+            
+            StartCoroutine(DeployWaveRoutine(currentWaveData));
+        }
 
         private IEnumerator DeployWaveRoutine(WaveData currentWave) {
             _isDeployingWave = true;
             
             List<EnemyProfile> assaultRoster = BuildSpawnRoster(currentWave);
-            
-            if (assaultRoster.Count == 0) 
+
+            if (assaultRoster.Count == 0) {
+                _isDeployingWave = false;
+                AdvanceToNextWave();
                 yield break;
+            }
 
             LevelSettings settings = _levelManager.Settings;
             float totalWaveSpawnDuration = Random.Range(settings.WaveSpawnDurationMin, settings.WaveSpawnDurationMax);
@@ -109,8 +118,20 @@ namespace _01_Scripts.Core.Managers
         }
         
         private void AdvanceToNextWave() {
+            if (_isTransitioning) 
+                return;
+            
+            _isTransitioning = true;
+            
             OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED");
             _currentWaveIndex++;
+            StartCoroutine(TransitionToNextWaveRoutine());
+        }
+        
+        private IEnumerator TransitionToNextWaveRoutine() {
+            if (otherWaveDelay > 0) {
+                yield return new WaitForSeconds(otherWaveDelay);
+            }
             BeginNextWave();
         }
 
@@ -152,18 +173,9 @@ namespace _01_Scripts.Core.Managers
         }
 
         private void DeploySingleUnit(EnemyProfile profile, LevelSettings settings) {
-            float randomAngle = Random.Range(-settings.SpawnAngleLimit, settings.SpawnAngleLimit);
-            float randomDistance = Random.Range(settings.MinSpawnDistance, settings.MaxSpawnDistance);
-            
-            Vector3 flatForward = playerShip.forward;
-            flatForward.y = 0;
-            flatForward.Normalize();
-            
-            Vector3 spawnDirection = Quaternion.Euler(0, randomAngle, 0) * flatForward;
-            
-            Vector3 spawnPoint = playerShip.position + (spawnDirection * randomDistance);
-            
-            spawnPoint.y = settings.SpawnDepthY;
+            Vector3 spawnPoint = CalculateSpawnPosition(settings);
+            Vector3 spawnDirection = (spawnPoint - playerShip.position).normalized;
+            spawnDirection.y = 0;
 
             var pooledObj = UniversalPoolService.Instance.Spawn(profile.Prefab, spawnPoint, Quaternion.LookRotation(spawnDirection));
             
@@ -179,6 +191,21 @@ namespace _01_Scripts.Core.Managers
                 surfacePoint.y = settings.OceanSurfaceY;
                 UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity);
             }
+        }
+        
+        private Vector3 CalculateSpawnPosition(LevelSettings settings) {
+            float randomAngle = Random.Range(-settings.SpawnAngleLimit, settings.SpawnAngleLimit);
+            float randomDistance = Random.Range(settings.MinSpawnDistance, settings.MaxSpawnDistance);
+            
+            Vector3 flatForward = playerShip.forward;
+            flatForward.y = 0;
+            flatForward.Normalize();
+            
+            Vector3 spawnDirection = Quaternion.Euler(0, randomAngle, 0) * flatForward;
+            Vector3 spawnPoint = playerShip.position + (spawnDirection * randomDistance);
+            spawnPoint.y = settings.SpawnDepthY;
+
+            return spawnPoint;
         }
         
         private void HandleEnemyRemoved(EnemyController source) {

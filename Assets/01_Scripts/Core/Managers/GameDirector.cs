@@ -8,6 +8,10 @@ namespace _01_Scripts.Core.Managers
 {
     public enum MatchResult { Victory, Defeat }
     
+    /// <summary>
+    /// The primary controller of the match lifecycle. Monitors critical win/loss conditions 
+    /// across all players and directors, and commands the GameStateService to end the match.
+    /// </summary>
     public class GameDirector : MonoBehaviour
     { 
         [Header("Players")]

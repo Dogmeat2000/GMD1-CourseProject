@@ -11,12 +11,33 @@ namespace _01_Scripts.Turrets
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference fireAction;
 
-        [Header("Hardware Sensitivity Settings")]
+        [Header("Mouse Sensitivity Settings")]
         [SerializeField] private float mouseSens = 10f;
-        [SerializeField] private float arcadeSens = 100f;
+        
+        [Header("Arcade Sensitivity Settings")]
+        [Tooltip("The initial, slow sensitivity when the stick is quickly tapped (for precision aiming).")]
+        [SerializeField] private float precisionSens = 25f;
+        
+        [Tooltip("The maximum sensitivity when the stick is held down (for rapid turning).")]
+        [SerializeField] private float maxSlewSens = 100f;
+        
+        [Tooltip("How many seconds the stick must be held to reach maximum turning speed.")]
+        [SerializeField] private float timeToMaxSpeed = 0.4f;
+        
+        [Tooltip("How long [s] the turret keeps sliding after releasing the joystick")]
+        [SerializeField] private float slideDuration = 0.15f;
+        
+        [Tooltip("How much the turret slows down when the reticle is over an enemy (e.g., 0.4 = 40% speed).")]
+        [Range(0.1f, 1f)]
+        [SerializeField] private float frictionMultiplier = 0.4f;
 
         private TurretMotor _motor;
         private bool _isFireRequested = false;
+        private bool _isReticleOnTarget = false;
+        private bool _wasLastInputMouse = false;
+        private float _currentHoldTime = 0f;
+        private Vector2 _currentMovement;
+        private Vector2 _movementVelocity;
 
         void Awake() => _motor = GetComponent<TurretMotor>();
 
@@ -35,14 +56,42 @@ namespace _01_Scripts.Turrets
         private void ExecuteFireCommand(InputAction.CallbackContext context) {
             _isFireRequested = true;
         }
+        
+        public void SetTargetFriction(bool onTarget) {
+            _isReticleOnTarget = onTarget;
+        }
 
         void Update() {
-            Vector2 input = moveAction.action.ReadValue<Vector2>();
+            Vector2 rawInput = moveAction.action.ReadValue<Vector2>();
             
-            bool isMouse = moveAction.action.activeControl?.device is Pointer;
-            float sens = isMouse ? mouseSens : arcadeSens;
+            if (moveAction.action.activeControl != null) {
+                _wasLastInputMouse = moveAction.action.activeControl.device is Pointer;
+            }
             
-            _motor.RotateJoints(input.x * sens * Time.deltaTime, input.y * sens * Time.deltaTime);
+            float activeSens;
+
+            if (_wasLastInputMouse) {
+                activeSens = mouseSens;
+                _currentMovement = rawInput * activeSens; 
+                _movementVelocity = Vector2.zero; 
+            } else {
+                if (rawInput.sqrMagnitude > 0.01f) {
+                    _currentHoldTime += Time.deltaTime;
+                    
+                    float timeRatio = Mathf.Clamp01(_currentHoldTime / timeToMaxSpeed);
+                    float baseArcadeSens = Mathf.Lerp(precisionSens, maxSlewSens, timeRatio);
+                    
+                    activeSens = _isReticleOnTarget ? (baseArcadeSens * frictionMultiplier) : baseArcadeSens;
+
+                    _currentMovement = rawInput * activeSens;
+                    _movementVelocity = Vector2.zero; 
+                } else {
+                    _currentHoldTime = 0f; 
+                    _currentMovement = Vector2.SmoothDamp(_currentMovement, Vector2.zero, ref _movementVelocity, slideDuration);
+                }
+            }
+            
+            _motor.RotateJoints(_currentMovement.x * Time.deltaTime, _currentMovement.y * Time.deltaTime);
             
             if (_isFireRequested) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {

@@ -6,6 +6,9 @@ using _01_Scripts.Core.Utilities;
 
 namespace _01_Scripts.Core.Combat
 {
+    /// <summary>
+    /// Handles the logic and acoustic/visual feedback related to warheads and explosives.
+    /// </summary>
     [RequireComponent(typeof(Collider))]
     public class ImpactWarhead : MonoBehaviour
     {
@@ -21,7 +24,7 @@ namespace _01_Scripts.Core.Combat
         [Tooltip("Event triggered upon detonation.")]
         [SerializeField] 
         private UnityEvent onDetonate;
-
+        
         public GameObject Instigator { get; set; }
         public int PayloadDamage { get; set; }
         private bool _hasDetonated;
