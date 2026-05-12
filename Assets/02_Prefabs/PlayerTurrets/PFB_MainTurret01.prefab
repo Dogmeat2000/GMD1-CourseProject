@@ -634,7 +634,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hostiles: 12'
+  m_text: 'Hostiles: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22b0058d77af49840bb62b1615932d49, type: 2}
   m_sharedMaterial: {fileID: 5019095094695234112, guid: 22b0058d77af49840bb62b1615932d49, type: 2}
@@ -765,7 +765,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 5822660717279764986}
   m_PlaneDistance: 1
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -6852,12 +6852,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5290ea1c58ebba547bb6bbfd95d27284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretWeapon
-  projectilePrefab: {fileID: 8520524713047180061, guid: 515ce5a4f076b054cb32c965f0761f62, type: 3}
+  projectilePrefab: {fileID: 3659995153115176983, guid: 515ce5a4f076b054cb32c965f0761f62, type: 3}
   muzzleExit: {fileID: 2178201685759922987}
   fireRate: 0.15
-  ownerScore: {fileID: 0}
-  defaultCapacity: 50
-  maxSize: 200
+  ownerScore: {fileID: 5316112007922792603}
   barrelRecoil: {fileID: 9092613133133827888}
   weaponAudioSource: {fileID: 2677030519434114328}
   fireSound: {fileID: 8300000, guid: 06c7a0fdf4d88e44fac6fcd655542f65, type: 3}
@@ -7243,7 +7241,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8472686326751129743}
   - component: {fileID: 5822660717279764986}
-  - component: {fileID: 5217081097220325654}
   - component: {fileID: 2386246790397617464}
   - component: {fileID: 5979043745442941362}
   m_Layer: 9
@@ -7319,14 +7316,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5217081097220325654
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7987745921880427434}
-  m_Enabled: 1
 --- !u!114 &2386246790397617464
 MonoBehaviour:
   m_ObjectHideFlags: 0

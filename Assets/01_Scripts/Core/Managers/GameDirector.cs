@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Services;
 
 namespace _01_Scripts.Core.Managers
@@ -12,7 +13,7 @@ namespace _01_Scripts.Core.Managers
     /// The primary controller of the match lifecycle. Monitors critical win/loss conditions 
     /// across all players and directors, and commands the GameStateService to end the match.
     /// </summary>
-    public class GameDirector : MonoBehaviour
+    public class GameDirector : MonoBehaviour, IService
     { 
         [Header("Players")]
         [Tooltip("Assign the HealthManagers for all players in the game level")]

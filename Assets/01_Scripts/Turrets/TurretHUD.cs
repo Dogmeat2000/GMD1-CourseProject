@@ -42,6 +42,13 @@ namespace _01_Scripts.Turrets
             _levelManager = ServiceLocator.Get<LevelManager>();
         }
 
+        /// <summary>
+        /// Programmatically initializes the HUD with references. Useful, when dynamically spawning the player turret prefab.
+        /// </summary>
+        public void Initialize() {
+            
+        }
+
         private void LateUpdate() {
             if (!turretCamera) 
                 return;

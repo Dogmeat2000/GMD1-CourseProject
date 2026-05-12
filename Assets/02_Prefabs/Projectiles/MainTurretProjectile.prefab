@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.6, z: 1.2}
+  m_LocalScale: {x: 0.15, y: 0.45, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8402172112652589804}
@@ -93,11 +93,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 20
   m_Height: 6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -1.5}
@@ -116,22 +116,10 @@ MonoBehaviour:
   explosionVfxPrefab: {fileID: 0}
   validTargetLayers:
     serializedVersion: 2
-    m_Bits: 1297
+    m_Bits: 273
   onDetonate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8520524713047180061}
-        m_TargetAssemblyTypeName: _01_Scripts.Turrets.TurretProjectile, Assembly-CSharp
-        m_MethodName: DespawnRoutine
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8402172112652879564
 GameObject:
   m_ObjectHideFlags: 0

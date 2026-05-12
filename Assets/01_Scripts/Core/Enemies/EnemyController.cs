@@ -192,9 +192,11 @@ namespace _01_Scripts.Core.Enemies
         /// Handles spawning any optional pooled VFX before removing the entity.
         /// </summary>
         public void FinalizeDeathSequence() {
+            LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
+            
             if (deathVfxPrefab && UniversalPoolService.Instance) {
                 Vector3 spawnPoint = centerMassBone ? centerMassBone.transform.position : transform.position;
-                UniversalPoolService.Instance.Spawn(deathVfxPrefab, spawnPoint, Quaternion.identity);
+                UniversalPoolService.Instance.Spawn(deathVfxPrefab, spawnPoint, Quaternion.identity, settings.DefaultObjectPoolSize, settings.MaxDefaultObjectPoolSize);
             }
             
             DespawnRoutine();

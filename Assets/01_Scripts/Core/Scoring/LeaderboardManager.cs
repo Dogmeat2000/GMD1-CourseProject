@@ -26,6 +26,9 @@ namespace _01_Scripts.Core.Scoring
             LoadLeaderboard();
         }
 
+        /// <summary>
+        /// Submits a finalized player score to the persistent leaderboard data structure.
+        /// </summary>
         public void SubmitScore(string playerName, int score) {
             ScoreEntry newEntry = new ScoreEntry(playerName, score);
             _saveData.entries.Add(newEntry);

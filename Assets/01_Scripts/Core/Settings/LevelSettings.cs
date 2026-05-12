@@ -101,7 +101,18 @@ namespace _01_Scripts.Core.Settings
         [Tooltip("Distance to horizon, where the targeting reticle is painted on the camera HUD")]
         [field: SerializeField] 
         public float MaxTargetingDistance { get; private set; } = 750f;
+
+        [Header("Performance")]
+        [Tooltip("Sets the initial default size an object pool may be.")]
+        [field: SerializeField]
+        public int DefaultObjectPoolSize { get; private set; } = 30;
         
+        [Tooltip("Sets the maximum default size an object pool may be.")]
+        [field: SerializeField]
+        public int MaxDefaultObjectPoolSize { get; private set; } = 500;
+        
+        
+
         /// <summary>
         /// Translates a target's priority label into its active mathematical weight.
         /// </summary>
