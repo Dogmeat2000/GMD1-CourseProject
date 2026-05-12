@@ -1504,7 +1504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269495279103362660, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_text
-      value: "  2 Player\n  Seperate Ships"
+      value: "  2 Player\n  Separate Ships"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

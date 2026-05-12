@@ -22,10 +22,14 @@ namespace _01_Scripts.Core.Scoring
 
         private Action<string> _onSaveCommand;
 
-        public void Initialize(int rank, int score, Action<string> onSaveCallback) {
+        public void Initialize(int rank, int score, string defaultName, Action<string> onSaveCallback) {
             rankText.text = $"{rank}.";
             scoreText.text = score.ToString("N0");
             _onSaveCommand = onSaveCallback;
+            
+            if (nameInputField) {
+                nameInputField.SetStartingName(defaultName);
+            }
             
             saveButton.onClick.RemoveAllListeners(); 
             saveButton.onClick.AddListener(ExecuteSave);

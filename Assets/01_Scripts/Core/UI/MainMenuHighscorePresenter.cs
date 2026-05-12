@@ -18,12 +18,22 @@ namespace _01_Scripts.Core.UI
             ClearBoard();
 
             var topScores = LeaderboardManager.Instance.GetTopScores();
-            for (int displayRank = 1; displayRank <= 10; displayRank++) {
-                if (displayRank <= topScores.Count) {
-                    var data = topScores[displayRank - 1];
-                    InjectStaticRow(displayRank, data.playerName, data.score);
+            
+            int currentRank = 1;
+            int previousScore = -1;
+
+            for (int i = 0; i < 10; i++) {
+                if (i < topScores.Count) {
+                    var data = topScores[i];
+                    
+                    if (i > 0 && data.score != previousScore) {
+                        currentRank = i + 1;
+                    }
+
+                    InjectStaticRow(currentRank, data.playerName, data.score);
+                    previousScore = data.score;
                 } else {
-                    InjectStaticRow(displayRank, "---", 0);
+                    InjectStaticRow(i + 1, "---", 0);
                 }
             }
         }

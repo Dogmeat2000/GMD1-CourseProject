@@ -68,6 +68,7 @@ namespace _01_Scripts.Core.UI
         private GameObject returnToMainMenuButton;
 
         private GameDirector _gameDirector;
+        private int _unsavedInputsCount = 0;
 
         private void Awake() {
             _gameDirector = ServiceLocator.Get<GameDirector>();
@@ -123,12 +124,37 @@ namespace _01_Scripts.Core.UI
 
             string displayText = "";
             for (int i = 0; i < localPlayers.Count; i++) {
-                int score = localPlayers[i].CurrentScore;
-                int rank = LeaderboardManager.Instance.GetProjectedRank(score);
-                displayText += $"PLAYER {i + 1} - SCORE: {score:N0} (RANK {rank})\n";
+                if (localPlayers[i].CurrentScore > 0) {
+                    int score = localPlayers[i].CurrentScore;
+                    int rank = GetRank(score);
+                    displayText += $"{localPlayers[i].DefaultPlayerName} - SCORE: {score:N0} (RANK {rank})\n";
+                }
             }
             
             finalTelemetryText.text = displayText.TrimEnd('\n'); 
+        }
+        
+        /// <summary>
+        /// Calculates the accurate rank of a player by evaluating both historical data 
+        /// and the scores of other active players in the current session.
+        /// </summary>
+        private int GetRank(int playerScore) {
+            int rank = 1;
+            
+            IReadOnlyList<ScoreEntry> topScores = LeaderboardManager.Instance.GetTopScores();
+            foreach (ScoreEntry saved in topScores) {
+                if (saved.score > playerScore) {
+                    rank++;
+                }
+            }
+            
+            foreach (PlayerScore player in localPlayers) {
+                if (player.CurrentScore > playerScore) {
+                    rank++;
+                }
+            }
+            
+            return rank;
         }
 
         private void GenerateLeaderboard() {
@@ -140,35 +166,59 @@ namespace _01_Scripts.Core.UI
             ClearBoard();
             
             var topScores = LeaderboardManager.Instance.GetTopScores();
-            int currentRankOffset = 0;
 
             List<PendingEntry> pendingEntries = new List<PendingEntry>();
             foreach (var player in localPlayers) {
                 if (player.CurrentScore > 0) { 
                     int projectedRank = LeaderboardManager.Instance.GetProjectedRank(player.CurrentScore);
-                    if (projectedRank <= 10) {
-                        pendingEntries.Add(new PendingEntry { Rank = projectedRank, ScoreData = player });
-                    }
+                    pendingEntries.Add(new PendingEntry { Rank = projectedRank, ScoreData = player });
                 }
             }
             
-            pendingEntries.Sort((a, b) => a.Rank.CompareTo(b.Rank));
+            pendingEntries.Sort((a, b) => b.ScoreData.CurrentScore.CompareTo(a.ScoreData.CurrentScore));
 
+            _unsavedInputsCount = pendingEntries.Count;
+            
             int dataIndex = 0;
-            for (int displayRank = 1; displayRank <= 10; displayRank++) {
-                if (pendingEntries.Count > 0 && pendingEntries[0].Rank == displayRank) {
-                    InjectInputFieldRow(displayRank, pendingEntries[0].ScoreData);
-                    pendingEntries.RemoveAt(0);
-                    currentRankOffset++;
+            int currentRank = 1;
+            int previousScore = -1;
+            
+            for (int i = 0; i < 10; i++) {
+                bool usePending = false;
+                int currentSlotScore = 0;
+                
+                if (pendingEntries.Count > 0) {
+                    if (dataIndex < topScores.Count) {
+                        if (pendingEntries[0].ScoreData.CurrentScore >= topScores[dataIndex].score) {
+                            usePending = true;
+                        }
+                    } else {
+                        usePending = true;
+                    }
+                }
+                
+                if (usePending) {
+                    currentSlotScore = pendingEntries[0].ScoreData.CurrentScore;
+                } else if (dataIndex < topScores.Count) {
+                    currentSlotScore = topScores[dataIndex].score;
+                } else {
+                    InjectStaticRow(i + 1, "---", 0);
                     continue;
                 }
                 
-                if (dataIndex < topScores.Count) {
-                    InjectStaticRow(displayRank, topScores[dataIndex].playerName, topScores[dataIndex].score);
-                    dataIndex++;
-                } else if (pendingEntries.Count == 0) {
-                    InjectStaticRow(displayRank, "---", 0);
+                if (i > 0 && currentSlotScore != previousScore) {
+                    currentRank = i + 1; 
                 }
+                
+                if (usePending) {
+                    InjectInputFieldRow(currentRank, pendingEntries[0].ScoreData); 
+                    pendingEntries.RemoveAt(0);
+                } else {
+                    InjectStaticRow(currentRank, topScores[dataIndex].playerName, topScores[dataIndex].score);
+                    dataIndex++;
+                }
+
+                previousScore = currentSlotScore;
             }
         }
 
@@ -176,14 +226,25 @@ namespace _01_Scripts.Core.UI
             GameObject rowObj = Instantiate(inputScoreRowPrefab, leaderboardContainer);
             
             if (rowObj.TryGetComponent<InputLeaderBoardRow>(out var rowScript)) {
-                rowScript.Initialize(rank, localPlayer.CurrentScore, localPlayer.CommitScore);
-                
-                rowScript.Initialize(rank, localPlayer.CurrentScore, (playerName) => {
+                rowScript.Initialize(rank, localPlayer.CurrentScore, localPlayer.DefaultPlayerName, (playerName) => {
+                    
                     localPlayer.CommitScore(playerName); 
-                    if (returnToMainMenuButton && UnityEngine.EventSystems.EventSystem.current) {
+                    _unsavedInputsCount--;
+                    
+                    if (UnityEngine.EventSystems.EventSystem.current) {
                         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
-                        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(returnToMainMenuButton);
-                        if (returnToMainMenuButton.TryGetComponent<UnityEngine.UI.Selectable>(out var selectable)) {
+                        
+                        if (_unsavedInputsCount > 0) {
+                            ArcadeNameInput[] allInputs = leaderboardContainer.GetComponentsInChildren<ArcadeNameInput>();
+                            foreach (var input in allInputs) {
+                                if (input.interactable) {
+                                    input.Select();
+                                    return;
+                                }
+                            }
+                        }
+                        
+                        if (returnToMainMenuButton && returnToMainMenuButton.TryGetComponent<UnityEngine.UI.Selectable>(out var selectable)) {
                             selectable.Select();
                         }
                     }
