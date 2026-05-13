@@ -5,7 +5,6 @@ using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Utilities;
-using _01_Scripts.Turrets;
 
 namespace _01_Scripts.Core.Combat
 {
@@ -49,6 +48,20 @@ namespace _01_Scripts.Core.Combat
                 Detonate(targetHealth);
             }
         }
+        
+        private void OnCollisionEnter(Collision collision) {
+            if (_hasDetonated) 
+                return;
+            
+            if (!validTargetLayers.Contains(collision.gameObject.layer))
+                return; 
+            
+            IDamageable targetHealth = collision.collider.GetComponentInParent<IDamageable>();
+            
+            if (targetHealth != null) {
+                Detonate(targetHealth);
+            }
+        }
 
         private void Detonate(IDamageable target) {
             LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
@@ -63,7 +76,7 @@ namespace _01_Scripts.Core.Combat
             
             if (TryGetComponent(out IProjectile projectile)) {
                 projectile.ReturnToPool();
-            } else {
+            } else if (!TryGetComponent(out IPoolable pooledEntity)) {
                 Destroy(gameObject);
             }
         }

@@ -74,7 +74,17 @@
     * *Source:* [https://freesound.org/people/SecureSubset/sounds/817076/](https://freesound.org/people/SecureSubset/sounds/817076/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
+* **[Sound Effect] SFX_FlakExplosion** by smcameron
+    * *Source:* [https://freesound.org/people/smcameron/sounds/51466/](https://freesound.org/people/smcameron/sounds/51466/)
+    * *License:* [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+* **[Sound Effect] SFX_LaserShot** by Nox_Sound
+    * *Source:* [https://freesound.org/people/Nox_Sound/sounds/673794/](https://freesound.org/people/Nox_Sound/sounds/673794/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_LaserImpact** by jerry.berumen
+    * *Source:* [https://freesound.org/people/jerry.berumen/sounds/769143/](https://freesound.org/people/jerry.berumen/sounds/769143/)
+    * *License:* [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ### Tools
 * **Unity** ([6000.3 LTS])
@@ -82,6 +92,8 @@
 * **Blender**
 * **Suno.ai**
 * **ComfyUI**
+* **TripoAI Studio**
+* **Audacity**
 
 ## 6. Special Thanks
 * VIA University College, Horsens - For the teaching the course on Game Development.
