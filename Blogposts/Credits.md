@@ -30,6 +30,12 @@
 * **3D Models** by K. Dashnaw
     * *Note:* Developed using a combination of 3D Mesh generation tools (Trellis.2 & TripoAI) and Blender.
 
+* **Skybox** by Dogmeatic
+    * https://assetstore.unity.com/packages/2d/textures-materials/sky/free-skyboxes-sci-fi-fantasy-184932
+
+* **Crosshairs** by OccaSoftware
+    * https://assetstore.unity.com/packages/2d/gui/icons/crosshairs-216732
+
 * **Concept Art / Textures** by K. Dashnaw
     * *Note:* Developed using a combination of Image Generation Models (Flux2, Z_Turbo, Qwen-Image & Nano Banana) in conjunction with GIMP.
 
