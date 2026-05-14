@@ -1832,6 +1832,7 @@ MonoBehaviour:
   combatTracks:
   - {fileID: 8300000, guid: a264b91bcec788c4282fd6e9a1d0a093, type: 3}
   delayBetweenTracks: 6
+  fadeOutDuration: 1
 --- !u!82 &717832404
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6081,6 +6082,10 @@ PrefabInstance:
       value: -726
       objectReference: {fileID: 0}
     - target: {fileID: 7825283180129307924, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1945581625}
+    - target: {fileID: 7825283180129307924, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
       propertyPath: localPlayers.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -6212,6 +6217,11 @@ PrefabInstance:
 --- !u!4 &1945581624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5614100465523030657, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+  m_PrefabInstance: {fileID: 1945581623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1945581625 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6072773164925029889, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
   m_PrefabInstance: {fileID: 1945581623}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1947174998 stripped

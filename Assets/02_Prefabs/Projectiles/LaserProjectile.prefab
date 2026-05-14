@@ -165,9 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351bd55f55ff5d44b91c3de80d92c34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretProjectile
-  speed: 1250
+  speed: 1750
   lifeTime: 3
-  damageAmount: 16
+  damageAmount: 32
 --- !u!136 &7531608486445623988
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 4
   m_Height: 6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -1.5}

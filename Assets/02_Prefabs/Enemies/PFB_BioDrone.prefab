@@ -399,7 +399,7 @@ MonoBehaviour:
   defaultRespawnState: Idle
   deathTriggerName: Die
   knockbackForce: 30
-  baseCollisionDamage: 25
+  baseCollisionDamage: 100
   warhead: {fileID: 3182308281185901545}
 --- !u!114 &3086181098216495819
 MonoBehaviour:
