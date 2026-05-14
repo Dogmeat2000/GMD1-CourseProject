@@ -100,17 +100,23 @@ namespace _01_Scripts.Turrets
             
             _motor.RotateJoints(_currentMovement.x * Time.deltaTime, _currentMovement.y * Time.deltaTime);
             
+            // Main Fire Mode:
             if (_isFireMainRequested) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
                     _motor.PullTrigger(TurretMotor.WeaponSlot.Main);
                 }
                 _isFireMainRequested = false;
+            } else if (!fireMainWeaponAction.action.IsPressed()) {
+                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Main);
             }
             
+            // Auxiliary Fire Mode:
             if (fireAuxWeaponAction.action.IsPressed()) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
                     _motor.PullTrigger(TurretMotor.WeaponSlot.Auxiliary);
                 }
+            } else {
+                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Auxiliary);
             }
         }
     }

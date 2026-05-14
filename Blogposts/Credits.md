@@ -86,6 +86,10 @@
     * *Source:* [https://freesound.org/people/jerry.berumen/sounds/769143/](https://freesound.org/people/jerry.berumen/sounds/769143/)
     * *License:* [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+* **[Sound Effect] SFX_WeaponOverheat** by Marregheriti
+    * *Source:* [https://freesound.org/people/Marregheriti/sounds/266102/](https://freesound.org/people/Marregheriti/sounds/266102/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**

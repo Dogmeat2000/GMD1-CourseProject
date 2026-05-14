@@ -42,7 +42,9 @@ namespace _01_Scripts.Core.VFX
                 vfxAudioSource.PlayOneShot(vfxSound);
             }
             
-            if (_monitorCoroutine != null) StopCoroutine(_monitorCoroutine);
+            if (_monitorCoroutine != null) 
+                StopCoroutine(_monitorCoroutine);
+            
             _monitorCoroutine = StartCoroutine(MonitorVfxRoutine());
         }
 

@@ -39,6 +39,11 @@ namespace _01_Scripts.Turrets
         [Tooltip("The sound file to play upon firing")]
         [SerializeField] 
         private AudioClip fireSound;
+        
+        [Header("Optionals")]
+        [Tooltip("Assign a TurretCapacitor to enable overheat mechanics.")]
+        [SerializeField] 
+        private TurretCapacitor energyCapacitor;
 
         private float _nextFireTime;
         private Collider[] _myColliders;
@@ -59,6 +64,9 @@ namespace _01_Scripts.Turrets
         /// Retrieves a projectile from the object pool and applies forward velocity.
         /// </summary>
         public void Fire() {
+            if (energyCapacitor && !energyCapacitor.CanFire())
+                return;
+            
             if (Time.time < _nextFireTime) 
                 return;
             
@@ -76,7 +84,10 @@ namespace _01_Scripts.Turrets
             if (projInstance is IProjectile munition) {
                 GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
                 munition.Fire(shooterIdentity, _myColliders);
-            } 
+                
+                if (energyCapacitor)
+                    energyCapacitor.ConsumeEnergy();
+            }
 
             if (weaponAudioSource && fireSound) {
                 weaponAudioSource.PlayOneShot(fireSound);
@@ -84,6 +95,15 @@ namespace _01_Scripts.Turrets
             
             if (barrelRecoil) {
                 barrelRecoil.TriggerRecoil();
+            }
+        }
+        
+        /// <summary>
+        /// Informs attached modules that the player has let go of the trigger.
+        /// </summary>
+        public void ReleaseTrigger() {
+            if (energyCapacitor) {
+                energyCapacitor.NotifyTriggerReleased();
             }
         }
     }

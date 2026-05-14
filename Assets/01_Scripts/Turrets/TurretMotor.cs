@@ -12,7 +12,7 @@ namespace _01_Scripts.Turrets
         [Header("Weapons Systems")]
         [Tooltip("The Main Weapon")]
         [SerializeField] private TurretWeapon mainWeapon;
-        [Tooltip("The Auxiliary Weapon")]
+        [Tooltip("The Auxiliary Weapon (Optional)")]
         [SerializeField] private TurretWeapon auxiliaryWeapon;
         
         [Header("Operational Constraints")]
@@ -79,6 +79,24 @@ namespace _01_Scripts.Turrets
                     
                     if (auxiliaryWeapon) 
                         auxiliaryWeapon.Fire();
+                    break;
+            }
+        }
+        
+        /// <summary>
+        /// Informs the weapon systems that the player has released the trigger.
+        /// </summary>
+        public void ReleaseTrigger(WeaponSlot slot = WeaponSlot.Main) {
+            switch (slot) {
+                case WeaponSlot.Main:
+                    if (mainWeapon) mainWeapon.ReleaseTrigger(); 
+                    break;
+                case WeaponSlot.Auxiliary:
+                    if (auxiliaryWeapon) auxiliaryWeapon.ReleaseTrigger(); 
+                    break;
+                case WeaponSlot.Both:
+                    if (mainWeapon) mainWeapon.ReleaseTrigger();
+                    if (auxiliaryWeapon) auxiliaryWeapon.ReleaseTrigger();
                     break;
             }
         }
