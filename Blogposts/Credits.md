@@ -96,6 +96,10 @@
     * *Source:* [https://freesound.org/people/Marregheriti/sounds/266102/](https://freesound.org/people/Marregheriti/sounds/266102/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
+* **[Sound Effect] SFX_DistantLightning** by roisin.gleeson
+    * *Source:* [https://freesound.org/people/roisin.gleeson/sounds/844680/](https://freesound.org/people/roisin.gleeson/sounds/844680/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**
