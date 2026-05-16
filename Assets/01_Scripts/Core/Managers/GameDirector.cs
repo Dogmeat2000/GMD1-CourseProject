@@ -15,13 +15,10 @@ namespace _01_Scripts.Core.Managers
     /// </summary>
     public class GameDirector : MonoBehaviour, IService
     { 
-        [Header("Players")]
-        [Tooltip("Assign the HealthManagers for all players in the game level")]
-        [SerializeField] private List<HealthManager> playerHealths = new();
-
+        private readonly List<HealthManager> _playerHealths = new();
         public event Action<MatchResult> OnMatchEnded;
 
-        private int _alivePlayers;
+        private int _alivePlayers = 0;
         private WaveDirector _waveDirector;
         private FleetDirector _fleetDirector;
         
@@ -34,8 +31,6 @@ namespace _01_Scripts.Core.Managers
         }
         
         private void Start() {
-            _alivePlayers = playerHealths.Count;
-            
             if (_waveDirector) {
                 _waveDirector.OnAllWavesCleared += HandleVictory;
             }
@@ -43,10 +38,19 @@ namespace _01_Scripts.Core.Managers
             if (_fleetDirector) {
                 _fleetDirector.OnFleetDestroyed += HandleDefeat;
             }
-
-            foreach (var player in playerHealths) {
-                if (player) player.OnZeroHealth += HandlePlayerDeath;
-            }
+        }
+        
+        /// <summary>
+        /// Exposes a registration endpoint so the FleetDeploymentManager 
+        /// can inject the correct players based on the chosen GameMode.
+        /// </summary>
+        public void RegisterPlayerTarget(HealthManager playerHealth) {
+            if (!playerHealth || _playerHealths.Contains(playerHealth)) 
+                return;
+                
+            _playerHealths.Add(playerHealth);
+            _alivePlayers++;
+            playerHealth.OnZeroHealth += HandlePlayerDeath;
         }
 
         private void OnDestroy() {
@@ -56,7 +60,7 @@ namespace _01_Scripts.Core.Managers
             if (_fleetDirector) 
                 _fleetDirector.OnFleetDestroyed -= HandleDefeat;
             
-            foreach (var player in playerHealths) {
+            foreach (var player in _playerHealths) {
                 if (player) 
                     player.OnZeroHealth -= HandlePlayerDeath;
             }

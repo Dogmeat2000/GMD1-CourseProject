@@ -52,12 +52,7 @@ namespace _01_Scripts.Turrets
         }
         
         void OnDisable() {
-            moveAction.action.Disable();
-            
-            fireMainWeaponAction.action.Disable();
             fireMainWeaponAction.action.performed -= ExecuteFireMainCommand;
-            
-            fireAuxWeaponAction.action.Disable();
         }
 
         private void ExecuteFireMainCommand(InputAction.CallbackContext context) {

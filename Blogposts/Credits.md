@@ -100,6 +100,12 @@
     * *Source:* [https://freesound.org/people/roisin.gleeson/sounds/844680/](https://freesound.org/people/roisin.gleeson/sounds/844680/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
+* **[Sound Effect] SFX_HugeExplosion** by modusmogulus
+    * *Source:* [https://freesound.org/people/modusmogulus/sounds/745138/](https://freesound.org/people/modusmogulus/sounds/745138//)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**

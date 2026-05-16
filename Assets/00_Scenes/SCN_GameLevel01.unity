@@ -830,6 +830,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 232
       objectReference: {fileID: 0}
+    - target: {fileID: 7134034129891793850, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 2130354625}
     - target: {fileID: 7623278862546561838, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1463,6 +1467,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 231
       objectReference: {fileID: 0}
+    - target: {fileID: 7134034129891793850, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1947174998}
     - target: {fileID: 7623278862546561838, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2551,6 +2559,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 232
       objectReference: {fileID: 0}
+    - target: {fileID: 7134034129891793850, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1896187898}
     - target: {fileID: 7623278862546561838, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2807,8 +2819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b58ba2cedebf04980ac476491b6e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Managers.GameDirector
-  playerHealths:
-  - {fileID: 2130354625}
 --- !u!1 &821433141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2971,6 +2981,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6660305263408960163, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
+      propertyPath: shipDestructionVfxPrefab
+      value: 
+      objectReference: {fileID: 4634605152851108312, guid: fde91aa2d8b9278459d46843afc3e2d3, type: 3}
     - target: {fileID: 8051343838971617575, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
       propertyPath: <DisplayName>k__BackingField
       value: CVN-02 Fury
@@ -3055,6 +3069,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6660305263408960163, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
+      propertyPath: shipDestructionVfxPrefab
+      value: 
+      objectReference: {fileID: 4634605152851108312, guid: fde91aa2d8b9278459d46843afc3e2d3, type: 3}
     - target: {fileID: 8051343838971617575, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
       propertyPath: <DisplayName>k__BackingField
       value: CVN-01 Holy Order
@@ -3639,6 +3657,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 503
       objectReference: {fileID: 0}
+    - target: {fileID: 7134034129891793850, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 2130354625}
     - target: {fileID: 7623278862546561838, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4155,6 +4177,10 @@ PrefabInstance:
       propertyPath: 'm_VertexStreams.Array.data[4]'
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6660305263408960163, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
+      propertyPath: shipDestructionVfxPrefab
+      value: 
+      objectReference: {fileID: 4634605152851108312, guid: fde91aa2d8b9278459d46843afc3e2d3, type: 3}
     - target: {fileID: 6804185704558179459, guid: c3ffc923f65ed934f959e654be13d625, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -5354,6 +5380,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -36
       objectReference: {fileID: 0}
+    - target: {fileID: 7134034129891793850, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 2130354625}
     - target: {fileID: 7623278862546561838, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6573,7 +6603,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -126.082016
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5487056601036009684, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
