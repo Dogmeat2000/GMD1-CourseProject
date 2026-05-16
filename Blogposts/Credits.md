@@ -101,10 +101,12 @@
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 * **[Sound Effect] SFX_HugeExplosion** by modusmogulus
-    * *Source:* [https://freesound.org/people/modusmogulus/sounds/745138/](https://freesound.org/people/modusmogulus/sounds/745138//)
+    * *Source:* [https://freesound.org/people/modusmogulus/sounds/745138/](https://freesound.org/people/modusmogulus/sounds/745138/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
-
+* **[Sound Effect] SFX_WarshipEngine** by jgrzinich
+    * *Source:* [https://freesound.org/people/jgrzinich/sounds/377629/](https://freesound.org/people/jgrzinich/sounds/377629/)
+    * *License:* [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
 ### Tools
 * **Unity** ([6000.3 LTS])
