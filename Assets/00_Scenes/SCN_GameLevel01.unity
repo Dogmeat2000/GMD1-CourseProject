@@ -3873,6 +3873,7 @@ Transform:
   - {fileID: 1720631730}
   - {fileID: 693472197}
   - {fileID: 686666863}
+  - {fileID: 2050247090}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1336927630 stripped
@@ -6657,6 +6658,11 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
+--- !u!4 &2050247090 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+  m_PrefabInstance: {fileID: 2138018352680507418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2080141809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8563765275016023014, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
@@ -6782,6 +6788,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9e9e38a44d6f354c93887f9263273a1, type: 3}
+--- !u!1001 &2138018352680507418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1334096204}
+    m_Modifications:
+    - target: {fileID: 98151850112175780, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_Name
+      value: VFX_AlienOrbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552296749740976797, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552296749740976797, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220467542657479406, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 633b1c5a3c689b048ad5af89fafc3036, type: 3}
 --- !u!1001 &4439852614601710009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6877,11 +6948,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.13725491
+      value: 0.039215688
       objectReference: {fileID: 0}
     - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.3921569
+      value: 0.39607847
       objectReference: {fileID: 0}
     - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
@@ -6889,6 +6960,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.39607847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0.39607847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119820624172724588, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 0.27058825
       objectReference: {fileID: 0}
     - target: {fileID: 2160305768722537566, guid: faae6c08b13ed76458b3c9cbf95e224d, type: 3}

@@ -31,6 +31,10 @@ namespace _01_Scripts.Turrets
         [SerializeField] 
         private TurretBarrelRecoil barrelRecoil;
         
+        [Tooltip("The VFX prefab spawned at the muzzle upon firing")]
+        [SerializeField] 
+        private GameObject muzzleFlashPrefab;
+        
         [Header("Acoustics")]
         [Tooltip("The speaker attached to the turret")]
         [SerializeField] 
@@ -78,6 +82,10 @@ namespace _01_Scripts.Turrets
             _nextFireTime = Time.time + fireRate;
             int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
+            
+            if (muzzleFlashPrefab) {
+                UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            }
             
             IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
             
