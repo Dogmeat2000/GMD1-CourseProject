@@ -30,6 +30,12 @@
 * **3D Models** by K. Dashnaw
     * *Note:* Developed using a combination of 3D Mesh generation tools (Trellis.2 & TripoAI) and Blender.
 
+* **Skybox** by Dogmeatic
+    * https://assetstore.unity.com/packages/2d/textures-materials/sky/free-skyboxes-sci-fi-fantasy-184932
+
+* **Crosshairs** by OccaSoftware
+    * https://assetstore.unity.com/packages/2d/gui/icons/crosshairs-216732
+
 * **Concept Art / Textures** by K. Dashnaw
     * *Note:* Developed using a combination of Image Generation Models (Flux2, Z_Turbo, Qwen-Image & Nano Banana) in conjunction with GIMP.
 
@@ -85,6 +91,22 @@
 * **[Sound Effect] SFX_LaserImpact** by jerry.berumen
     * *Source:* [https://freesound.org/people/jerry.berumen/sounds/769143/](https://freesound.org/people/jerry.berumen/sounds/769143/)
     * *License:* [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+* **[Sound Effect] SFX_WeaponOverheat** by Marregheriti
+    * *Source:* [https://freesound.org/people/Marregheriti/sounds/266102/](https://freesound.org/people/Marregheriti/sounds/266102/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_DistantLightning** by roisin.gleeson
+    * *Source:* [https://freesound.org/people/roisin.gleeson/sounds/844680/](https://freesound.org/people/roisin.gleeson/sounds/844680/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_HugeExplosion** by modusmogulus
+    * *Source:* [https://freesound.org/people/modusmogulus/sounds/745138/](https://freesound.org/people/modusmogulus/sounds/745138/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_WarshipEngine** by jgrzinich
+    * *Source:* [https://freesound.org/people/jgrzinich/sounds/377629/](https://freesound.org/people/jgrzinich/sounds/377629/)
+    * *License:* [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
 ### Tools
 * **Unity** ([6000.3 LTS])
