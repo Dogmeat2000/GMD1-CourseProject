@@ -14,6 +14,7 @@ namespace _01_Scripts.Core.Scoring
         public event Action<int> OnScoreChanged;
 
         public int CurrentScore => _currentScore;
+        public string DefaultPlayerName  => defaultPlayerName;
 
         public void AddScore(int points) {
             if (points <= 0) return;

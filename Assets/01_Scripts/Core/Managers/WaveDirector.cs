@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _01_Scripts.Core.Enemies;
+using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
@@ -11,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace _01_Scripts.Core.Managers
 {
-    public class WaveDirector : MonoBehaviour
+    public class WaveDirector : MonoBehaviour, IService
     {
         [Header("Setup")]
         [Tooltip("The player ship to use as the center of the forward spawn cone")]
@@ -175,9 +176,11 @@ namespace _01_Scripts.Core.Managers
         private void DeploySingleUnit(EnemyProfile profile, LevelSettings settings) {
             Vector3 spawnPoint = CalculateSpawnPosition(settings);
             Vector3 spawnDirection = (spawnPoint - playerShip.position).normalized;
+            int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
+            int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
             spawnDirection.y = 0;
 
-            var pooledObj = UniversalPoolService.Instance.Spawn(profile.Prefab, spawnPoint, Quaternion.LookRotation(spawnDirection));
+            var pooledObj = UniversalPoolService.Instance.Spawn(profile.Prefab, spawnPoint, Quaternion.LookRotation(spawnDirection), poolSize, maxPoolSize);
             
             _activeHostiles++;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
@@ -189,7 +192,7 @@ namespace _01_Scripts.Core.Managers
             if (breachVfxPrefab) {
                 Vector3 surfacePoint = spawnPoint;
                 surfacePoint.y = settings.OceanSurfaceY;
-                UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity);
+                UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity,poolSize , maxPoolSize);
             }
         }
         

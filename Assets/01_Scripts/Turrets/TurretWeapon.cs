@@ -1,7 +1,8 @@
+using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Scoring;
+using _01_Scripts.Core.Services;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace _01_Scripts.Turrets
 {
@@ -13,7 +14,7 @@ namespace _01_Scripts.Turrets
     {
         [Header("Hardware Settings")]
         [SerializeField] 
-        private TurretProjectile projectilePrefab;
+        private GameObject projectilePrefab;
         
         [SerializeField] 
         private Transform muzzleExit;
@@ -24,18 +25,15 @@ namespace _01_Scripts.Turrets
         [Tooltip("The scoring manager that assigned to this player")]
         [SerializeField] 
         private PlayerScore ownerScore;
-    
-        [Header("Magazine (Pool) Settings")]
-        [SerializeField] 
-        private int defaultCapacity = 40;
         
-        [SerializeField] 
-        private int maxSize = 150;
-    
         [Header("Visuals")] 
-        [Tooltip("The procedural recoil script attached to the visual barrel mesh")]
+        [Tooltip("The recoil script attached to the visual barrel mesh")]
         [SerializeField] 
         private TurretBarrelRecoil barrelRecoil;
+        
+        [Tooltip("The VFX prefab spawned at the muzzle upon firing")]
+        [SerializeField] 
+        private GameObject muzzleFlashPrefab;
         
         [Header("Acoustics")]
         [Tooltip("The speaker attached to the turret")]
@@ -45,21 +43,18 @@ namespace _01_Scripts.Turrets
         [Tooltip("The sound file to play upon firing")]
         [SerializeField] 
         private AudioClip fireSound;
+        
+        [Header("Optionals")]
+        [Tooltip("Assign a TurretCapacitor to enable overheat mechanics.")]
+        [SerializeField] 
+        private TurretCapacitor energyCapacitor;
 
-        private IObjectPool<TurretProjectile> _projectilePool;
         private float _nextFireTime;
         private Collider[] _myColliders;
+        private LevelManager _levelManager;
 
         private void Awake() {
-            _projectilePool = new ObjectPool<TurretProjectile>(
-                createFunc: CreateProjectile,
-                actionOnGet: OnTakeFromPool,
-                actionOnRelease: OnReturnedToPool,
-                actionOnDestroy: OnDestroyPoolObject,
-                collectionCheck: true,
-                defaultCapacity: defaultCapacity,
-                maxSize: maxSize
-            );
+            _levelManager = ServiceLocator.Get<LevelManager>();
             
             if (weaponAudioSource && GlobalManager.Instance) {
                 weaponAudioSource.outputAudioMixerGroup = GlobalManager.Instance.GlobalSettings.SfxMixerGroup;
@@ -68,43 +63,55 @@ namespace _01_Scripts.Turrets
             GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
             _myColliders = shooterIdentity.GetComponentsInChildren<Collider>();
         }
-        
-        private TurretProjectile CreateProjectile() {
-            TurretProjectile projectile = Instantiate(projectilePrefab);
-            projectile.SetPool(_projectilePool);
-            return projectile;
-        }
 
-        private void OnTakeFromPool(TurretProjectile projectile) {
-            projectile.transform.position = muzzleExit.position;
-            projectile.transform.rotation = muzzleExit.rotation;
-            projectile.gameObject.SetActive(true);
-        }
-
-        private void OnReturnedToPool(TurretProjectile projectile) {
-            projectile.gameObject.SetActive(false);
-        }
-
-        private void OnDestroyPoolObject(TurretProjectile projectile) {
-            Destroy(projectile.gameObject);
-        }
-
+        /// <summary>
+        /// Retrieves a projectile from the object pool and applies forward velocity.
+        /// </summary>
         public void Fire() {
-            if (!(Time.time >= _nextFireTime)) 
+            if (energyCapacitor && !energyCapacitor.CanFire())
                 return;
             
+            if (Time.time < _nextFireTime) 
+                return;
+            
+            if (!UniversalPoolService.Instance) {
+                Debug.LogError("UniversalPoolService.Instance is not available!");
+                return;
+            }
+            
             _nextFireTime = Time.time + fireRate;
-            TurretProjectile projectile = _projectilePool.Get(); 
+            int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
+            int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
             
-            GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
-            projectile.SetShooter(shooterIdentity, _myColliders);
+            if (muzzleFlashPrefab) {
+                UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            }
             
+            IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            
+            if (projInstance is IProjectile munition) {
+                GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
+                munition.Fire(shooterIdentity, _myColliders);
+                
+                if (energyCapacitor)
+                    energyCapacitor.ConsumeEnergy();
+            }
+
             if (weaponAudioSource && fireSound) {
                 weaponAudioSource.PlayOneShot(fireSound);
             }
             
             if (barrelRecoil) {
                 barrelRecoil.TriggerRecoil();
+            }
+        }
+        
+        /// <summary>
+        /// Informs attached modules that the player has let go of the trigger.
+        /// </summary>
+        public void ReleaseTrigger() {
+            if (energyCapacitor) {
+                energyCapacitor.NotifyTriggerReleased();
             }
         }
     }

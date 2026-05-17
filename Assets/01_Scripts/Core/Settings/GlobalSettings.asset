@@ -19,3 +19,4 @@ MonoBehaviour:
   <DefaultButtonSelectSound>k__BackingField: {fileID: 0}
   <DefaultButtonHighlightScale>k__BackingField: 1.1
   <DefaultButtonTransitionSpeed>k__BackingField: 15
+  <ActiveGameMode>k__BackingField: 2

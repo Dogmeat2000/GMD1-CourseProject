@@ -9,7 +9,8 @@ namespace _01_Scripts.Turrets
     {
         [Header("Input Action Assets")]
         [SerializeField] private InputActionReference moveAction;
-        [SerializeField] private InputActionReference fireAction;
+        [SerializeField] private InputActionReference fireMainWeaponAction;
+        [SerializeField] private InputActionReference fireAuxWeaponAction;
 
         [Header("Mouse Sensitivity Settings")]
         [SerializeField] private float mouseSens = 10f;
@@ -32,7 +33,7 @@ namespace _01_Scripts.Turrets
         [SerializeField] private float frictionMultiplier = 0.4f;
 
         private TurretMotor _motor;
-        private bool _isFireRequested = false;
+        private bool _isFireMainRequested = false;
         private bool _isReticleOnTarget = false;
         private bool _wasLastInputMouse = false;
         private float _currentHoldTime = 0f;
@@ -43,18 +44,19 @@ namespace _01_Scripts.Turrets
 
         void OnEnable() {
             moveAction.action.Enable();
-            fireAction.action.Enable();
-            fireAction.action.performed += ExecuteFireCommand;
+            
+            fireMainWeaponAction.action.Enable();
+            fireMainWeaponAction.action.performed += ExecuteFireMainCommand;
+            
+            fireAuxWeaponAction.action.Enable();
         }
         
         void OnDisable() {
-            moveAction.action.Disable();
-            fireAction.action.Disable();
-            fireAction.action.performed -= ExecuteFireCommand;
+            fireMainWeaponAction.action.performed -= ExecuteFireMainCommand;
         }
 
-        private void ExecuteFireCommand(InputAction.CallbackContext context) {
-            _isFireRequested = true;
+        private void ExecuteFireMainCommand(InputAction.CallbackContext context) {
+            _isFireMainRequested = true;
         }
         
         public void SetTargetFriction(bool onTarget) {
@@ -93,11 +95,23 @@ namespace _01_Scripts.Turrets
             
             _motor.RotateJoints(_currentMovement.x * Time.deltaTime, _currentMovement.y * Time.deltaTime);
             
-            if (_isFireRequested) {
+            // Main Fire Mode:
+            if (_isFireMainRequested) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
-                    _motor.PullTrigger();
+                    _motor.PullTrigger(TurretMotor.WeaponSlot.Main);
                 }
-                _isFireRequested = false;
+                _isFireMainRequested = false;
+            } else if (!fireMainWeaponAction.action.IsPressed()) {
+                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Main);
+            }
+            
+            // Auxiliary Fire Mode:
+            if (fireAuxWeaponAction.action.IsPressed()) {
+                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
+                    _motor.PullTrigger(TurretMotor.WeaponSlot.Auxiliary);
+                }
+            } else {
+                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Auxiliary);
             }
         }
     }

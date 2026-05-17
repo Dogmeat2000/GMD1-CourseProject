@@ -1,4 +1,5 @@
 using System;
+using _01_Scripts.Core.Interfaces;
 using UnityEngine;
 
 namespace _01_Scripts.Core.Services
@@ -17,7 +18,7 @@ namespace _01_Scripts.Core.Services
     /// <summary>
     /// Centralized authority for game state and time manipulation.
     /// </summary>
-    public class GameStateService
+    public class GameStateService : IService
     {
         public GameState CurrentState { get; private set; }
         public event Action<GameState> OnStateChanged;

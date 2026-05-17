@@ -1,9 +1,10 @@
+using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Settings;
 using UnityEngine;
 
 namespace _01_Scripts.Core.Managers
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour, IService
     {
         [Header("Level Configuration")]
         [Tooltip("Slot the active LevelSettings ScriptableObject here")]

@@ -15,7 +15,7 @@ namespace _01_Scripts.Core.Targeting
 
         public Transform TargetTransform => transform;
         
-        public bool IsTargetable => gameObject.activeInHierarchy;
+        public bool IsTargetable => isActiveAndEnabled;
         private BattlefieldRadar _battlefieldRadar;
 
         private void OnEnable() {

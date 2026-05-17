@@ -399,7 +399,7 @@ MonoBehaviour:
   defaultRespawnState: Idle
   deathTriggerName: Die
   knockbackForce: 30
-  baseCollisionDamage: 25
+  baseCollisionDamage: 100
   warhead: {fileID: 3182308281185901545}
 --- !u!114 &3086181098216495819
 MonoBehaviour:
@@ -481,7 +481,7 @@ AudioSource:
   m_GameObject: {fileID: 7235597898165779499}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 396246894466676119, guid: e50b63a63841960459f756573e4699fa, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3915814bae3eded42b37b77d48205cbc, type: 3}
   m_PlayOnAwake: 1

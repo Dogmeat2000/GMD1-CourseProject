@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.6, z: 1.2}
+  m_LocalScale: {x: 0.15, y: 0.45, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8402172112652589804}
@@ -93,11 +93,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 20
   m_Height: 6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -1.5}
@@ -113,25 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15207c5f2f2941d4a9008b6af34fd157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Combat.ImpactWarhead
-  explosionVfxPrefab: {fileID: 0}
+  explosionVfxPrefab: {fileID: 1044451190403640476, guid: 2516b9fc953501e49ba3682d5af5c641, type: 3}
   validTargetLayers:
     serializedVersion: 2
-    m_Bits: 1297
+    m_Bits: 273
   onDetonate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8520524713047180061}
-        m_TargetAssemblyTypeName: _01_Scripts.Turrets.TurretProjectile, Assembly-CSharp
-        m_MethodName: DespawnRoutine
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8402172112652879564
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +136,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &8402172112652589804
 Transform:
@@ -159,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 8402172112652879564}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -198,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 33881ee08a54a554eab4ce4a0f78dcc3, type: 2}
+  - {fileID: 2100000, guid: 81214e4d4c9651042b9a0c7bdbeb4739, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

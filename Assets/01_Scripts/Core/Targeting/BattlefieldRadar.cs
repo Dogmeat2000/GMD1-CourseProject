@@ -5,7 +5,7 @@ using _01_Scripts.Core.Targeting.Strategies;
 
 namespace _01_Scripts.Core.Targeting
 {
-    public class BattlefieldRadar : MonoBehaviour
+    public class BattlefieldRadar : MonoBehaviour, IService
     {
         private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new Dictionary<Faction, List<ITargetable>> {
             { Faction.Friendly, new List<ITargetable>() },

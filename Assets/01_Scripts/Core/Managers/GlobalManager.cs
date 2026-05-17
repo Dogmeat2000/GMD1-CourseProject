@@ -14,7 +14,7 @@ namespace _01_Scripts.Core.Managers
         
         [Tooltip("The persistent speaker for UI sounds that must survive scene loads")]
         [SerializeField] private AudioSource persistentUIAudioSource;
-
+        
         public GlobalSettings GlobalSettings => globalSettings;
 
         private void Awake() {

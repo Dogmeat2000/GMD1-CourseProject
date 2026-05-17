@@ -1,12 +1,12 @@
 using System.Collections;
 using _01_Scripts.Core.Managers;
+using _01_Scripts.Core.Services;
 using UnityEngine;
-using UnityEngine.Audio;
 
-namespace _01_Scripts.Core.UI
+namespace _01_Scripts.Core.Audio
 {
     /// <summary>
-    /// Manages the sequential playback of deployment voiceovers and randomized combat music.
+    /// Manages the sequential playback of deployment voiceover and randomized combat music.
     /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public class CombatAudioController : MonoBehaviour
@@ -28,8 +28,14 @@ namespace _01_Scripts.Core.UI
         [Tooltip("Time [s] to wait between the intro and music, or between consecutive music tracks.")] 
         [SerializeField]
         private float delayBetweenTracks = 1.5f;
+        
+        [Tooltip("How long [s] it takes to fade the music out upon Game Over.")]
+        [SerializeField] 
+        private float fadeOutDuration = 2.0f;
 
         private AudioSource _audioSource;
+        private GameStateService _gameState;
+        private Coroutine _sequenceRoutine;
 
         private void Awake() {
             _audioSource = GetComponent<AudioSource>();
@@ -41,10 +47,49 @@ namespace _01_Scripts.Core.UI
             } else {
                 Debug.LogWarning("GlobalSettings is missing the MusicMixerGroup! Ducking will fail.");
             }
+            
+            _gameState = ServiceLocator.Get<GameStateService>();
         }
 
         private void Start() {
-            StartCoroutine(AudioSequenceRoutine());
+            _sequenceRoutine = StartCoroutine(AudioSequenceRoutine());
+        }
+        
+        private void OnEnable() {
+            if (_gameState != null) {
+                _gameState.OnStateChanged += HandleStateChanged;
+            }
+        }
+
+        private void OnDisable() {
+            if (_gameState != null) {
+                _gameState.OnStateChanged -= HandleStateChanged;
+            }
+        }
+        
+        private void HandleStateChanged(GameState state) {
+            if (state != GameState.GameOver) 
+                return;
+            
+            if (_sequenceRoutine != null) {
+                StopCoroutine(_sequenceRoutine);
+            }
+            
+            StartCoroutine(FadeOutRoutine());
+        }
+        
+        private IEnumerator FadeOutRoutine() {
+            float startVolume = _audioSource.volume;
+            float timeElapsed = 0f;
+            
+            while (timeElapsed < fadeOutDuration) {
+                timeElapsed += Time.unscaledDeltaTime;
+                _audioSource.volume = Mathf.Lerp(startVolume, 0f, timeElapsed / fadeOutDuration);
+                yield return null;
+            }
+
+            _audioSource.volume = 0f;
+            _audioSource.Stop();
         }
 
         private IEnumerator AudioSequenceRoutine() {

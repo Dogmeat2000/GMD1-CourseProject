@@ -42,6 +42,28 @@ namespace _01_Scripts.Core.UI
             }
             UpdateDisplay();
         }
+        
+        /// <summary>
+        /// Pre-fills the input array with a starting string, converting to uppercase 
+        /// and filtering out any characters not present in the allowed character set.
+        /// </summary>
+        public void SetStartingName(string defaultName) {
+            if (string.IsNullOrEmpty(defaultName)) 
+                return;
+            
+            string upperName = defaultName.ToUpper();
+            char padChar = characterSet.IndexOf('-') >= 0 ? ' ' : characterSet[0];
+
+            for (int i = 0; i < maxCharacters; i++) {
+                if (i < upperName.Length) {
+                    char c = upperName[i];
+                    _nameChars[i] = characterSet.IndexOf(c) >= 0 ? c : padChar;
+                } else {
+                    _nameChars[i] = padChar;
+                }
+            }
+            UpdateDisplay();
+        }
 
         public override void OnSelect(BaseEventData eventData) {
             base.OnSelect(eventData);

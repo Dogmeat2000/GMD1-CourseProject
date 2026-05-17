@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Utilities;
 
 namespace _01_Scripts.Core.Combat
@@ -12,7 +14,7 @@ namespace _01_Scripts.Core.Combat
     [RequireComponent(typeof(Collider))]
     public class ImpactWarhead : MonoBehaviour
     {
-        [Header("Ordnance Configuration")]
+        [Header("Configuration")]
         [Tooltip("The composite VFX prefab to spawn upon detonation.")]
         [SerializeField] 
         private GameObject explosionVfxPrefab;
@@ -33,6 +35,20 @@ namespace _01_Scripts.Core.Combat
             _hasDetonated = false;
         }
 
+        private void OnTriggerEnter(Collider other) {
+            if (_hasDetonated) 
+                return;
+            
+            if (!validTargetLayers.Contains(other.gameObject.layer))
+                return; 
+            
+            IDamageable targetHealth = other.GetComponentInParent<IDamageable>();
+            
+            if (targetHealth != null) {
+                Detonate(targetHealth);
+            }
+        }
+        
         private void OnCollisionEnter(Collision collision) {
             if (_hasDetonated) 
                 return;
@@ -48,12 +64,21 @@ namespace _01_Scripts.Core.Combat
         }
 
         private void Detonate(IDamageable target) {
+            LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
+            
             _hasDetonated = true;
             target.TakeDamage(PayloadDamage, Instigator ? Instigator : gameObject);
             if (explosionVfxPrefab) {
-                UniversalPoolService.Instance.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity);
+                UniversalPoolService.Instance.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity, settings.DefaultObjectPoolSize , settings.MaxDefaultObjectPoolSize);
             }
+            
             onDetonate?.Invoke();
+            
+            if (TryGetComponent(out IProjectile projectile)) {
+                projectile.ReturnToPool();
+            } else if (!TryGetComponent(out IPoolable pooledEntity)) {
+                Destroy(gameObject);
+            }
         }
     }
 }

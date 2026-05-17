@@ -8,38 +8,31 @@ namespace _01_Scripts.Core.UI.HUD
     {
         [Header("Telemetry Link")]
         [Tooltip("The HealthManager of the player's ship")]
-        [SerializeField] 
-        private HealthManager playerHealth;
+        [SerializeField] private HealthManager playerHealth;
 
         [Header("Readout Displays")]
         [Tooltip("Text element for percentage health (e.g., '100%')")]
-        [SerializeField] 
-        private TextMeshProUGUI healthText;
+        [SerializeField] private TextMeshProUGUI healthText;
         
-        [SerializeField] 
-        private Color healthyColor = Color.cyan;
+        [SerializeField] private Color healthyColor = Color.cyan;
         
-        [SerializeField] 
-        private Color warningColor = Color.yellow;
+        [SerializeField] private Color warningColor = Color.yellow;
         
-        [SerializeField] 
-        private Color criticalColor = Color.red;
+        [SerializeField] private Color criticalColor = Color.red;
         
-        [Tooltip("Percentage (0.0 to 1.0) when the bar turns Yellow")]
+        [Tooltip("Percentage (0.0 to 1.0) when the bar turns warningColor")]
         [Range(0f, 1f)]
         [SerializeField] private float warningThreshold = 0.5f;
         
-        [Tooltip("Percentage (0.0 to 1.0) when the bar turns Red")]
+        [Tooltip("Percentage (0.0 to 1.0) when the bar turns criticalColor")]
         [Range(0f, 1f)]
         [SerializeField] private float criticalThreshold = 0.25f;
         
         [Tooltip("Optional: A UI Image or Slider to visually represent hull integrity")]
-        [SerializeField] 
-        private Slider healthSlider;
+        [SerializeField] private Slider healthSlider;
         
         [Tooltip("The Fill component of the slider, required for color shifting")]
-        [SerializeField] 
-        private Image sliderFillImage;
+        [SerializeField] private Image sliderFillImage;
 
         private void OnEnable() {
             if (!playerHealth) 

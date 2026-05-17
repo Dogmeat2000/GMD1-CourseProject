@@ -22,6 +22,10 @@ namespace _01_Scripts.Core.UI
         [SerializeField] private Slider progressBar;
 
         private void Start() {
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
             if (loadingScreenPanel) {
                 loadingScreenPanel.SetActive(false);
             }
@@ -40,10 +44,6 @@ namespace _01_Scripts.Core.UI
             Cursor.visible = false;
             
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-            // Prevent the scene from activating instantly if I want to hold players on the loading screen
-            // TODO: REVISIT THIS PART LATER! COULD BE GOOD WITH MULTIPLAYER SUPPORT!
-            // operation.allowSceneActivation = false; // (Uncomment later if I want a "Press A to Start" prompt)
             
             while (operation is { isDone: false }) {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);

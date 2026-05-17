@@ -36,5 +36,9 @@ namespace _01_Scripts.Core.Settings
         [Tooltip("The universal speed at which buttons animate")]
         [field: SerializeField] 
         public float DefaultButtonTransitionSpeed { get; private set; } = 15f;
+        
+        [Header("Other Settings")]
+        [field: SerializeField, Tooltip("Active Game Mode")]
+        public GameMode ActiveGameMode { get; set; } = GameMode.SinglePlayer;
     }
 }

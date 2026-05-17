@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using _01_Scripts.Core.Interfaces;
 using UnityEngine;
 
 namespace _01_Scripts.Core.Managers
 {
-    public class FleetDirector : MonoBehaviour
+    public class FleetDirector : MonoBehaviour, IService
     { 
         [Header("Fleet Roster")]
         [Tooltip("Drag and drop the HealthManagers of all pre-placed allied ships into this list.")]

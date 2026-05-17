@@ -22,11 +22,11 @@ namespace _01_Scripts.Core.Services
         /// <summary>
         /// Requests an object from the pool associated with the given prefab.
         /// </summary>
-        public IPoolable Spawn(GameObject prefab, Vector3 position, Quaternion rotation) {
+        public IPoolable Spawn(GameObject prefab, Vector3 position, Quaternion rotation, int poolCapacity, int maxCapacity) {
             int prefabId = prefab.GetInstanceID();
             
             if (!_pools.ContainsKey(prefabId)) {
-                _pools[prefabId] = CreateNewPool(prefab);
+                _pools[prefabId] = CreateNewPool(prefab, poolCapacity, maxCapacity);
             }
 
             IPoolable pooledObj = _pools[prefabId].Get();
@@ -35,7 +35,7 @@ namespace _01_Scripts.Core.Services
             return pooledObj;
         }
 
-        private IObjectPool<IPoolable> CreateNewPool(GameObject prefab) {
+        private IObjectPool<IPoolable> CreateNewPool(GameObject prefab, int poolCapacity, int maxCapacity) {
             return new ObjectPool<IPoolable>(
                 createFunc: () => {
                     GameObject instance = Instantiate(prefab, transform);
@@ -54,8 +54,8 @@ namespace _01_Scripts.Core.Services
                 },
                 actionOnDestroy: (obj) => Destroy(obj.gameObject),
                 collectionCheck: false,
-                defaultCapacity: 30,
-                maxSize: 500
+                defaultCapacity: poolCapacity,
+                maxSize: maxCapacity
             );
         }
     }
