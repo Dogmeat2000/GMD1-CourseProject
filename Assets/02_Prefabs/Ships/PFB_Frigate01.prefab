@@ -1085,7 +1085,7 @@ MonoBehaviour:
   lightSmokeVfx: {fileID: 9067253600270034524}
   heavySmokeVfx: {fileID: 6226179409261100142}
   fireVfx: {fileID: 2851471142793401562}
-  shipDestructionVfxPrefab: {fileID: 0}
+  shipDestructionVfxPrefab: {fileID: 4634605152851108312, guid: fde91aa2d8b9278459d46843afc3e2d3, type: 3}
 --- !u!114 &8051343838971617575
 MonoBehaviour:
   m_ObjectHideFlags: 0
