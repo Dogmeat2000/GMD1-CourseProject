@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-namespace _01_Scripts.Turrets
+namespace _01_Scripts.Turrets.Player
 {
     [RequireComponent(typeof(TurretMotor))]
     public class TurretPlayerInput : MonoBehaviour

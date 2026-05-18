@@ -1,6 +1,7 @@
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Utilities;
+using _01_Scripts.Turrets.Player;
 using UnityEngine;
 
 namespace _01_Scripts.Turrets

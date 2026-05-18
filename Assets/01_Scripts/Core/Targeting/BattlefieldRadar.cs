@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
 using _01_Scripts.Core.Targeting.Strategies;
@@ -12,6 +13,13 @@ namespace _01_Scripts.Core.Targeting
             { Faction.Hostile, new List<ITargetable>() },
             { Faction.Neutral, new List<ITargetable>() }
         };
+
+        /// <summary>
+        /// Returns all active targets that belong to the specified faction.
+        /// </summary>
+        public List<ITargetable> GetRadarTargets(Faction faction) {
+            return _radarBlips.TryGetValue(faction, out var blips) ? blips : new List<ITargetable>();
+        }
 
         public void RegisterTarget(ITargetable target) {
             if (!_radarBlips[target.Faction].Contains(target)) {
