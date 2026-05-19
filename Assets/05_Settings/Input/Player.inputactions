@@ -64,7 +64,7 @@
                     "name": "RightTrigger",
                     "type": "Button",
                     "id": "9ddf46ee-17b0-447c-86cf-92214cd73ac5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -74,6 +74,15 @@
                     "type": "Button",
                     "id": "8c0089ad-a813-4175-8bb7-0d083649c008",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiddleTrigger",
+                    "type": "Button",
+                    "id": "6eb8a7d5-d335-44a6-9c11-ef572c17e1f5",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -170,8 +179,30 @@
                 },
                 {
                     "name": "",
+                    "id": "6db2fbe7-c894-45a7-9258-7d4248a6e297",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ab8e6945-de51-4779-98c9-3a60d75cd835",
                     "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53bbfd0b-8413-4879-9096-70f90ec7f1a6",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -198,6 +229,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "282eb558-8e4d-4d50-9a3b-a08e145fda22",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MiddleTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

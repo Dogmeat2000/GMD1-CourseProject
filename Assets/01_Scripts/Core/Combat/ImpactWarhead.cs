@@ -12,23 +12,13 @@ namespace _01_Scripts.Core.Combat
     /// Handles the logic and acoustic/visual feedback related to warheads and explosives.
     /// </summary>
     [RequireComponent(typeof(Collider))]
-    public class ImpactWarhead : MonoBehaviour
+    public class ImpactWarhead : Warhead
     {
         [Header("Configuration")]
-        [Tooltip("The composite VFX prefab to spawn upon detonation.")]
-        [SerializeField] 
-        private GameObject explosionVfxPrefab;
-        
-        [Tooltip("Which layers trigger the detonation? (e.g., PlayerShip, Structures)")]
-        [SerializeField] 
-        private LayerMask validTargetLayers;
-        
         [Tooltip("Event triggered upon detonation.")]
         [SerializeField] 
         private UnityEvent onDetonate;
         
-        public GameObject Instigator { get; set; }
-        public int PayloadDamage { get; set; }
         private bool _hasDetonated;
 
         private void OnEnable() {
@@ -67,7 +57,7 @@ namespace _01_Scripts.Core.Combat
             LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
             
             _hasDetonated = true;
-            target.TakeDamage(PayloadDamage, Instigator ? Instigator : gameObject);
+            target.TakeDamage(ImpactAmount, Instigator ? Instigator : gameObject);
             if (explosionVfxPrefab) {
                 UniversalPoolService.Instance.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity, settings.DefaultObjectPoolSize , settings.MaxDefaultObjectPoolSize);
             }

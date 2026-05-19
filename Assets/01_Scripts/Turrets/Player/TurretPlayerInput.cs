@@ -11,6 +11,7 @@ namespace _01_Scripts.Turrets.Player
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference fireMainWeaponAction;
         [SerializeField] private InputActionReference fireAuxWeaponAction;
+        [SerializeField] private InputActionReference fireSpecialWeapon1Action;
 
         [Header("Mouse Sensitivity Settings")]
         [SerializeField] private float mouseSens = 10f;
@@ -34,6 +35,7 @@ namespace _01_Scripts.Turrets.Player
 
         private TurretMotor _motor;
         private bool _isFireMainRequested = false;
+        private bool _isFireSpecialWeapon1Requested = false;
         private bool _isReticleOnTarget = false;
         private bool _wasLastInputMouse = false;
         private float _currentHoldTime = 0f;
@@ -48,15 +50,23 @@ namespace _01_Scripts.Turrets.Player
             fireMainWeaponAction.action.Enable();
             fireMainWeaponAction.action.performed += ExecuteFireMainCommand;
             
+            fireSpecialWeapon1Action.action.Enable();
+            fireSpecialWeapon1Action.action.performed += ExecuteFireSpecial1Command;
+            
             fireAuxWeaponAction.action.Enable();
         }
         
         void OnDisable() {
             fireMainWeaponAction.action.performed -= ExecuteFireMainCommand;
+            fireSpecialWeapon1Action.action.performed -= ExecuteFireSpecial1Command;
         }
 
         private void ExecuteFireMainCommand(InputAction.CallbackContext context) {
             _isFireMainRequested = true;
+        }
+
+        private void ExecuteFireSpecial1Command(InputAction.CallbackContext context) {
+            _isFireSpecialWeapon1Requested = true;
         }
         
         public void SetTargetFriction(bool onTarget) {
@@ -112,6 +122,16 @@ namespace _01_Scripts.Turrets.Player
                 }
             } else {
                 _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Auxiliary);
+            }
+            
+            // Special Weapons 1 Fire Mode:
+            if (_isFireSpecialWeapon1Requested) {
+                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
+                    _motor.PullTrigger(TurretMotor.WeaponSlot.Special1);
+                }
+                _isFireSpecialWeapon1Requested = false;
+            } else {
+                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Special1);
             }
         }
     }
