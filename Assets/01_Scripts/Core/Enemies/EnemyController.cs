@@ -38,6 +38,10 @@ namespace _01_Scripts.Core.Enemies
         [SerializeField] 
         private string deathTriggerName = "Die";
         
+        [Tooltip("List of any Animator Triggers (i.e. 'Hit' or 'Shoot') that must be aborted when this unit dies.")]
+        [SerializeField] 
+        private string[] interruptTriggersToPurge = { "Hit", "Shoot" };
+        
         [Header("Combat Physics")]
         [Tooltip("How much physical force is applied when hit")]
         [SerializeField] 
@@ -47,7 +51,7 @@ namespace _01_Scripts.Core.Enemies
         [SerializeField] 
         private int baseCollisionDamage = 25;
         
-        [Tooltip("The warhead component responsible for delivering the damage payload upon impact.")]
+        [Tooltip("OPTIONAL: The warhead component responsible for delivering the damage payload upon impact.")]
         [SerializeField] 
         private ImpactWarhead warhead;
         
@@ -55,6 +59,8 @@ namespace _01_Scripts.Core.Enemies
         private Action<IPoolable> _returnToPoolCommand;
         private Collider _collider;
         private int _deathTriggerHash;
+        private int[] _interruptHashes;
+        
         private LevelManager _levelManager;
         
         private HealthManager _healthManager;
@@ -89,6 +95,11 @@ namespace _01_Scripts.Core.Enemies
                     LocalPos = child.localPosition,
                     LocalRot = child.localRotation
                 });
+            }
+            
+            _interruptHashes = new int[interruptTriggersToPurge.Length];
+            for (int i = 0; i < interruptTriggersToPurge.Length; i++) {
+                _interruptHashes[i] = Animator.StringToHash(interruptTriggersToPurge[i]);
             }
         }
 
@@ -147,8 +158,13 @@ namespace _01_Scripts.Core.Enemies
         }
 
         private void HandleDeath(HealthManager source, GameObject killer) {
-            if (_animator) 
+            if (_animator) {
+                foreach (int hash in _interruptHashes) {
+                    _animator.ResetTrigger(hash);
+                }
+                
                 _animator.SetTrigger(_deathTriggerHash); 
+            }
             
             if (killer && killer.TryGetComponent<PlayerScore>(out var scoreComponent)) {
                 scoreComponent.AddScore(pointValue);

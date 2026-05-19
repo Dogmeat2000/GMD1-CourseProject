@@ -295,7 +295,7 @@ MonoBehaviour:
   activeCampaign: {fileID: 11400000, guid: 694d163ac3544cc42814b449aa668644, type: 2}
   firstWaveDelay: 10
   otherWaveDelay: 4
-  startMessage: PROTECT THE FLEET.
+  startMessage: PROTECT THE FLEET!
   clearMessage: ALL WAVES CLEARED!
 --- !u!114 &62465515 stripped
 MonoBehaviour:
@@ -2381,7 +2381,7 @@ Transform:
   m_GameObject: {fileID: 698667773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 63.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3394,7 +3394,8 @@ MonoBehaviour:
   - {fileID: 1399887240}
   - {fileID: 1085034558}
   - {fileID: 997544238}
-  aiAuxTurretPrefab: {fileID: 0}
+  - {fileID: 977952478}
+  aiAuxTurretPrefab: {fileID: 4603390296245251776, guid: 2e5792a350403e045900cfe0b7cf4f5a, type: 3}
 --- !u!4 &915562909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8472686326751129743, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
@@ -3502,12 +3503,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -3668559609006594649, guid: ac12fa869ecd3b14b9310e5d1641a271, type: 3}
   m_PrefabInstance: {fileID: 977952475}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 977952478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adf3959aa94241446b97c810cbc49350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.HealthManager
+--- !u!1 &977952478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7845801814620558038, guid: ac12fa869ecd3b14b9310e5d1641a271, type: 3}
+  m_PrefabInstance: {fileID: 977952475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &997544237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5591,6 +5597,7 @@ MonoBehaviour:
   alliedFleet:
   - {fileID: 1947174998}
   - {fileID: 1896187898}
+  - {fileID: 977952477}
 --- !u!1 &1796945451
 GameObject:
   m_ObjectHideFlags: 0
@@ -7035,6 +7042,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5913549018126160671, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6195032676860568490, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7353,7 +7364,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5487056601036009684, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5913549018126160671, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}

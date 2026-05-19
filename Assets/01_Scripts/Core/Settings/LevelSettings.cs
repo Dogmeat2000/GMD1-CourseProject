@@ -47,21 +47,14 @@ namespace _01_Scripts.Core.Settings
         [field: SerializeField] 
         public float KamikazeBreachHeightMax { get; private set; } = 150f;
         
-        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [Header("Enemy Specifics: BioSwarmer Drone")]
+        [Tooltip("Minimum altitude [m] the drone ascends to after breaching")]
         [field: SerializeField] 
-        public int PayloadDamageEasy { get; private set; } = 10;
+        public float BioSwarmerBreachHeightMin { get; private set; } = 75;
         
-        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
+        [Tooltip("Maximum altitude [m] the drone ascends to after breaching")]
         [field: SerializeField] 
-        public int PayloadDamageNormal { get; private set; } = 25;
-        
-        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
-        [field: SerializeField] 
-        public int PayloadDamageHard { get; private set; } = 50;
-                
-        [Tooltip("Damage inflicted upon hitting the player ship, based on difficulty.")]
-        [field: SerializeField] 
-        public int PayloadDamageNightmare { get; private set; } = 75;
+        public float BioSwarmerBreachHeightMax { get; private set; } = 200;
 
         [Header("Difficulty Multipliers")]
         [Tooltip("Budget multiplier for Easy difficulty")]
@@ -111,7 +104,14 @@ namespace _01_Scripts.Core.Settings
         [field: SerializeField]
         public int MaxDefaultObjectPoolSize { get; private set; } = 500;
         
+        [Header("Allied AI Configuration")]
+        [Tooltip("AI Turret Max Engagement Distance")]
+        [field: SerializeField] 
+        public float maxTargetingDistance = 350;
         
+        [Tooltip("How often [s] the AI Turret sensor pings the radar to update target lists.")]
+        [field: SerializeField] 
+        public float scanInterval = 0.1f;
 
         /// <summary>
         /// Translates a target's priority label into its active mathematical weight.

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using _01_Scripts.Core.Interfaces;
 
-namespace _01_Scripts.Core.Targeting.Strategies
+namespace _01_Scripts.Core.Interfaces
 {
     public interface ITargetingStrategy
     {

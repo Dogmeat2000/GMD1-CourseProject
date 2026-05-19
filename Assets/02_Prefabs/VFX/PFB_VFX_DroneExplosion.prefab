@@ -4905,7 +4905,7 @@ GameObject:
   - component: {fileID: 2016522838917286276}
   - component: {fileID: -7202648794102918814}
   m_Layer: 0
-  m_Name: PFB_DroneExplosion
+  m_Name: PFB_VFX_DroneExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

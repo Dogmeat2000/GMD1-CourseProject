@@ -12,34 +12,22 @@ namespace _01_Scripts.Core.Movement
     [RequireComponent(typeof(Rigidbody))]
     public class KamikazeFlightBrain : MonoBehaviour, IEntityBrain
     {
-        private enum FlightPhase { Asleep, Breaching, Pursuing }
-
         [Header("Flight Capabilities")]
-        [SerializeField] 
-        private float breachSpeed = 80f;
-        
-        [SerializeField] 
-        private float pursuitSpeed = 120f;
-        
-        [SerializeField] 
-        private float turnSpeed = 5f;
-        
-        [SerializeField] 
-        private LayerMask allyLayer;
+        [SerializeField] private float breachSpeed = 80f;
+        [SerializeField] private float pursuitSpeed = 120f;
+        [SerializeField] private float turnSpeed = 5f;
+        [SerializeField] private LayerMask allyLayer;
 
         
         [Header("Behavior Tuning")]
         [Tooltip("How strongly the drone pushes toward the target")]
-        [SerializeField] 
-        private float seekWeight = 1.0f;
+        [SerializeField] private float seekWeight = 1.0f;
         
         [Tooltip("How heavily the drone relies on zig-zag evasion")]
-        [SerializeField] 
-        private float evadeWeight = 0.4f;
+        [SerializeField] private float evadeWeight = 0.4f;
         
         [Tooltip("How strongly the drone repels away from allies")]
-        [SerializeField] 
-        private float separateWeight = 0.6f;
+        [SerializeField] private float separateWeight = 0.6f;
         
         [Tooltip("The absolute minimum Y altitude before the drone pulls up.")]
         [SerializeField] private float hardDeckAltitude = 2.0f; 
@@ -50,18 +38,17 @@ namespace _01_Scripts.Core.Movement
         
         [Header("Evasion Profile")]
         [Tooltip("The width of the zig-zag [m]")]
-        [SerializeField] 
-        private float evasionIntensity = 0.5f;
+        [SerializeField] private float evasionIntensity = 0.5f;
         
         [Tooltip("The frequency of the zig-zag")]
-        [SerializeField] 
-        private float evasionSpeed = 2.5f;
+        [SerializeField] private float evasionSpeed = 2.5f;
         
         
         [Header("Swarm Profile")]
         [Tooltip("How close [m] allies can get before repelling")]
-        [SerializeField] 
-        private float repelRadius = 15f;
+        [SerializeField] private float repelRadius = 15f;
+        
+        private enum FlightPhase { Asleep, Breaching, Pursuing }
         
         private FlightPhase _currentPhase = FlightPhase.Asleep;
         private Rigidbody _rb;

@@ -3,6 +3,7 @@ using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
 using _01_Scripts.Turrets;
+using _01_Scripts.Turrets.Player;
 using UnityEngine;
 
 namespace _01_Scripts.Core.VFX
