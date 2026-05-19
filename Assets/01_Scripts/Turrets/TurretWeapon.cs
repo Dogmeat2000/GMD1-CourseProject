@@ -7,8 +7,7 @@ using UnityEngine;
 namespace _01_Scripts.Turrets
 {
     /// <summary>
-    /// Hardware controller for the turret's weapon systems. Manages the localized 
-    /// object pool for projectiles, firing rates, acoustics, and recoil animations.
+    /// Hardware controller for the turret's weapon systems.
     /// </summary>
     public class TurretWeapon : MonoBehaviour, IRangedWeapon
     {

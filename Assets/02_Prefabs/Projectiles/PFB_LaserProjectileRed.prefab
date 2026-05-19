@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretProjectile
   speed: 1000
   lifeTime: 3
-  damageAmount: 6
+  damageAmount: 3
 --- !u!136 &2057585215541690073
 CapsuleCollider:
   m_ObjectHideFlags: 0

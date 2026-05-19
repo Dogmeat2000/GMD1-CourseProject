@@ -26,7 +26,7 @@ namespace _01_Scripts.Turrets.AI
         private void Update() {
             if (Time.time >= _nextScanTime) {
                 ScanForTargets();
-                _nextScanTime = Time.time + _settings.scanInterval;
+                _nextScanTime = Time.time + _settings.AiScanInterval;
             }
         }
 
@@ -36,7 +36,7 @@ namespace _01_Scripts.Turrets.AI
                 return;
             }
             
-            float closestDistanceSqr = _settings.maxTargetingDistance * _settings.maxTargetingDistance;
+            float closestDistanceSqr = _settings.MaxAiTargetingDistance * _settings.MaxAiTargetingDistance;
             ITargetable bestTarget = null;
             Vector3 currentPosition = transform.position;
             List<ITargetable> targetableEnemies = _radar.GetRadarTargets(Faction.Hostile);
