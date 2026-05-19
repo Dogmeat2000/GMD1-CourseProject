@@ -1,6 +1,5 @@
 # Credits - Spearhead: Nereus Protocol
 
-
 ## 1. Development Team
 * **Project Lead / Director:** K. Dashnaw
 * **Lead Programmer:** K. Dashnaw
@@ -20,8 +19,7 @@
 
 ## 4. Quality Assurance & Testing
 * **Lead Tester:** K. Dashnaw
-* **Playtesters:**
-    * None
+* **Playtesters:** K. Dashnaw
 
 ## 5. Assets & Attributions
 > This section fulfills legal requirements for external materials.
@@ -124,6 +122,7 @@
     * *Source:* [https://freesound.org/people/ser%C3%B8ut%C5%8Dnin--depriv%C9%99d/sounds/725402/](https://freesound.org/people/ser%C3%B8ut%C5%8Dnin--depriv%C9%99d/sounds/725402/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**
@@ -133,5 +132,6 @@
 * **TripoAI Studio**
 * **Audacity**
 
+
 ## 6. Special Thanks
-* VIA University College, Horsens - For the teaching the course on Game Development.
+* VIA University College, Horsens - For teaching the course on Game Development.

@@ -21,6 +21,11 @@ namespace _01_Scripts.Core.UI
         [SerializeField] 
         private string mainMenuSceneName = "SCN_MainMenu";
 
+        [Header("Input Setup")]
+        [Tooltip("The Input Action bound to pausing the game")]
+        [SerializeField] 
+        private InputActionReference pauseAction;
+        
         private GameStateService _gameState;
 
         private void Awake() {
@@ -30,6 +35,11 @@ namespace _01_Scripts.Core.UI
         private void OnEnable() {
             if (_gameState != null) 
                 _gameState.OnStateChanged += HandleStateChanged;
+            
+            if (pauseAction) {
+                pauseAction.action.Enable();
+                pauseAction.action.performed += HandlePauseInput;
+            }
         }
         
         private void OnDisable() {
@@ -49,14 +59,12 @@ namespace _01_Scripts.Core.UI
             
             LockAndHideCursor();
         }
-
-        private void Update() {
-            if (_gameState.CurrentState == GameState.GameOver) 
+        
+        private void HandlePauseInput(InputAction.CallbackContext context) {
+            if (_gameState != null && _gameState.CurrentState == GameState.GameOver) 
                 return;
             
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) {
-                TogglePause();
-            }
+            TogglePause();
         }
 
         public void TogglePause() {

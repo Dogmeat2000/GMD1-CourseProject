@@ -16,41 +16,75 @@ MonoBehaviour:
   - <ThreatBudget>k__BackingField: 30
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
-  - <ThreatBudget>k__BackingField: 60
+  - <ThreatBudget>k__BackingField: 50
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
-  - <ThreatBudget>k__BackingField: 120
+  - <ThreatBudget>k__BackingField: 90
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+  - <ThreatBudget>k__BackingField: 140
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
   - <ThreatBudget>k__BackingField: 180
     <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 200
+    <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 240
+  - <ThreatBudget>k__BackingField: 230
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 260
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 290
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 320
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 470
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 500
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 530
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 560
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 350
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 300
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 360
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 420
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 480
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 540
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 540
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}

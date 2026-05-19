@@ -1492,8 +1492,8 @@ MonoBehaviour:
   p1StatusText: {fileID: 411691103}
   p2Container: {fileID: 131707798}
   p2StatusText: {fileID: 1444675248}
-  p1ReadyAction: {fileID: -7681996770618325568, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
-  p2ReadyAction: {fileID: -7681996770618325568, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+  p1ReadyAction: {fileID: 7734853038599820013, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+  p2ReadyAction: {fileID: 4397355958259328006, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
 --- !u!4 &433166577
 Transform:
   m_ObjectHideFlags: 0
@@ -4560,7 +4560,7 @@ GameObject:
   - component: {fileID: 1571252659}
   - component: {fileID: 1571252658}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text_Disclaimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4605,7 +4605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Version 0.1.0 Alpha  \nDeveloped by Kristian M. Dashnaw.   \n2026, All
+  m_text: "Version 1.0.0 Alpha  \nDeveloped by Kristian M. Dashnaw.   \n2026, All
     Rights reserved.  "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22b0058d77af49840bb62b1615932d49, type: 2}
@@ -5086,8 +5086,8 @@ GameObject:
   - component: {fileID: 1758939138}
   - component: {fileID: 1758939141}
   - component: {fileID: 1758939140}
-  - component: {fileID: 1758939139}
   - component: {fileID: 1758939142}
+  - component: {fileID: 1758939139}
   m_Layer: 5
   m_Name: ScrollView_Credits
   m_TagString: Untagged
@@ -5193,11 +5193,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758939137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea456c03766ae91409e82e4a3f967ecc, type: 3}
+  m_Script: {fileID: 11500000, guid: b40211fed6770484da46267fd2489978, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.ArcadeScollController
-  scrollAction: {fileID: -5364082752855386657, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
-  scrollSpeed: 1.5
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.AutoScrollController
+  scrollSpeed: 25
+  startDelay: 2
 --- !u!1 &1795512343
 GameObject:
   m_ObjectHideFlags: 0

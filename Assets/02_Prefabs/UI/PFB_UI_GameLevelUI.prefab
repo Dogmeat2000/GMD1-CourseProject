@@ -358,7 +358,6 @@ GameObject:
   - component: {fileID: 5873434919846843115}
   - component: {fileID: 1682916070383412993}
   - component: {fileID: 7825283180129307924}
-  - component: {fileID: 5487056601036009684}
   m_Layer: 0
   m_Name: System_Core
   m_TagString: Untagged
@@ -435,20 +434,6 @@ MonoBehaviour:
   localPlayers: []
   mainMenuSceneName: SCN_MainMenu
   returnToMainMenuButton: {fileID: 7075659787282744638}
---- !u!114 &5487056601036009684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034641047317242561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e54c60b9c346e9c4c9d0cc342dba2698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.HUD.PlayerDeathHUDPresenter
-  playerHealth: {fileID: 0}
-  deathScreenPanel: {fileID: 0}
 --- !u!1 &3380257320223128697
 GameObject:
   m_ObjectHideFlags: 0

@@ -1013,6 +1013,18 @@ PrefabInstance:
       propertyPath: timeToMaxSpeed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireAuxWeaponAction
+      value: 
+      objectReference: {fileID: -6960553313929280902, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireMainWeaponAction
+      value: 
+      objectReference: {fileID: 1725309296277686764, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireSpecialWeapon1Action
+      value: 
+      objectReference: {fileID: -1382652826143690337, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -1770,6 +1782,10 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: moveAction
+      value: 
+      objectReference: {fileID: 5893484729325709, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: maxSlewSens
       value: 90
       objectReference: {fileID: 0}
@@ -1785,6 +1801,18 @@ PrefabInstance:
       propertyPath: timeToMaxSpeed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireAuxWeaponAction
+      value: 
+      objectReference: {fileID: 6661718255770011572, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireMainWeaponAction
+      value: 
+      objectReference: {fileID: 989827354929008693, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireSpecialWeapon1Action
+      value: 
+      objectReference: {fileID: -2442222387570359492, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -3118,6 +3146,18 @@ PrefabInstance:
       propertyPath: timeToMaxSpeed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireAuxWeaponAction
+      value: 
+      objectReference: {fileID: -6960553313929280902, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireMainWeaponAction
+      value: 
+      objectReference: {fileID: 1725309296277686764, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireSpecialWeapon1Action
+      value: 
+      objectReference: {fileID: -1382652826143690337, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -4429,6 +4469,10 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: moveAction
+      value: 
+      objectReference: {fileID: -5364082752855386657, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: maxSlewSens
       value: 90
       objectReference: {fileID: 0}
@@ -4444,6 +4488,18 @@ PrefabInstance:
       propertyPath: timeToMaxSpeed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireAuxWeaponAction
+      value: 
+      objectReference: {fileID: -6960553313929280902, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireMainWeaponAction
+      value: 
+      objectReference: {fileID: 1725309296277686764, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireSpecialWeapon1Action
+      value: 
+      objectReference: {fileID: -1382652826143690337, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -6273,6 +6329,10 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: moveAction
+      value: 
+      objectReference: {fileID: 5893484729325709, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: maxSlewSens
       value: 90
       objectReference: {fileID: 0}
@@ -6288,6 +6348,18 @@ PrefabInstance:
       propertyPath: timeToMaxSpeed
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireAuxWeaponAction
+      value: 
+      objectReference: {fileID: 6661718255770011572, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireMainWeaponAction
+      value: 
+      objectReference: {fileID: 989827354929008693, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: fireSpecialWeapon1Action
+      value: 
+      objectReference: {fileID: -2442222387570359492, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 3287536729885813849, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -7142,6 +7214,10 @@ PrefabInstance:
       propertyPath: m_PreferredHeight
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1682916070383412993, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+      propertyPath: pauseAction
+      value: 
+      objectReference: {fileID: 2988289799077641749, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 1835902608788084999, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7882,8 +7958,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -126.082016
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5487056601036009684, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5913549018126160671, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
     m_AddedGameObjects: []
