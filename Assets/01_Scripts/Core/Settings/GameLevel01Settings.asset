@@ -14,23 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Settings.LevelSettings
   <SpawnDepthY>k__BackingField: -25
   <OceanSurfaceY>k__BackingField: 0
-  <MinSpawnDistance>k__BackingField: 450
-  <MaxSpawnDistance>k__BackingField: 600
-  <SpawnAngleLimit>k__BackingField: 60
+  <MinSpawnDistance>k__BackingField: 500
+  <MaxSpawnDistance>k__BackingField: 700
+  <SpawnAngleLimit>k__BackingField: 50
   <WaveSpawnDurationMin>k__BackingField: 10
-  <WaveSpawnDurationMax>k__BackingField: 30
+  <WaveSpawnDurationMax>k__BackingField: 20
   <KamikazeBreachHeightMin>k__BackingField: 50
   <KamikazeBreachHeightMax>k__BackingField: 150
-  <PayloadDamageEasy>k__BackingField: 10
-  <PayloadDamageNormal>k__BackingField: 25
-  <PayloadDamageHard>k__BackingField: 50
-  <PayloadDamageNightmare>k__BackingField: 75
+  <BioSwarmerBreachHeightMin>k__BackingField: 75
+  <BioSwarmerBreachHeightMax>k__BackingField: 200
   <EasyDifficultyMultiplier>k__BackingField: 0.75
   <NormalDifficultyMultiplier>k__BackingField: 1
   <HardDifficultyMultiplier>k__BackingField: 1.5
   <NightmareDifficultyMultiplier>k__BackingField: 2.5
-  <PriorityWeightLow>k__BackingField: 1
+  <PriorityWeightLow>k__BackingField: 2
   <PriorityWeightStandard>k__BackingField: 10
-  <PriorityWeightHigh>k__BackingField: 50
-  <PriorityWeightCritical>k__BackingField: 100
+  <PriorityWeightHigh>k__BackingField: 25
+  <PriorityWeightCritical>k__BackingField: 50
   <MaxTargetingDistance>k__BackingField: 750
+  <DefaultObjectPoolSize>k__BackingField: 30
+  <MaxDefaultObjectPoolSize>k__BackingField: 500
+  maxTargetingDistance: 300
+  scanInterval: 0.1
