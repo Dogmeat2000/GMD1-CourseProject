@@ -27,11 +27,21 @@ namespace _01_Scripts.Core
             currentHealth = maxHealth;
         }
         
+        /// <summary>
+        /// Applies the specified amount of damage to this target.
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="instigator"></param>
         public void TakeDamage(int amount, GameObject instigator = null) {
             AdjustHealth(-Mathf.Abs(amount), instigator);
         }
         
+        /// <summary>
+        /// Heals the target by the specified amount.
+        /// </summary>
+        /// <param name="amount"></param>
         public void Heal(int amount) {
+            Debug.LogError("Healing target by amount: " + amount);
             AdjustHealth(Mathf.Abs(amount), null);
         }
         

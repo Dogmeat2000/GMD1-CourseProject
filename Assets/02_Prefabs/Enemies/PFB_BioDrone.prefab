@@ -398,8 +398,7 @@ MonoBehaviour:
   deathVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   defaultRespawnState: Idle
   deathTriggerName: Die
-  interruptTriggersToPurge:
-  - Hit
+  interruptTriggersToPurge: []
   knockbackForce: 30
   baseCollisionDamage: 100
   warhead: {fileID: 3182308281185901545}
@@ -441,10 +440,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15207c5f2f2941d4a9008b6af34fd157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Combat.ImpactWarhead
-  explosionVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   validTargetLayers:
     serializedVersion: 2
     m_Bits: 1536
+  explosionVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   onDetonate:
     m_PersistentCalls:
       m_Calls:

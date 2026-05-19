@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
-    [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(ImpactWarhead))]
+    [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(Warhead))]
     public class TurretProjectile : MonoBehaviour, IProjectile
     {
         [Header("Ballistics")]
@@ -15,7 +15,7 @@ namespace _01_Scripts.Turrets
 
         private float _currentLifeTime;
         private Rigidbody _rb;
-        private ImpactWarhead _warhead;
+        private Warhead _warhead;
         private Collider _myCollider;
         
         private Collider[] _ignoredColliders;
@@ -60,11 +60,12 @@ namespace _01_Scripts.Turrets
                 _rb = GetComponent<Rigidbody>();
             
             if (!_warhead) 
-                _warhead = GetComponent<ImpactWarhead>();
+                _warhead = GetComponent<Warhead>();
             
             if (!_myCollider) 
                 _myCollider = GetComponent<Collider>();
         }
+        
         public void OnSpawned() {
             _currentLifeTime = 0f;
                 
@@ -74,9 +75,10 @@ namespace _01_Scripts.Turrets
             }
             
             if (_warhead) {
-                _warhead.PayloadDamage = damageAmount;
+                _warhead.ImpactAmount = damageAmount;
             }
         }
+        
         public void OnDespawned() {
             if (_myCollider && _ignoredColliders != null) {
                 foreach (var col in _ignoredColliders) {

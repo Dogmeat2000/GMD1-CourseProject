@@ -112,6 +112,18 @@
     * *Source:* [https://freesound.org/people/qubodup/sounds/714257/](https://freesound.org/people/qubodup/sounds/714257/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
+* **[Sound Effect] SFX_SoftExplosion** by Jarusca
+    * *Source:* [https://freesound.org/people/Jarusca/sounds/521377/](https://freesound.org/people/Jarusca/sounds/521377/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_Repair** by wobesound
+    * *Source:* [https://freesound.org/people/wobesound/sounds/488394/](https://freesound.org/people/wobesound/sounds/488394/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+* **[Sound Effect] SFX_MisfireClick** by ser\u00f8ut\u014dnin--depriv\u0259d
+    * *Source:* [https://freesound.org/people/ser%C3%B8ut%C5%8Dnin--depriv%C9%99d/sounds/725402/](https://freesound.org/people/ser%C3%B8ut%C5%8Dnin--depriv%C9%99d/sounds/725402/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**

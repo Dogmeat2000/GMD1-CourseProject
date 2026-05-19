@@ -12,12 +12,17 @@ namespace _01_Scripts.Turrets
         [Header("Weapons Systems")]
         [Tooltip("The Main Weapon")]
         [SerializeField] private TurretWeapon mainWeapon;
+        
         [Tooltip("The Auxiliary Weapon (Optional)")]
         [SerializeField] private TurretWeapon auxiliaryWeapon;
         
-        [Header("Operational Constraints")]
+        [Tooltip("Special Weapon 1 (Optional)")]
+        [SerializeField] private SpecialWeaponsSystem specialWeapon1;
+        
+        [Header("Constraints")]
         [Tooltip("Limits the downward elevation of the barrel, to prevent mesh clipping")]
         [SerializeField] private float minPitch = -15f; 
+        
         [Tooltip("Limits the upward elevation of the barrel, to prevent mesh clipping")]
         [SerializeField] private float maxPitch = 45f;  
 
@@ -30,6 +35,7 @@ namespace _01_Scripts.Turrets
         public enum WeaponSlot {
             Main,
             Auxiliary,
+            Special1,
             Both
         }
         
@@ -72,6 +78,11 @@ namespace _01_Scripts.Turrets
                     if (auxiliaryWeapon) 
                         auxiliaryWeapon.Fire(); 
                     break;
+                
+                case WeaponSlot.Special1:
+                    if(specialWeapon1)
+                        specialWeapon1.Fire();
+                    break;
                     
                 case WeaponSlot.Both:
                     if (mainWeapon) 
@@ -89,14 +100,21 @@ namespace _01_Scripts.Turrets
         public void ReleaseTrigger(WeaponSlot slot = WeaponSlot.Main) {
             switch (slot) {
                 case WeaponSlot.Main:
-                    if (mainWeapon) mainWeapon.ReleaseTrigger(); 
+                    if (mainWeapon) 
+                        mainWeapon.ReleaseTrigger(); 
                     break;
+                
                 case WeaponSlot.Auxiliary:
-                    if (auxiliaryWeapon) auxiliaryWeapon.ReleaseTrigger(); 
+                    if (auxiliaryWeapon) 
+                        auxiliaryWeapon.ReleaseTrigger(); 
                     break;
+                
                 case WeaponSlot.Both:
-                    if (mainWeapon) mainWeapon.ReleaseTrigger();
-                    if (auxiliaryWeapon) auxiliaryWeapon.ReleaseTrigger();
+                    if (mainWeapon) 
+                        mainWeapon.ReleaseTrigger();
+                    
+                    if (auxiliaryWeapon) 
+                        auxiliaryWeapon.ReleaseTrigger();
                     break;
             }
         }

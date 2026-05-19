@@ -53,7 +53,7 @@ namespace _01_Scripts.Core.Enemies
         
         [Tooltip("OPTIONAL: The warhead component responsible for delivering the damage payload upon impact.")]
         [SerializeField] 
-        private ImpactWarhead warhead;
+        private Warhead warhead;
         
         public event Action<EnemyController> OnRemovedFromBoard;
         private Action<IPoolable> _returnToPoolCommand;
@@ -137,7 +137,7 @@ namespace _01_Scripts.Core.Enemies
             if (warhead && _levelManager) {
                 GameDifficulty currentDiff = _levelManager.CurrentDifficulty;
                 float difficultyMultiplier = _levelManager.Settings.GetDifficultyMultiplier(currentDiff);
-                warhead.PayloadDamage = Mathf.RoundToInt(baseCollisionDamage * difficultyMultiplier);
+                warhead.ImpactAmount = Mathf.RoundToInt(baseCollisionDamage * difficultyMultiplier);
             }
             
             _brain?.WakeUp();

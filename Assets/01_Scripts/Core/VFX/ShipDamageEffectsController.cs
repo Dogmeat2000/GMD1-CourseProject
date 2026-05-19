@@ -63,30 +63,39 @@ namespace _01_Scripts.Core.VFX
                 _isLightlySmoking = true;
                 if (lightSmokeVfx) 
                     lightSmokeVfx.Play(true);
+            } else if (_isLightlySmoking && healthPercentage > lightSmokeThreshold) {
+                _isLightlySmoking = true;
+                lightSmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
             
             if (!_isHeavilySmoking && healthPercentage <= heavySmokeThreshold) {
                 _isHeavilySmoking = true;
                 if (heavySmokeVfx) 
                     heavySmokeVfx.Play(true);
+            } else if (_isHeavilySmoking && healthPercentage > heavySmokeThreshold) {
+                _isHeavilySmoking = true;
+                heavySmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
             
             if (!_isOnFire && healthPercentage <= fireThreshold) {
                 _isOnFire = true;
                 if (fireVfx) 
                     fireVfx.Play(true);
+            } else if (_isOnFire && healthPercentage > fireThreshold) {
+                _isOnFire = true;
+                fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
         }
 
         private void HandleDestruction(HealthManager source, GameObject killer) {
             if (lightSmokeVfx) 
-                lightSmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                lightSmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             
             if (heavySmokeVfx) 
                 heavySmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             
             if (fireVfx) 
-                fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             
             if (shipDestructionVfxPrefab && UniversalPoolService.Instance) {
                 LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
