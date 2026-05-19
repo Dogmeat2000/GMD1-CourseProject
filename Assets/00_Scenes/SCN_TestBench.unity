@@ -899,7 +899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8101793593553638431, guid: ac12fa869ecd3b14b9310e5d1641a271, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 13.4
       objectReference: {fileID: 0}
     - target: {fileID: 8101793593553638431, guid: ac12fa869ecd3b14b9310e5d1641a271, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1046,6 +1046,10 @@ PrefabInstance:
     - target: {fileID: 2041167890648720703, guid: 9981402e7b65b8d498ab59757fe58c1e, type: 3}
       propertyPath: m_Name
       value: SK_BioSwarmer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521435038598392305, guid: 9981402e7b65b8d498ab59757fe58c1e, type: 3}
+      propertyPath: defaultRespawnState
+      value: Flap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

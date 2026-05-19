@@ -108,6 +108,10 @@
     * *Source:* [https://freesound.org/people/jgrzinich/sounds/377629/](https://freesound.org/people/jgrzinich/sounds/377629/)
     * *License:* [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
+* **[Sound Effect] SFX_SoftExplosion** by qubodup
+    * *Source:* [https://freesound.org/people/qubodup/sounds/714257/](https://freesound.org/people/qubodup/sounds/714257/)
+    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+
 ### Tools
 * **Unity** ([6000.3 LTS])
 * **GIMP**

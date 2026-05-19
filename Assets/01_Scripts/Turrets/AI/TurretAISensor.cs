@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using _01_Scripts.Core.Interfaces;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
 using UnityEngine;
 
@@ -11,26 +13,20 @@ namespace _01_Scripts.Turrets.AI
     /// </summary>
     public class TurretAISensor : MonoBehaviour
     {
-        [Header("Capabilities")]
-        [Tooltip("Maximum range the AI can acquire targets.")]
-        [SerializeField] private float maxTargetingDistance = 500f; // TODO: Change to settings option instead
-        
-        [Tooltip("How often [s] the sensor pings the radar. Higher = better performance.")]
-        [SerializeField] private float scanInterval = 0.1f; // TODO: Change to settings option instead
-
         public ITargetable CurrentTarget { get; private set; }
-
         private BattlefieldRadar _radar;
         private float _nextScanTime;
+        private LevelSettings _settings;
 
         private void Start() {
             _radar = ServiceLocator.Get<BattlefieldRadar>();
+            _settings = ServiceLocator.Get<LevelManager>().Settings;
         }
 
         private void Update() {
             if (Time.time >= _nextScanTime) {
                 ScanForTargets();
-                _nextScanTime = Time.time + scanInterval;
+                _nextScanTime = Time.time + _settings.scanInterval;
             }
         }
 
@@ -40,7 +36,7 @@ namespace _01_Scripts.Turrets.AI
                 return;
             }
             
-            float closestDistanceSqr = maxTargetingDistance * maxTargetingDistance;
+            float closestDistanceSqr = _settings.maxTargetingDistance * _settings.maxTargetingDistance;
             ITargetable bestTarget = null;
             Vector3 currentPosition = transform.position;
             List<ITargetable> targetableEnemies = _radar.GetRadarTargets(Faction.Hostile);

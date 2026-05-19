@@ -10,9 +10,9 @@ namespace _01_Scripts.Turrets
     /// Hardware controller for the turret's weapon systems. Manages the localized 
     /// object pool for projectiles, firing rates, acoustics, and recoil animations.
     /// </summary>
-    public class TurretWeapon : MonoBehaviour
+    public class TurretWeapon : MonoBehaviour, IRangedWeapon
     {
-        [Header("Hardware Settings")]
+        [Header("Configuration")]
         [SerializeField] 
         private GameObject projectilePrefab;
         

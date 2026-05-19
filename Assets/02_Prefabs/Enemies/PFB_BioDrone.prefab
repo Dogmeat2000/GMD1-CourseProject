@@ -398,6 +398,8 @@ MonoBehaviour:
   deathVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   defaultRespawnState: Idle
   deathTriggerName: Die
+  interruptTriggersToPurge:
+  - Hit
   knockbackForce: 30
   baseCollisionDamage: 100
   warhead: {fileID: 3182308281185901545}
