@@ -41,7 +41,6 @@ namespace _01_Scripts.Core
         /// </summary>
         /// <param name="amount"></param>
         public void Heal(int amount) {
-            Debug.LogError("Healing target by amount: " + amount);
             AdjustHealth(Mathf.Abs(amount), null);
         }
         
