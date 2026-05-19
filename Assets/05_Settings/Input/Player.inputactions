@@ -73,7 +73,7 @@
                     "name": "Start",
                     "type": "Button",
                     "id": "8c0089ad-a813-4175-8bb7-0d083649c008",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -225,6 +225,17 @@
                     "name": "",
                     "id": "a8f5f3d0-38f8-417d-a291-78fc34b1e1e9",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d6d4f39-8625-4ace-b79d-0bc55fedf820",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
