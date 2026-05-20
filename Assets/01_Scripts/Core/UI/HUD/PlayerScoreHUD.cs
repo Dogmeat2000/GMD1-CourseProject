@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    // TODO Add description
     public class PlayerScoreHUD : MonoBehaviour
     {
         [Header("Telemetry Links")]
@@ -26,15 +27,13 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (targetPlayer) {
+            if (targetPlayer)
                 targetPlayer.OnScoreChanged -= UpdateScoreDisplay;
-            }
         }
 
         private void UpdateScoreDisplay(int newScore) {
-            if (scoreText) {
+            if (scoreText)
                 scoreText.text = $"{prefix}{newScore:D6}";
-            }
         }
     }
 }

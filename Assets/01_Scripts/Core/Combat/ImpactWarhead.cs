@@ -16,8 +16,7 @@ namespace _01_Scripts.Core.Combat
     {
         [Header("Configuration")]
         [Tooltip("Event triggered upon detonation.")]
-        [SerializeField] 
-        private UnityEvent onDetonate;
+        [SerializeField] private UnityEvent onDetonate;
         
         private bool _hasDetonated;
 
@@ -34,9 +33,8 @@ namespace _01_Scripts.Core.Combat
             
             IDamageable targetHealth = other.GetComponentInParent<IDamageable>();
             
-            if (targetHealth != null) {
+            if (targetHealth != null)
                 Detonate(targetHealth);
-            }
         }
         
         private void OnCollisionEnter(Collision collision) {
@@ -48,9 +46,8 @@ namespace _01_Scripts.Core.Combat
             
             IDamageable targetHealth = collision.collider.GetComponentInParent<IDamageable>();
             
-            if (targetHealth != null) {
+            if (targetHealth != null)
                 Detonate(targetHealth);
-            }
         }
 
         private void Detonate(IDamageable target) {
@@ -58,9 +55,9 @@ namespace _01_Scripts.Core.Combat
             
             _hasDetonated = true;
             target.TakeDamage(ImpactAmount, Instigator ? Instigator : gameObject);
-            if (explosionVfxPrefab) {
+            
+            if (explosionVfxPrefab)
                 UniversalPoolService.Instance.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity, settings.DefaultObjectPoolSize , settings.MaxDefaultObjectPoolSize);
-            }
             
             onDetonate?.Invoke();
             

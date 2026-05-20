@@ -4,6 +4,7 @@ using _01_Scripts.Core.Services;
 
 namespace _01_Scripts.Core.Targeting
 {
+    // TODO Add description
     public class RadarTransponder : MonoBehaviour, ITargetable
     {
         [Header("Transponder Settings")]
@@ -13,9 +14,12 @@ namespace _01_Scripts.Core.Targeting
         [Tooltip("The tactical value of this target to the opposing faction")]
         [field: SerializeField] public TargetPriority Priority { get; private set; } = TargetPriority.Standard;
 
+        // TODO Add description
         public Transform TargetTransform => transform;
         
+        // TODO Add description
         public bool IsTargetable => isActiveAndEnabled;
+        
         private BattlefieldRadar _battlefieldRadar;
 
         private void OnEnable() {

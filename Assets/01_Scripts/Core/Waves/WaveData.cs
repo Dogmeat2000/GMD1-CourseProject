@@ -5,15 +5,14 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Waves
 {
+    // TODO This seems like repeating logic with shifting values! Refactor!
     [Serializable]
     public struct WaveData
     {
         [Tooltip("Total points the Director can spend on this wave")]
-        [field: SerializeField]
-        public int ThreatBudget { get; set; }
+        [field: SerializeField] public int ThreatBudget { get; set; }
         
         [Tooltip("The types of enemies allowed to spawn in this wave")]
-        [field: SerializeField]
-        public List<EnemyProfile> AllowedEnemies { get; set; }
+        [field: SerializeField] public List<EnemyProfile> AllowedEnemies { get; set; }
     }
 }

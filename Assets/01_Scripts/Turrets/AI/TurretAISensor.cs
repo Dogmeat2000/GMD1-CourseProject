@@ -13,6 +13,7 @@ namespace _01_Scripts.Turrets.AI
     /// </summary>
     public class TurretAISensor : MonoBehaviour
     {
+        // TODO Add description
         public ITargetable CurrentTarget { get; private set; }
         private BattlefieldRadar _radar;
         private float _nextScanTime;

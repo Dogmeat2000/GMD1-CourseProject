@@ -2,21 +2,19 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    // TODO Add description
     public class FloatingHealthBar : MonoBehaviour
     {
         [Header("Telemetry Link")]
         [Tooltip("The HealthManager to track")]
-        [SerializeField] 
-        private HealthManager targetHealth;
+        [SerializeField] private HealthManager targetHealth;
         
         [Header("Visual Components")]
         [Tooltip("The 3D sprite acting as the health block")]
-        [SerializeField] 
-        private SpriteRenderer healthSprite;
+        [SerializeField] private SpriteRenderer healthSprite;
         
         [Tooltip("The color transition from 0% health (left) to 100% health (right)")]
-        [SerializeField] 
-        private Gradient healthGradient;
+        [SerializeField] private Gradient healthGradient;
         
         private void OnEnable() {
             if (!targetHealth) 
@@ -27,9 +25,8 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (targetHealth) {
+            if (targetHealth)
                 targetHealth.OnHealthChanged -= UpdateHealthBar;
-            }
         }
 
         private void UpdateHealthBar(int currentHealth, int maxHealth, GameObject instigator) {

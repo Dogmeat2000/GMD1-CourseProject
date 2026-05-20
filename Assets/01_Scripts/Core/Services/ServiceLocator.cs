@@ -17,11 +17,10 @@ namespace _01_Scripts.Core.Services
         /// Instantiates the dictionary or purges residual data from the previous level.
         /// </summary>
         public static void Initialize() {
-            if (_services == null) {
+            if (_services == null)
                 _services = new Dictionary<Type, IService>();
-            } else {
+            else
                 _services.Clear();
-            }
         }
         
         /// <summary>
@@ -49,9 +48,8 @@ namespace _01_Scripts.Core.Services
             }
 
             Type type = typeof(T);
-            if (_services.TryGetValue(type, out var service)) {
+            if (_services.TryGetValue(type, out var service))
                 return (T)service;
-            }
 
             Debug.LogError($"The service {type.Name} was requested but not found in the registry!");
             return null;

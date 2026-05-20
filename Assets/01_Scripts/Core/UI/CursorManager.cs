@@ -17,9 +17,8 @@ namespace _01_Scripts.Core.UI
         }
 
         private void Update() {
-            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Time.timeScale > 0f) {
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Time.timeScale > 0f)
                 LockAndHideCursor();
-            }
         }
     }
 }

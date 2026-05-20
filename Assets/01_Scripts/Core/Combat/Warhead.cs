@@ -11,7 +11,7 @@ namespace _01_Scripts.Core.Combat
         [SerializeField] 
         protected LayerMask validTargetLayers;
         
-        [Tooltip("The composite VFX prefab to spawn upon detonation.")]
+        [Tooltip("Optional: The composite VFX prefab to spawn upon detonation.")]
         [SerializeField] 
         protected GameObject explosionVfxPrefab;
         

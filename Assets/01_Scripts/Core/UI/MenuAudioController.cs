@@ -8,8 +8,13 @@ namespace _01_Scripts.Core.UI
     /// </summary>
     public class MenuAudioController : MonoBehaviour
     {
+        // TODO Add description
         [SerializeField] private AudioSource menuMusic;
+        
+        // TODO Add description
         [SerializeField] private float fadeDuration = 3.0f;
+        
+        // TODO Add description
         [SerializeField] private float targetVolume = 1.0f;
 
         private void Start() {
@@ -28,6 +33,8 @@ namespace _01_Scripts.Core.UI
             menuMusic.volume = targetVolume;
         }
 
+        // TODO Add description
+        // Consider refactoring, or moving this out into the SettingsController to read from the GlobalSettings!
         public void SetTargetVolume(float volume) {
             targetVolume = Mathf.Clamp01(volume);
             menuMusic.volume = targetVolume;

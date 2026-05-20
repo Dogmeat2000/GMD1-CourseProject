@@ -8,13 +8,21 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement
 {
+    // TODO: Add class descriptor
     [RequireComponent(typeof(Rigidbody), typeof(Animator), typeof(HealthManager))]
     public class RangedFlightBrain : MonoBehaviour, IEntityBrain
     { 
         [Header("Flight Capabilities")]
-        [SerializeField] private float breachSpeed = 120f;
-        [SerializeField] private float pursuitSpeed = 60f;
+        [Tooltip("The speed this entity breaches the water surface with")]
+        [SerializeField] private float breachSpeed = 150;
+        
+        [Tooltip("The speed this entity pursues player ships with")]
+        [SerializeField] private float pursuitSpeed = 30;
+        
+        [Tooltip("The speed this entity turns with")]
         [SerializeField] private float turnSpeed = 10f;
+        
+        [Tooltip("Which layer do allies of this entity belong to?")]
         [SerializeField] private LayerMask allyLayer;
 
         [Header("Combat Settings")]
@@ -60,7 +68,7 @@ namespace _01_Scripts.Core.Movement
         [Tooltip("Matches the Trigger parameter in the Animator Controller.")]
         [SerializeField] private string shootTrigger = "Shoot";
 
-        private enum FlightPhase { Asleep, Breaching, Moving, Idling }
+        private enum FlightPhase { Asleep, Breaching, Moving, Idling } // TODO: Move to external class. DRY violation.
         
         private FlightPhase _currentState = FlightPhase.Asleep;
         private Rigidbody _rb;
@@ -154,7 +162,7 @@ namespace _01_Scripts.Core.Movement
             _animator.SetBool(_isMovingHash, isMoving);
         }
 
-        private void AcquireTarget() {
+        private void AcquireTarget() { // TODO: Move to external class. Dry violation
             _assignedTarget = _battlefieldRadar.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
 
             if (_assignedTarget != null) {
@@ -165,19 +173,18 @@ namespace _01_Scripts.Core.Movement
             }
         }
         
-        private void ExecuteBreachManeuver() {
+        private void ExecuteBreachManeuver() { // TODO: Move to external class. Dry violation
             _rb.linearVelocity = Vector3.up * breachSpeed;
             
             Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
             Quaternion targetRotation = Quaternion.Slerp(transform.rotation, upwardRotation, Time.fixedDeltaTime * turnSpeed);
             _rb.MoveRotation(targetRotation);
 
-            if (transform.position.y >= _targetBreachAltitude) {
+            if (transform.position.y >= _targetBreachAltitude)
                 AcquireTarget();
-            }
         }
 
-        private void ExecuteSwarmPursuit() {
+        private void ExecuteSwarmPursuit() { // TODO: Potentially has some DRY violations
             Vector3 targetPos = _assignedTarget.TargetTransform.position;
             
             Vector3 seekForce = _seek.CalculateDirection(transform, targetPos);

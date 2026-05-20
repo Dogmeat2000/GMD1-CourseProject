@@ -19,41 +19,33 @@ namespace _01_Scripts.Core.Enemies
     { 
         [Header("Enemy Details")]
         [Tooltip("The number of highscore points, this type of Enemy is worth")]
-        [SerializeField] 
-        private int pointValue = 10;
+        [SerializeField] private int pointValue = 10;
         
         [Tooltip("The specific bone/transform that moves downward during the death animation")]
-        [SerializeField] 
-        private GameObject centerMassBone;
+        [SerializeField] private GameObject centerMassBone;
         
         [Tooltip("Optional: A particle system to spawn when the death animation finishes (e.g., explosion, digital fade, blood splatter).")]
-        [SerializeField]
-        private GameObject deathVfxPrefab;
+        [SerializeField] private GameObject deathVfxPrefab;
         
         [Tooltip("The exact name of the Animator state this entity should snap to upon spawning.")]
-        [SerializeField] 
-        private string defaultRespawnState = "Idle";
+        [SerializeField] private string defaultRespawnState = "Idle";
         
         [Tooltip("The exact name of the Animator trigger parameter to fire when health reaches zero.")]
-        [SerializeField] 
-        private string deathTriggerName = "Die";
+        [SerializeField] private string deathTriggerName = "Die";
         
         [Tooltip("List of any Animator Triggers (i.e. 'Hit' or 'Shoot') that must be aborted when this unit dies.")]
-        [SerializeField] 
-        private string[] interruptTriggersToPurge = { "Hit", "Shoot" };
+        [SerializeField] private string[] interruptTriggersToPurge = { "Hit", "Shoot" };
         
         [Header("Combat Physics")]
         [Tooltip("How much physical force is applied when hit")]
-        [SerializeField] 
-        private float knockbackForce = 15f;
+        [SerializeField] private float knockbackForce = 15f;
         
         [Tooltip("The base damage this unit inflicts on collision. Scales with difficulty.")]
-        [SerializeField] 
-        private int baseCollisionDamage = 25;
+        [Range(0f, 500f)]
+        [SerializeField] private int baseCollisionDamage = 25;
         
-        [Tooltip("OPTIONAL: The warhead component responsible for delivering the damage payload upon impact.")]
-        [SerializeField] 
-        private Warhead warhead;
+        [Tooltip("Optional: The warhead component responsible for delivering the damage payload upon impact.")]
+        [SerializeField] private Warhead warhead;
         
         public event Action<EnemyController> OnRemovedFromBoard;
         private Action<IPoolable> _returnToPoolCommand;
@@ -98,6 +90,7 @@ namespace _01_Scripts.Core.Enemies
             }
             
             _interruptHashes = new int[interruptTriggersToPurge.Length];
+            
             for (int i = 0; i < interruptTriggersToPurge.Length; i++) {
                 _interruptHashes[i] = Animator.StringToHash(interruptTriggersToPurge[i]);
             }

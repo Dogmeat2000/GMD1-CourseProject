@@ -6,34 +6,27 @@ using _01_Scripts.Core.Managers;
 
 namespace _01_Scripts.Core.UI
 {
+    // TODO Add description
     [RequireComponent(typeof(Selectable))]
     public class UIButtonVisuals : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, ISubmitHandler, IPointerClickHandler
     {
         [Header("Button Visuals Settings")]
         [Tooltip("Overrides the global scale multiplier. Set to 0 to use global default.")]
-        [SerializeField] 
-        private float overrideTargetScale = 0f;
+        [SerializeField] private float overrideTargetScale = 0f;
         
         [Tooltip("Overrides the global transition speed. Set to 0 to use global default.")]
-        [SerializeField] 
-        private float overrideTransitionSpeed = 0f;
+        [SerializeField] private float overrideTransitionSpeed = 0f;
         
-        [Tooltip("Optional: A child object containing a soft, blurred image to act as a backlight glow.")]
-        [SerializeField] 
-        private GameObject glowImageObject;
         
         [Header("Sounds (Leave empty to use Global Settings)")]
         [Tooltip("Optional: The AudioSource to play button sounds")]
-        [SerializeField] 
-        private AudioSource uiAudioSource;
+        [SerializeField] private AudioSource uiAudioSource;
         
         [Tooltip("Optional: The sound to play when the button is highlighted")]
-        [SerializeField] 
-        private AudioClip overrideHighlightSound;
+        [SerializeField] private AudioClip overrideHighlightSound;
         
         [Tooltip("Optional: The sound to play when the button is clicked/submitted")]
-        [SerializeField] 
-        private AudioClip overrideSelectSound;
+        [SerializeField] private AudioClip overrideSelectSound;
 
         private Vector3 _originalScale;
         private Coroutine _animationRoutine;
@@ -45,32 +38,26 @@ namespace _01_Scripts.Core.UI
 
         private void Awake() {
             _originalScale = transform.localScale;
-            
-            if (glowImageObject) {
-                glowImageObject.SetActive(false);
-            }
         }
 
         // Triggered by Joystick / Keyboard Navigation
+        // TODO Validate if this is still the proper approach, after the recent changes to input mapping!
         public void OnSelect(BaseEventData eventData) => EngageFocus();
         public void OnDeselect(BaseEventData eventData) => DisengageFocus();
         public void OnSubmit(BaseEventData eventData) => ExecuteClickFeedback();
 
         // Triggered by Mouse / Pointer Fallback
+        // TODO Validate if this is still the proper approach, after the recent changes to input mapping!
         public void OnPointerEnter(PointerEventData eventData) => EngageFocus();
         public void OnPointerExit(PointerEventData eventData) => DisengageFocus();
         public void OnPointerClick(PointerEventData eventData) => ExecuteClickFeedback();
 
         private void EngageFocus() {
-            if (glowImageObject) 
-                glowImageObject.SetActive(true);
-            
             if (ActiveHighlightSound) { 
-                if (uiAudioSource) {
+                if (uiAudioSource)
                     uiAudioSource.PlayOneShot(ActiveHighlightSound);
-                } else if (GlobalManager.Instance) {
+                else if (GlobalManager.Instance)
                     GlobalManager.Instance.PlayPersistentUISound(ActiveHighlightSound);
-                }
             }
             
             if (_animationRoutine != null) 
@@ -80,9 +67,6 @@ namespace _01_Scripts.Core.UI
         }
 
         private void DisengageFocus() {
-            if (glowImageObject) 
-                glowImageObject.SetActive(false);
-            
             if (_animationRoutine != null) 
                 StopCoroutine(_animationRoutine);
             
@@ -101,11 +85,10 @@ namespace _01_Scripts.Core.UI
             if (!ActiveSelectSound) 
                 return;
             
-            if (uiAudioSource) {
+            if (uiAudioSource)
                 uiAudioSource.PlayOneShot(ActiveSelectSound);
-            } else if (GlobalManager.Instance) {
+            else if (GlobalManager.Instance)
                 GlobalManager.Instance.PlayPersistentUISound(ActiveSelectSound);
-            }
         }
     }
 }

@@ -18,9 +18,8 @@ namespace _01_Scripts.Turrets
             if (transform.childCount > 0) 
                 return false;
             
-            if (weaponClass == TurretClass.Main && maxSupportedSize == TurretClass.Auxiliary) {
+            if (weaponClass == TurretClass.Main && maxSupportedSize == TurretClass.Auxiliary)
                 return false; 
-            }
             
             return true;
         }
@@ -28,8 +27,7 @@ namespace _01_Scripts.Turrets
         /// <summary>
         /// Instantiates the provided turret prefab as a child of this hardpoint.
         /// </summary>
-        public GameObject EquipTurret(GameObject turretPrefab, TurretClass weaponClass)
-        {
+        public GameObject EquipTurret(GameObject turretPrefab, TurretClass weaponClass) {
             if (!CanEquip(weaponClass)) {
                 Debug.LogWarning($"Cannot equip a {weaponClass} weapon on a {maxSupportedSize} hardpoint at {gameObject.name}.");
                 return null;

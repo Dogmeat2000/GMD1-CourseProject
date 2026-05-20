@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using UnityEngine;
 using _01_Scripts.Core.Interfaces;
-using _01_Scripts.Core.Targeting.Strategies;
 
 namespace _01_Scripts.Core.Targeting
 {
+    // TODO Add description
     public class BattlefieldRadar : MonoBehaviour, IService
     {
         private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new Dictionary<Faction, List<ITargetable>> {
@@ -21,16 +20,16 @@ namespace _01_Scripts.Core.Targeting
             return _radarBlips.TryGetValue(faction, out var blips) ? blips : new List<ITargetable>();
         }
 
+        // TODO Add description
         public void RegisterTarget(ITargetable target) {
-            if (!_radarBlips[target.Faction].Contains(target)) {
+            if (!_radarBlips[target.Faction].Contains(target))
                 _radarBlips[target.Faction].Add(target);
-            }
         }
 
+        // TODO Add description
         public void UnregisterTarget(ITargetable target) {
-            if (_radarBlips.TryGetValue(target.Faction, out var blip)) {
+            if (_radarBlips.TryGetValue(target.Faction, out var blip))
                 blip.Remove(target);
-            }
         }
 
         /// <summary>
@@ -43,6 +42,7 @@ namespace _01_Scripts.Core.Targeting
             return strategy.SelectTarget(_radarBlips[targetFaction], requesterPosition);
         }
         
+        // TODO Add description
         public int GetActiveHostileCount() {
             if (!_radarBlips.TryGetValue(Faction.Hostile, out var blip)) 
                 return 0;

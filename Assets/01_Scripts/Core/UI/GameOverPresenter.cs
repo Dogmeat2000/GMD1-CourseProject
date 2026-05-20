@@ -15,57 +15,52 @@ namespace _01_Scripts.Core.UI
     public class GameOverPresenter : BaseHighscorePresenter
     { 
         [Header("UI Data and Bindings")]
-        [SerializeField] 
-        private GameObject gameOverCanvas;
+        // TODO Add description
+        [SerializeField] private GameObject gameOverCanvas;
         
-        [SerializeField] 
-        private TextMeshProUGUI matchResultText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI matchResultText;
         
         [Tooltip("The text element displaying the final scores at the bottom of the screen")]
-        [SerializeField] 
-        private TextMeshProUGUI finalTelemetryText;
+        [SerializeField] private TextMeshProUGUI finalTelemetryText;
 
-        [SerializeField] 
-        private string victoryText = "VICTORY";
+        // TODO Add description
+        [SerializeField] private string victoryText = "VICTORY";
         
-        [SerializeField] 
-        private Color victoryColor = Color.cyan;
+        // TODO Add description
+        [SerializeField] private Color victoryColor = Color.cyan;
         
-        [SerializeField] 
-        private string defeatText = "DEFEAT";
+        // TODO Add description
+        [SerializeField] private string defeatText = "DEFEAT";
         
-        [SerializeField] 
-        private Color defeatColor = Color.red;
+        // TODO Add description
+        [SerializeField] private Color defeatColor = Color.red;
         
         [Header("Prefabs")]
         [Tooltip("Prefab for a row with an active InputField for the local player")]
-        [SerializeField] 
-        private GameObject inputScoreRowPrefab;
+        [SerializeField] private GameObject inputScoreRowPrefab;
 
         [Header("Audio")]
-        [SerializeField] 
-        private AudioSource audioSource;
+        // TODO Add description
+        [SerializeField] private AudioSource audioSource;
         
-        [SerializeField] 
-        private AudioClip victoryAudioClip;
+        // TODO Add description
+        [SerializeField] private AudioClip victoryAudioClip;
         
-        [SerializeField] 
-        private AudioClip defeatAudioClip;
+        // TODO Add description
+        [SerializeField] private AudioClip defeatAudioClip;
 
         [Header("Local Players")]
         [Tooltip("Slot all PlayerScore scripts, for players in this level, here")]
-        [SerializeField] 
-        private List<PlayerScore> localPlayers;
+        [SerializeField] private List<PlayerScore> localPlayers;
         
         [Header("Scene Navigation")]
         [Tooltip("The exact name of the Main Menu scene to load upon exit")]
-        [SerializeField] 
-        private string mainMenuSceneName = "SCN_MainMenu";
+        [SerializeField] private string mainMenuSceneName = "SCN_MainMenu";
         
         [Header("UI Navigation")]
         [Tooltip("The button the joystick should snap to after saving a score")]
-        [SerializeField] 
-        private GameObject returnToMainMenuButton;
+        [SerializeField] private GameObject returnToMainMenuButton;
 
         private GameDirector _gameDirector;
         private int _unsavedInputsCount = 0;
@@ -75,19 +70,16 @@ namespace _01_Scripts.Core.UI
         }
         
         private void Start() {
-            if (gameOverCanvas) {
+            if (gameOverCanvas)
                 gameOverCanvas.SetActive(false);
-            }
             
-            if (_gameDirector) {
+            if (_gameDirector)
                 _gameDirector.OnMatchEnded += ShowGameOverMenu;
-            }
         }
         
         private void OnDestroy() {
-            if (_gameDirector) {
+            if (_gameDirector)
                 _gameDirector.OnMatchEnded -= ShowGameOverMenu;
-            }
         }
 
         private void ShowGameOverMenu(MatchResult result) {
@@ -101,17 +93,18 @@ namespace _01_Scripts.Core.UI
                     matchResultText.text = victoryText;
                     matchResultText.color = victoryColor;
                 }
-                if (audioSource && victoryAudioClip) {
+                
+                if (audioSource && victoryAudioClip)
                     audioSource.PlayOneShot(victoryAudioClip);
-                }
+                
             } else {
                 if (matchResultText) {
                     matchResultText.text = defeatText;
                     matchResultText.color = defeatColor;
                 }
-                if (audioSource && defeatAudioClip) {
+                
+                if (audioSource && defeatAudioClip)
                     audioSource.PlayOneShot(defeatAudioClip);
-                }
             }
 
             GenerateLeaderboard();
@@ -143,15 +136,13 @@ namespace _01_Scripts.Core.UI
             
             IReadOnlyList<ScoreEntry> topScores = LeaderboardManager.Instance.GetTopScores();
             foreach (ScoreEntry saved in topScores) {
-                if (saved.score > playerScore) {
+                if (saved.score > playerScore)
                     rank++;
-                }
             }
             
             foreach (PlayerScore player in localPlayers) {
-                if (player.CurrentScore > playerScore) {
+                if (player.CurrentScore > playerScore)
                     rank++;
-                }
             }
             
             return rank;
@@ -189,9 +180,8 @@ namespace _01_Scripts.Core.UI
                 
                 if (pendingEntries.Count > 0) {
                     if (dataIndex < topScores.Count) {
-                        if (pendingEntries[0].ScoreData.CurrentScore >= topScores[dataIndex].score) {
+                        if (pendingEntries[0].ScoreData.CurrentScore >= topScores[dataIndex].score)
                             usePending = true;
-                        }
                     } else {
                         usePending = true;
                     }
@@ -206,9 +196,8 @@ namespace _01_Scripts.Core.UI
                     continue;
                 }
                 
-                if (i > 0 && currentSlotScore != previousScore) {
+                if (i > 0 && currentSlotScore != previousScore)
                     currentRank = i + 1; 
-                }
                 
                 if (usePending) {
                     InjectInputFieldRow(currentRank, pendingEntries[0].ScoreData); 
@@ -244,19 +233,21 @@ namespace _01_Scripts.Core.UI
                             }
                         }
                         
-                        if (returnToMainMenuButton && returnToMainMenuButton.TryGetComponent<UnityEngine.UI.Selectable>(out var selectable)) {
+                        if (returnToMainMenuButton && returnToMainMenuButton.TryGetComponent<UnityEngine.UI.Selectable>(out var selectable))
                             selectable.Select();
-                        }
                     }
                 });
             }
         }
         
+        // TODO Add description
         public void ReturnToMainMenu() {
             ServiceLocator.Get<GameStateService>()?.ResumeGame();
             SceneManager.LoadSceneAsync(mainMenuSceneName);
         }
 
+        // TODO Add description
+        // TODO Consider moving to another class/file -> Libs perhaps?
         private struct PendingEntry {
             public int Rank;
             public PlayerScore ScoreData;

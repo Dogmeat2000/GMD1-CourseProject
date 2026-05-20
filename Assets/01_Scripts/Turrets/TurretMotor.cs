@@ -3,10 +3,14 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
+    // TODO Add description
     public class TurretMotor : MonoBehaviour
     {
         [Header("Mechanical Components")]
+        // TODO Add description
         [SerializeField] private Transform turretBase; 
+        
+        // TODO Add description
         [SerializeField] private Transform barrelBase; 
 
         [Header("Weapons Systems")]
@@ -32,6 +36,7 @@ namespace _01_Scripts.Turrets
         /// <summary>
         /// Defines the specific weapon hardware to fire.
         /// </summary>
+        /// // TODO Consider moving into dedicated ENUM class/folder/libs
         public enum WeaponSlot {
             Main,
             Auxiliary,
@@ -44,6 +49,7 @@ namespace _01_Scripts.Turrets
             _gameStateService = ServiceLocator.Get<GameStateService>();
         }
 
+        // TODO Add description
         public void RotateJoints(float yawDelta, float pitchDelta) {
             // Pitch Axis (Up/Down)
             if (barrelBase) {

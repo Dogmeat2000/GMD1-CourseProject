@@ -17,10 +17,16 @@ namespace _01_Scripts.Core
         [Tooltip("The current/starting health this entity is initialized with")]
         [SerializeField] private int currentHealth = 100;
         
+        // TODO Add description
         public int CurrentHealth  => currentHealth;
+        
+        // TODO Add description
         public int MaxHealth => maxHealth;
 
+        // TODO Add description
         public event Action<int, int, GameObject> OnHealthChanged; // Broadcasts: CurrentHealth, MaxHealth
+        
+        // TODO Add description
         public event Action<HealthManager, GameObject> OnZeroHealth;  // Broadcasts: GameObject that destroyed this entity.
         
         private void Awake() {
@@ -44,6 +50,7 @@ namespace _01_Scripts.Core
             AdjustHealth(Mathf.Abs(amount), null);
         }
         
+        // TODO Add description
         public void ResetHealth() {
             currentHealth = maxHealth;
             OnHealthChanged?.Invoke(currentHealth, maxHealth, gameObject);
@@ -58,9 +65,8 @@ namespace _01_Scripts.Core
             
             OnHealthChanged?.Invoke(currentHealth, maxHealth, instigator);
                 
-            if (currentHealth == 0) {
+            if (currentHealth == 0)
                 OnZeroHealth?.Invoke(this, instigator);
-            }
         }
     }
 }

@@ -13,25 +13,20 @@ namespace _01_Scripts.Core.Audio
     {
         [Header("Deployment Voiceover")] 
         [Tooltip("The spoken word intro to play at the start of the mission.")] 
-        [SerializeField]
-        private AudioClip introVoiceover;
+        [SerializeField] private AudioClip introVoiceover;
 
         [Tooltip("Time [seconds] to wait before playing the intro.")] 
-        [SerializeField]
-        private float initialDelay = 2f;
+        [SerializeField] private float initialDelay = 2f;
 
         [Header("Combat Tracks")] 
         [Tooltip("A collection of background music tracks. One will be picked at random.")] 
-        [SerializeField]
-        private AudioClip[] combatTracks;
+        [SerializeField] private AudioClip[] combatTracks;
 
         [Tooltip("Time [s] to wait between the intro and music, or between consecutive music tracks.")] 
-        [SerializeField]
-        private float delayBetweenTracks = 1.5f;
+        [SerializeField] private float delayBetweenTracks = 1.5f;
         
         [Tooltip("How long [s] it takes to fade the music out upon Game Over.")]
-        [SerializeField] 
-        private float fadeOutDuration = 2.0f;
+        [SerializeField] private float fadeOutDuration = 2.0f;
 
         private AudioSource _audioSource;
         private GameStateService _gameState;
@@ -56,24 +51,21 @@ namespace _01_Scripts.Core.Audio
         }
         
         private void OnEnable() {
-            if (_gameState != null) {
+            if (_gameState != null)
                 _gameState.OnStateChanged += HandleStateChanged;
-            }
         }
 
         private void OnDisable() {
-            if (_gameState != null) {
+            if (_gameState != null)
                 _gameState.OnStateChanged -= HandleStateChanged;
-            }
         }
         
         private void HandleStateChanged(GameState state) {
             if (state != GameState.GameOver) 
                 return;
             
-            if (_sequenceRoutine != null) {
+            if (_sequenceRoutine != null)
                 StopCoroutine(_sequenceRoutine);
-            }
             
             StartCoroutine(FadeOutRoutine());
         }
@@ -93,9 +85,8 @@ namespace _01_Scripts.Core.Audio
         }
 
         private IEnumerator AudioSequenceRoutine() {
-            if (initialDelay > 0) {
+            if (initialDelay > 0)
                 yield return new WaitForSeconds(initialDelay);
-            }
             
             if (introVoiceover) {
                 _audioSource.clip = introVoiceover;
@@ -109,9 +100,8 @@ namespace _01_Scripts.Core.Audio
             }
 
             while (true) {
-                if (delayBetweenTracks > 0) {
+                if (delayBetweenTracks > 0)
                     yield return new WaitForSeconds(delayBetweenTracks);
-                }
                 
                 AudioClip nextTrack = combatTracks[Random.Range(0, combatTracks.Length)];
 

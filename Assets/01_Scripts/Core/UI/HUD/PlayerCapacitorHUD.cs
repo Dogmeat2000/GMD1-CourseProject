@@ -11,8 +11,13 @@ namespace _01_Scripts.Core.UI.HUD
         [SerializeField] private TurretCapacitor capacitor;
 
         [Header("Readout Displays")]
+        // TODO Add description
         [SerializeField] private Color healthyColor = Color.yellow;
+        
+        // TODO Add description
         [SerializeField] private Color warningColor = Color.orange;
+        
+        // TODO Add description
         [SerializeField] private Color criticalColor = Color.red;
         
         [Tooltip("Percentage (0.0 to 1.0) when the bar turns warningColor")]
@@ -37,9 +42,8 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (capacitor) {
+            if (capacitor)
                 capacitor.OnEnergyPercentageChanged += UpdateCapacitorDisplay;
-            }
         }
 
         private void UpdateCapacitorDisplay(float currentCapacityPercentage) {
@@ -49,13 +53,12 @@ namespace _01_Scripts.Core.UI.HUD
             }
             
             if (sliderFillImage) {
-                if (currentCapacityPercentage <= criticalThreshold) {
+                if (currentCapacityPercentage <= criticalThreshold)
                     sliderFillImage.color = criticalColor;
-                } else if (currentCapacityPercentage <= warningThreshold) {
+                else if (currentCapacityPercentage <= warningThreshold)
                     sliderFillImage.color = warningColor;
-                } else {
+                else
                     sliderFillImage.color = healthyColor;
-                }
             }
         }
     }

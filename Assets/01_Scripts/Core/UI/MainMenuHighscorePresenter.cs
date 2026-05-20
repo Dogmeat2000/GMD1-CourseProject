@@ -3,12 +3,14 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
+    // TODO Add description
     public class MainMenuHighscorePresenter : BaseHighscorePresenter
     {
         private void OnEnable() {
             GenerateStaticLeaderboard();
         }
 
+        // TODO Add description
         public void GenerateStaticLeaderboard() {
             if (!LeaderboardManager.Instance) {
                 Debug.LogWarning("LeaderboardManager is missing in Main Menu Scene.");
@@ -18,7 +20,6 @@ namespace _01_Scripts.Core.UI
             ClearBoard();
 
             var topScores = LeaderboardManager.Instance.GetTopScores();
-            
             int currentRank = 1;
             int previousScore = -1;
 
@@ -26,9 +27,8 @@ namespace _01_Scripts.Core.UI
                 if (i < topScores.Count) {
                     var data = topScores[i];
                     
-                    if (i > 0 && data.score != previousScore) {
+                    if (i > 0 && data.score != previousScore)
                         currentRank = i + 1;
-                    }
 
                     InjectStaticRow(currentRank, data.playerName, data.score);
                     previousScore = data.score;

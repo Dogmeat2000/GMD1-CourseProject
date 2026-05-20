@@ -121,7 +121,7 @@ namespace _01_Scripts.Core.Managers
             HashSet<GameObject> allShips = new HashSet<GameObject>();
             
             if (alliedFleetShips != null) {
-                foreach (var s in alliedFleetShips) if (s) allShips.Add(s);
+                foreach (GameObject s in alliedFleetShips) if (s) allShips.Add(s);
             }
 
             if (aiAuxTurretPrefab) {

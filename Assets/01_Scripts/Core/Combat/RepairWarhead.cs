@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace _01_Scripts.Core.Combat
 {
     /// <summary>
-    /// Delivers a healing payload upon impact.
+    /// Delivers a healing payload to target upon impact.
     /// </summary>
     [RequireComponent(typeof(Collider))]
     public class RepairWarhead : Warhead
@@ -25,15 +25,13 @@ namespace _01_Scripts.Core.Combat
         }
 
         private void OnTriggerEnter(Collider other) {
-            
             if (_hasDetonated || !validTargetLayers.Contains(other.gameObject.layer)) 
                 return;
             
             HealthManager targetHealth = other.GetComponentInParent<HealthManager>();
             
-            if (targetHealth) {
+            if (targetHealth)
                 Detonate(targetHealth);
-            }
         }
         
         private void OnCollisionEnter(Collision collision) {
@@ -42,9 +40,8 @@ namespace _01_Scripts.Core.Combat
             
             HealthManager targetHealth = collision.collider.GetComponentInParent<HealthManager>();
             
-            if (targetHealth) {
+            if (targetHealth)
                 Detonate(targetHealth);
-            }
         }
 
         private void Detonate(HealthManager target) {

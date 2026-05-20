@@ -31,13 +31,11 @@ namespace _01_Scripts.Core.Managers
         }
         
         private void Start() {
-            if (_waveDirector) {
+            if (_waveDirector)
                 _waveDirector.OnAllWavesCleared += HandleVictory;
-            }
             
-            if (_fleetDirector) {
+            if (_fleetDirector)
                 _fleetDirector.OnFleetDestroyed += HandleDefeat;
-            }
         }
         
         /// <summary>
@@ -73,9 +71,8 @@ namespace _01_Scripts.Core.Managers
             player.OnZeroHealth -= HandlePlayerDeath;
             _alivePlayers--;
             
-            if (_alivePlayers <= 0) {
+            if (_alivePlayers <= 0)
                 HandleDefeat();
-            }
         }
 
         private void HandleVictory() {

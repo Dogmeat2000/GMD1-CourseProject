@@ -60,18 +60,19 @@ namespace _01_Scripts.Core.UI
         
         private void HandleReadyInput(InputAction.CallbackContext context) 
         {
-            if (!_isAwaitingPlayersReady) return;
+            if (!_isAwaitingPlayersReady) 
+                return;
             
             var device = context.control.device;
             
-            if (Gamepad.all.Count >= 1 && device == Gamepad.all[0]) {
-                _isP1Ready = !_isP1Ready;
-                UpdatePlayerStatusUI(1, _isP1Ready);
-            } else if (Gamepad.all.Count >= 2 && device == Gamepad.all[1]) {
+            if (Gamepad.all.Count >= 2 && device == Gamepad.all[1]) {
                 if (_requiresTwoPlayers) {
                     _isP2Ready = !_isP2Ready;
                     UpdatePlayerStatusUI(2, _isP2Ready);
                 }
+            } else if (device is Keyboard || device is Pointer || (Gamepad.all.Count >= 1 && device == Gamepad.all[0])) {
+                _isP1Ready = !_isP1Ready;
+                UpdatePlayerStatusUI(1, _isP1Ready);
             }
         }
         
@@ -136,9 +137,8 @@ namespace _01_Scripts.Core.UI
                 readyUpPanel.SetActive(true);
 
             GameMode currentMode = GameMode.SinglePlayer;
-            if (GlobalManager.Instance && GlobalManager.Instance.GlobalSettings) {
+            if (GlobalManager.Instance && GlobalManager.Instance.GlobalSettings)
                 currentMode = GlobalManager.Instance.GlobalSettings.ActiveGameMode;
-            }
 
             _requiresTwoPlayers = (currentMode == GameMode.CoopOneShip || currentMode == GameMode.CoopTwoShips);
 
@@ -158,11 +158,10 @@ namespace _01_Scripts.Core.UI
         private void UpdatePlayerStatusUI(int playerNum, bool isReady) {
             string status = isReady ? "<color=green>READY</color>" : "<color=red>NOT READY</color>";
             
-            if (playerNum == 1 && p1StatusText) {
+            if (playerNum == 1 && p1StatusText)
                 p1StatusText.text = $"PLAYER 1: {status}";
-            } else if (playerNum == 2 && p2StatusText) {
+            else if (playerNum == 2 && p2StatusText)
                 p2StatusText.text = $"PLAYER 2: {status}";
-            }
         }
 
         private bool IsSquadReady() {

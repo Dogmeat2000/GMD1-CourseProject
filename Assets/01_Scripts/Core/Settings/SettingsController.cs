@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Settings
 {
+    // TODO Add description
     public class SettingsController : MonoBehaviour
     {
         /// <summary>

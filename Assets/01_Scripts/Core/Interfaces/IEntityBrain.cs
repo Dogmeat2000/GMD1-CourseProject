@@ -1,5 +1,6 @@
 namespace _01_Scripts.Core.Interfaces
 {
+    // TODO: Add class descriptor
     public interface IEntityBrain
     {
         /// <summary>

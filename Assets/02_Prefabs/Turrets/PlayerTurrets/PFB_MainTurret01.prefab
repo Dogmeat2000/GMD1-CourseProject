@@ -3771,7 +3771,7 @@ MonoBehaviour:
   muzzleExits:
   - {fileID: 5884727721982750503}
   - {fileID: 3260053752704826574}
-  muzzleFlashPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 3535740912068110448, guid: 1088dc5c833e9b24e8713c6afd3935d3, type: 3}
   weaponAudioSource: {fileID: 854331828911618748}
   fireSound: {fileID: 8300000, guid: ff016d6747b4ea64bbaadde241515bb1, type: 3}
   emptyClickSound: {fileID: 8300000, guid: 5147613f6617fed4c8925d9c1c046351, type: 3}
@@ -3849,7 +3849,7 @@ MonoBehaviour:
     m_ActionName: 'Default/RightTrigger - Pause[/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger,/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 515004bc-cb70-4a1c-9871-670468c0b268
+  m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &2358493219367117054 stripped

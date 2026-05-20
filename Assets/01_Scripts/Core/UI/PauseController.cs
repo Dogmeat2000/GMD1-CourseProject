@@ -1,6 +1,5 @@
 using _01_Scripts.Core.Services;
 using UnityEngine;
-//using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static _01_Scripts.Core.Utilities.CursorUtilities;
 
@@ -20,13 +19,7 @@ namespace _01_Scripts.Core.UI
         [Tooltip("The exact name of the Main Menu scene to load upon exit")]
         [SerializeField] 
         private string mainMenuSceneName = "SCN_MainMenu";
-
-        /*[Header("Input Setup")]
-        [Tooltip("The Input Action bound to pausing the game")]
-        [SerializeField] 
-        private InputActionReference pauseActionRef;*/
         
-        //private InputAction _pauseAction;
         private GameStateService _gameState;
 
         private void Awake() {
@@ -36,20 +29,11 @@ namespace _01_Scripts.Core.UI
         private void OnEnable() {
             if (_gameState != null) 
                 _gameState.OnStateChanged += HandleStateChanged;
-            
-            /*if (pauseActionRef != null) {
-                _pauseAction = pauseActionRef.action;
-                _pauseAction.Enable();
-                _pauseAction.performed += HandlePauseInput;
-            }*/
         }
         
         private void OnDisable() {
             if (_gameState != null) 
                 _gameState.OnStateChanged -= HandleStateChanged;
-            
-            /*if (_pauseAction != null)
-                _pauseAction.performed -= HandlePauseInput;*/
         }
         
         private void Start() {
@@ -64,28 +48,10 @@ namespace _01_Scripts.Core.UI
             LockAndHideCursor();
         }
         
-        /*private void HandlePauseInput(InputAction.CallbackContext context) {
-            Debug.LogError("PauseInput was fired.");
-            if (_gameState != null && _gameState.CurrentState == GameState.GameOver) 
-                return;
-            
-            TogglePause();
-        }*/
-
-        /*public void TogglePause() {
-            switch (_gameState.CurrentState) {
-                case GameState.Playing:
-                    _gameState.PauseGame();
-                    break;
-                
-                case GameState.Paused:
-                    _gameState.ResumeGame();
-                    break;
-            }
-        }*/
-        
+        // TODO Add description
         public void ResumeGame() => _gameState.ResumeGame();
         
+        // TODO Add description
         public void ReturnToMainMenu() {
             _gameState.ResumeGame();
             SceneManager.LoadSceneAsync(mainMenuSceneName);

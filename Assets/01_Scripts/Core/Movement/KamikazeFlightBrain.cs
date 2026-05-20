@@ -9,13 +9,21 @@ using _01_Scripts.Core.Targeting.Strategies;
 
 namespace _01_Scripts.Core.Movement
 {
+    // TODO: Add class descriptor
     [RequireComponent(typeof(Rigidbody))]
     public class KamikazeFlightBrain : MonoBehaviour, IEntityBrain
     {
         [Header("Flight Capabilities")]
-        [SerializeField] private float breachSpeed = 80f;
-        [SerializeField] private float pursuitSpeed = 120f;
+        [Tooltip("The speed this entity breaches the water surface with")]
+        [SerializeField] private float breachSpeed = 100f;
+        
+        [Tooltip("The speed this entity pursues player ships with")]
+        [SerializeField] private float pursuitSpeed = 30f;
+        
+        [Tooltip("The speed this entity turns with")]
         [SerializeField] private float turnSpeed = 5f;
+        
+        [Tooltip("Which layer do allies of this entity belong to?")]
         [SerializeField] private LayerMask allyLayer;
 
         
@@ -48,7 +56,7 @@ namespace _01_Scripts.Core.Movement
         [Tooltip("How close [m] allies can get before repelling")]
         [SerializeField] private float repelRadius = 15f;
         
-        private enum FlightPhase { Asleep, Breaching, Pursuing }
+        private enum FlightPhase { Asleep, Breaching, Pursuing } // TODO: Move to external Class (DRY VIOLATION)
         
         private FlightPhase _currentPhase = FlightPhase.Asleep;
         private Rigidbody _rb;
@@ -98,19 +106,18 @@ namespace _01_Scripts.Core.Movement
             }
         }
 
-        private void ExecuteBreachManeuver() {
+        private void ExecuteBreachManeuver() { // TODO: Move to external class. Dry violation
             _rb.linearVelocity = Vector3.up * breachSpeed;
             
             Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
             Quaternion targetRotation = Quaternion.Slerp(transform.rotation, upwardRotation, Time.fixedDeltaTime * turnSpeed);
             _rb.MoveRotation(targetRotation);
 
-            if (transform.position.y >= _targetBreachAltitude) {
+            if (transform.position.y >= _targetBreachAltitude)
                 AcquireTarget();
-            }
         }
 
-        private void AcquireTarget() {
+        private void AcquireTarget() { // TODO: Move to external class. Dry violation
             _assignedTarget = _battlefieldRadar.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
 
             if (_assignedTarget != null) {
@@ -120,7 +127,7 @@ namespace _01_Scripts.Core.Movement
             }
         }
 
-        private void ExecuteSwarmPursuit() {
+        private void ExecuteSwarmPursuit() { // TODO: Potentially has some DRY violations
             if (_assignedTarget == null || !_assignedTarget.IsTargetable) {
                 AcquireTarget();
                 return;

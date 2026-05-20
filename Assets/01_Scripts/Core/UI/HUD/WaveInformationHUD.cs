@@ -6,22 +6,22 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    // TODO Add description
     public class WaveInformationHUD : MonoBehaviour
     {
         [Header("Readout Displays")]
-        [SerializeField] 
-        private TextMeshProUGUI waveText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI waveText;
         
-        [SerializeField] 
-        private TextMeshProUGUI enemyCountText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI enemyCountText;
         
-        [SerializeField] 
-        private TextMeshProUGUI statusText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI statusText;
 
         [Header("HUD Settings")]
         [Tooltip("How long central status messages stay on screen before fading")]
-        [SerializeField] 
-        private float statusDisplayDuration = 3f;
+        [SerializeField] private float statusDisplayDuration = 3f;
 
         private Coroutine _statusClearCoroutine;
         private WaveDirector _waveDirector;
@@ -31,11 +31,10 @@ namespace _01_Scripts.Core.UI.HUD
         }
         
         private void OnEnable() {
-            if (_waveDirector) {
+            if (_waveDirector)
                 SubscribeToWaveUpdates();
-            } else {
+            else
                 StartCoroutine(DelayedSubscription());
-            }
         }
 
         private void OnDisable() {
@@ -80,9 +79,9 @@ namespace _01_Scripts.Core.UI.HUD
             statusText.text = message;
             statusText.gameObject.SetActive(true);
 
-            if (_statusClearCoroutine != null) {
+            if (_statusClearCoroutine != null)
                 StopCoroutine(_statusClearCoroutine);
-            }
+            
             _statusClearCoroutine = StartCoroutine(ClearStatusRoutine());
         }
 

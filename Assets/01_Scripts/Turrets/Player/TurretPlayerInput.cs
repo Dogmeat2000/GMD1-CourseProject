@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,32 +7,13 @@ using UnityEngine.InputSystem;
 
 namespace _01_Scripts.Turrets.Player
 {
+    // TODO Add description
     [RequireComponent(typeof(TurretMotor))]
     public class TurretPlayerInput : MonoBehaviour
     {
-        [Header("Input Action Assets")]
-        [Tooltip("0 for Gamepad 1, 1 for Gamepad 2")]
+        [Header("Player Configuration")]
+        [Tooltip("0 for Gamepad 1 (Or mouse/keyboard), 1 for Gamepad 2")]
         [SerializeField] private int playerIndex = 0;
-
-        [Header("Mouse Sensitivity Settings")]
-        [SerializeField] private float mouseSens = 10f;
-        
-        [Header("Arcade Sensitivity Settings")]
-        [Tooltip("The initial, slow sensitivity when the stick is quickly tapped (for precision aiming).")]
-        [SerializeField] private float precisionSens = 25f;
-        
-        [Tooltip("The maximum sensitivity when the stick is held down (for rapid turning).")]
-        [SerializeField] private float maxSlewSens = 100f;
-        
-        [Tooltip("How many seconds the stick must be held to reach maximum turning speed.")]
-        [SerializeField] private float timeToMaxSpeed = 0.4f;
-        
-        [Tooltip("How long [s] the turret keeps sliding after releasing the joystick")]
-        [SerializeField] private float slideDuration = 0.15f;
-        
-        [Tooltip("How much the turret slows down when the reticle is over an enemy (e.g., 0.4 = 40% speed).")]
-        [Range(0.1f, 1f)]
-        [SerializeField] private float frictionMultiplier = 0.4f;
         
         private TurretMotor _motor;
         private PlayerInput _playerInput;
@@ -49,26 +32,44 @@ namespace _01_Scripts.Turrets.Player
         private Vector2 _currentMovement;
         private Vector2 _movementVelocity;
 
-        void Awake() {
+        private void Awake() {
             _playerInput = GetComponent<PlayerInput>();
             _motor = GetComponent<TurretMotor>();
             
-            _moveAction = _playerInput.actions["Movement"];
-            _fireMainAction = _playerInput.actions["B - Main Cannon"];
-            _fireAuxAction = _playerInput.actions["X - Auxiliary Cannon"];
-            _fireSpecial1Action = _playerInput.actions["Y - Special Ammo"];
-            _pauseAction = _playerInput.actions["RightTrigger - Pause"];
+            _moveAction = _playerInput.actions[GlobalManager.Instance.GlobalSettings.MoveInputAction];
+            _fireMainAction = _playerInput.actions[GlobalManager.Instance.GlobalSettings.FireMainCannonInputAction];
+            _fireAuxAction = _playerInput.actions[GlobalManager.Instance.GlobalSettings.FireAuxCannonInputAction];
+            _fireSpecial1Action = _playerInput.actions[GlobalManager.Instance.GlobalSettings.FireSpecialAmmo1InputAction];
+            _pauseAction = _playerInput.actions[GlobalManager.Instance.GlobalSettings.PauseGameInputAction];
         }
 
-        void Start() {
-            if (Gamepad.all.Count > playerIndex) {
-                _playerInput.SwitchCurrentControlScheme(Gamepad.all[playerIndex]);
-            } else {
-                Debug.LogError($"Gamepad {playerIndex} not found!");
+        private void Start() {
+            string schemeName = (playerIndex == 0) ? GlobalManager.Instance.GlobalSettings.P1InputControlSchemeName : GlobalManager.Instance.GlobalSettings.P2InputControlSchemeName;
+            List<InputDevice> assignedDevices = new List<InputDevice>();
+            
+            if (playerIndex == 0) {
+                if (Gamepad.all.Count > 0) 
+                    assignedDevices.Add(Gamepad.all[0]);
+                
+                if (Keyboard.current != null) 
+                    assignedDevices.Add(Keyboard.current);
+                
+                if (Mouse.current != null) 
+                    assignedDevices.Add(Mouse.current);
+
+                _playerInput.SwitchCurrentControlScheme(schemeName, assignedDevices.ToArray());
+            }  else {
+                if (Gamepad.all.Count > 1) {
+                    assignedDevices.Add(Gamepad.all[1]);
+                    _playerInput.SwitchCurrentControlScheme(schemeName, assignedDevices.ToArray());
+                } else {
+                    Debug.LogWarning($"Player 2 offline: Gamepad 2 not detected.");
+                    _playerInput.DeactivateInput();
+                }
             }
         }
 
-        void OnEnable() {
+        private void OnEnable() {
             if (_fireMainAction != null)
                 _fireMainAction.performed += ExecuteFireMainCommand;
             
@@ -79,7 +80,7 @@ namespace _01_Scripts.Turrets.Player
                 _pauseAction.performed += ExecutePauseCommand;
         }
         
-        void OnDisable() {
+        private void OnDisable() {
             if (_fireMainAction != null)
                 _fireMainAction.performed -= ExecuteFireMainCommand;
             
@@ -98,84 +99,75 @@ namespace _01_Scripts.Turrets.Player
             _isFireSpecialWeapon1Requested = true;
         }
         
-        private void ExecutePauseCommand(InputAction.CallbackContext context) 
-        {
+        private void ExecutePauseCommand(InputAction.CallbackContext context) {
             var gameState = ServiceLocator.Get<GameStateService>();
-            if (gameState == null || gameState.CurrentState == GameState.GameOver) return;
+            
+            if (gameState == null || gameState.CurrentState == GameState.GameOver) 
+                return;
 
-            if (gameState.CurrentState == GameState.Playing) {
+            if (gameState.CurrentState == GameState.Playing)
                 gameState.PauseGame();
-            } 
-            else if (gameState.CurrentState == GameState.Paused) {
+            else if (gameState.CurrentState == GameState.Paused)
                 gameState.ResumeGame();
-            }
         }
         
+        // TODO Add description
         public void SetTargetFriction(bool onTarget) {
             _isReticleOnTarget = onTarget;
         }
 
-        void Update() {
+        private void Update() {
+            HandleMoveTurret();
+            
+            // Semi-Automatic weapons:
+            HandleFireWeapon(ref _isFireMainRequested, TurretMotor.WeaponSlot.Main);
+            HandleFireWeapon(ref _isFireSpecialWeapon1Requested, TurretMotor.WeaponSlot.Special1);
+            
+            // Full-Automatic weapons:
+            bool isFireAuxiliaryPressed = _fireAuxAction.IsPressed();
+            HandleFireWeapon(ref isFireAuxiliaryPressed, TurretMotor.WeaponSlot.Auxiliary);
+        }
+
+        private void HandleMoveTurret() {
+            if (_moveAction.activeControl != null)
+                _wasLastInputMouse = _moveAction.activeControl.device is Pointer;
             
             Vector2 rawInput = _moveAction.ReadValue<Vector2>();
-            
-            if (_moveAction.activeControl != null) {
-                _wasLastInputMouse = _moveAction.activeControl.device is Pointer;
-            }
-            
             float activeSens;
-
+            
             if (_wasLastInputMouse) {
-                activeSens = mouseSens;
+                activeSens = GlobalManager.Instance.GlobalSettings.MouseSens;
                 _currentMovement = rawInput * activeSens; 
                 _movementVelocity = Vector2.zero; 
             } else {
                 if (rawInput.sqrMagnitude > 0.01f) {
                     _currentHoldTime += Time.deltaTime;
                     
-                    float timeRatio = Mathf.Clamp01(_currentHoldTime / timeToMaxSpeed);
-                    float baseArcadeSens = Mathf.Lerp(precisionSens, maxSlewSens, timeRatio);
+                    float timeRatio = Mathf.Clamp01(_currentHoldTime / GlobalManager.Instance.GlobalSettings.TimeToMaxSpeed);
+                    float baseArcadeSens = Mathf.Lerp(GlobalManager.Instance.GlobalSettings.PrecisionSens, GlobalManager.Instance.GlobalSettings.MaxSlewSens, timeRatio);
                     
-                    activeSens = _isReticleOnTarget ? (baseArcadeSens * frictionMultiplier) : baseArcadeSens;
+                    activeSens = _isReticleOnTarget ? (baseArcadeSens * GlobalManager.Instance.GlobalSettings.FrictionMultiplier) : baseArcadeSens;
 
                     _currentMovement = rawInput * activeSens;
                     _movementVelocity = Vector2.zero; 
                 } else {
                     _currentHoldTime = 0f; 
-                    _currentMovement = Vector2.SmoothDamp(_currentMovement, Vector2.zero, ref _movementVelocity, slideDuration);
+                    _currentMovement = Vector2.SmoothDamp(_currentMovement, Vector2.zero, ref _movementVelocity, GlobalManager.Instance.GlobalSettings.SlideDuration);
                 }
             }
             
             _motor.RotateJoints(_currentMovement.x * Time.deltaTime, _currentMovement.y * Time.deltaTime);
-            
-            // Main Fire Mode:
-            if (_isFireMainRequested) {
-                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
-                    _motor.PullTrigger(TurretMotor.WeaponSlot.Main);
-                }
-                _isFireMainRequested = false;
-            } else if (!_fireMainAction.IsPressed()) {
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Main);
-            }
-            
-            // Auxiliary Fire Mode:
-            if (_fireAuxAction.IsPressed()) {
-                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
-                    _motor.PullTrigger(TurretMotor.WeaponSlot.Auxiliary);
-                }
-            } else {
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Auxiliary);
-            }
-            
-            // Special Weapons 1 Fire Mode:
-            if (_isFireSpecialWeapon1Requested) {
-                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
-                    _motor.PullTrigger(TurretMotor.WeaponSlot.Special1);
-                }
-                _isFireSpecialWeapon1Requested = false;
-            } else {
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Special1);
-            }
         }
+
+        private void HandleFireWeapon(ref bool condition, TurretMotor.WeaponSlot weaponSlot) {
+            if (condition) {
+                if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject())
+                    _motor.PullTrigger(weaponSlot);
+                
+                condition = false;
+            } else {
+                _motor.ReleaseTrigger(weaponSlot);
+            }
+        } 
     }
 }

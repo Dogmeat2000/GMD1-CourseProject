@@ -7,6 +7,8 @@ using _01_Scripts.Core.Settings;
 
 namespace _01_Scripts.Core.Targeting.Strategies
 {
+    // TODO Add description
+    // TODO Consider deleting, since it's not used!
     public class ProximityThreatStrategy : ITargetingStrategy
     {
         public ITargetable SelectTarget(List<ITargetable> availableTargets, Vector3 requesterPosition) {
@@ -16,12 +18,14 @@ namespace _01_Scripts.Core.Targeting.Strategies
             LevelManager levelManager = ServiceLocator.Get<LevelManager>();
             LevelSettings settings = levelManager.Settings;
 
-            foreach (var target in availableTargets) {
-                if (target == null || !target.IsTargetable) continue;
+            foreach (ITargetable target in availableTargets) {
+                if (target == null || !target.IsTargetable) 
+                    continue;
                 
                 float sqrDistance = (target.TargetTransform.position - requesterPosition).sqrMagnitude;
                 
-                if (sqrDistance <= 0.1f) sqrDistance = 0.1f; 
+                if (sqrDistance <= 0.1f) 
+                    sqrDistance = 0.1f; 
                 
                 int weight = settings.GetPriorityWeight(target.Priority);
                 float threatScore = weight / sqrDistance;

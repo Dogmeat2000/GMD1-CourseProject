@@ -3,20 +3,18 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
+    // TODO Add description
     public class TurretBarrelRecoil : MonoBehaviour
     {
         [Header("Recoil Settings")]
         [Tooltip("How far back the barrel slides on the local Z axis.")]
-        [SerializeField] 
-        private float recoilDistance = 0.5f;
+        [SerializeField] private float recoilDistance = 0.5f;
     
         [Tooltip("How fast the barrel snaps backward.")]
-        [SerializeField] 
-        private float snapBackSpeed = 50f;
+        [SerializeField] private float snapBackSpeed = 50f;
     
         [Tooltip("How smoothly the barrel returns to its resting position.")]
-        [SerializeField] 
-        private float recoverySpeed = 10f;
+        [SerializeField] private float recoverySpeed = 10f;
 
         private Vector3 _originalLocalPosition;
         private Coroutine _recoilRoutine;
@@ -25,10 +23,11 @@ namespace _01_Scripts.Turrets
             _originalLocalPosition = transform.localPosition;
         }
         
+        // TODO Add description
         public void TriggerRecoil() {
-            if (_recoilRoutine != null) {
+            if (_recoilRoutine != null)
                 StopCoroutine(_recoilRoutine);
-            }
+                
             _recoilRoutine = StartCoroutine(RecoilRoutine());
         }
 

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    // TODO Add description
     public class PlayerHealthHUD : MonoBehaviour
     {
         [Header("Telemetry Link")]
@@ -14,10 +15,13 @@ namespace _01_Scripts.Core.UI.HUD
         [Tooltip("Text element for percentage health (e.g., '100%')")]
         [SerializeField] private TextMeshProUGUI healthText;
         
+        // TODO Add description
         [SerializeField] private Color healthyColor = Color.cyan;
         
+        // TODO Add description
         [SerializeField] private Color warningColor = Color.yellow;
         
+        // TODO Add description
         [SerializeField] private Color criticalColor = Color.red;
         
         [Tooltip("Percentage (0.0 to 1.0) when the bar turns warningColor")]
@@ -43,9 +47,8 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void OnDisable() {
-            if (playerHealth) {
+            if (playerHealth)
                 playerHealth.OnHealthChanged -= UpdateHealthDisplay;
-            }
         }
 
         private void UpdateHealthDisplay(int currentHealth, int maxHealth, GameObject instigator) {
@@ -53,13 +56,12 @@ namespace _01_Scripts.Core.UI.HUD
             
             if (healthText) {
                 healthText.text = $"{(int) (healthPercent*100)}%";
-                if (healthPercent <= criticalThreshold) {
+                if (healthPercent <= criticalThreshold)
                     healthText.color = criticalColor;
-                } else if (healthPercent <= warningThreshold) {
+                else if (healthPercent <= warningThreshold)
                     healthText.color = warningColor;
-                } else {
+                else
                     healthText.color = healthyColor;
-                }
             }
 
             if (healthSlider) {
@@ -68,13 +70,12 @@ namespace _01_Scripts.Core.UI.HUD
             }
             
             if (sliderFillImage) {
-                if (healthPercent <= criticalThreshold) {
+                if (healthPercent <= criticalThreshold)
                     sliderFillImage.color = criticalColor;
-                } else if (healthPercent <= warningThreshold) {
+                else if (healthPercent <= warningThreshold)
                     sliderFillImage.color = warningColor;
-                } else {
+                else
                     sliderFillImage.color = healthyColor;
-                }
             }
         }
     }

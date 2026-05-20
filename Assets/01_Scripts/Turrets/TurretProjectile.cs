@@ -5,13 +5,19 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
+    // TODO Add description
     [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(Warhead))]
     public class TurretProjectile : MonoBehaviour, IProjectile
     {
         [Header("Ballistics")]
+        // TODO Add description
         [SerializeField] private float speed = 500f;
+        
+        // TODO Add description
         [SerializeField] private float lifeTime = 3f;
-        [SerializeField] private int damageAmount = 50;
+        
+        // TODO Add description
+        [SerializeField] private int damageAmount = 50; // TODO I believe I define this in multiple places! Confirm whether I want this as a serialized field here, or if it should always be defined by the shooting entity!
 
         private float _currentLifeTime;
         private Rigidbody _rb;
@@ -27,23 +33,21 @@ namespace _01_Scripts.Turrets
 
         private void Update() {
             _currentLifeTime += Time.deltaTime;
-            if (_currentLifeTime >= lifeTime) {
+            if (_currentLifeTime >= lifeTime)
                 ReturnToPool();
-            }
         }
 
         private void FixedUpdate() {
-            if (_rb) {
+            if (_rb)
                 _rb.linearVelocity = transform.forward * speed;
-            }
         }
 
+        // TODO Add description
         public void Fire(GameObject shooterIdentity, Collider[] ignoredColliders) {
             _ignoredColliders = ignoredColliders;
             
-            if (_warhead) {
+            if (_warhead)
                 _warhead.Instigator = shooterIdentity;
-            }
             
             Collider myCollider = GetComponent<Collider>();
             if (myCollider && ignoredColliders != null) {
@@ -53,6 +57,7 @@ namespace _01_Scripts.Turrets
             }
         }
 
+        // TODO Add description
         public void Initialize(Action<IPoolable> returnAction) {
             _returnToPoolCommand = returnAction;
             
@@ -66,6 +71,7 @@ namespace _01_Scripts.Turrets
                 _myCollider = GetComponent<Collider>();
         }
         
+        // TODO Add description
         public void OnSpawned() {
             _currentLifeTime = 0f;
                 
@@ -74,11 +80,11 @@ namespace _01_Scripts.Turrets
                 _rb.angularVelocity = Vector3.zero;
             }
             
-            if (_warhead) {
+            if (_warhead)
                 _warhead.ImpactAmount = damageAmount;
-            }
         }
         
+        // TODO Add description
         public void OnDespawned() {
             if (_myCollider && _ignoredColliders != null) {
                 foreach (var col in _ignoredColliders) {
@@ -94,12 +100,12 @@ namespace _01_Scripts.Turrets
             }
         }
         
+        // TODO Add description
         public void ReturnToPool() {
-            if (_returnToPoolCommand != null) {
+            if (_returnToPoolCommand != null)
                 _returnToPoolCommand.Invoke(this);
-            } else {
+            else
                 Destroy(gameObject);
-            }
         }
     }
 }

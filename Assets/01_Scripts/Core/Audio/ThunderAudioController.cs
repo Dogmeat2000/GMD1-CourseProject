@@ -6,16 +6,13 @@ namespace _01_Scripts.Core.Audio
     {
         [Header("Configuration")]
         [Tooltip("Thunder rumble audio files")]
-        [SerializeField]
-        public AudioClip[] thunderRumbles;
+        [SerializeField] public AudioClip[] thunderRumbles;
 
         [Tooltip("The audio source")] 
-        [SerializeField]
-        public AudioSource audioSource;
+        [SerializeField] public AudioSource audioSource;
         
         [Tooltip("The Thunder Storm particle system")] 
-        [SerializeField]
-        public ParticleSystem thunderStormPS;
+        [SerializeField] public ParticleSystem thunderStormPS;
     
         private int _lastStrikeCount = 0;
 

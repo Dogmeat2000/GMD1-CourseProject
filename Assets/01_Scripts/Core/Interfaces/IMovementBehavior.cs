@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Interfaces
 {
+    // TODO: Add Interface description
     public interface IMovementBehavior
     {
         /// <summary>

@@ -20,8 +20,9 @@ namespace _01_Scripts.Turrets.AI
         [SerializeField] private Transform muzzleReference;
 
         [Header("Configuration")]
+        // TODO Consider moving this out into Global Settings? Will make it easier to expand with future upgrades of the turrets as wave rewards, etc.
         [Tooltip("How fast the AI moves to track the target.")]
-        [SerializeField] private float aimSpeed = 100f;
+        [SerializeField] private float aimSpeed = 150f;
         
         [Tooltip("How close to the target [degrees] is acceptable to begin shooting.")]
         [SerializeField] private float fireToleranceAngle = 1f;
@@ -46,9 +47,8 @@ namespace _01_Scripts.Turrets.AI
         }
         
         private void Start() {
-            if (muzzleReference) {
+            if (muzzleReference)
                 _homeLocalAimDirection = transform.InverseTransformDirection(muzzleReference.forward);
-            }
         }
 
         private void Update() {
@@ -57,11 +57,10 @@ namespace _01_Scripts.Turrets.AI
 
             bool hasTarget = _sensor.CurrentTarget != null && _sensor.CurrentTarget.IsTargetable;
             
-            if (hasTarget) {
+            if (hasTarget)
                 ExecuteCombatProtocol();
-            } else {
+            else
                 ExecuteRestingProtocol();
-            }
         }
         
         private void ExecuteCombatProtocol() {

@@ -2,6 +2,7 @@
 
 namespace _01_Scripts.Core.Utilities
 {
+    // TODO Add description
     public static class CursorUtilities
     { 
         /// <summary>
