@@ -3,7 +3,7 @@
     "name": "Player",
     "maps": [
         {
-            "name": "Player1_Map",
+            "name": "Default",
             "id": "515004bc-cb70-4a1c-9871-670468c0b268",
             "actions": [
                 {
@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "A - Special Ammo",
+                    "name": "A - Unused",
                     "type": "Button",
                     "id": "4171c056-d2bb-44e2-96a4-c06e083a8638",
                     "expectedControlType": "",
@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Y - Unused",
+                    "name": "Y - Special Ammo",
                     "type": "Button",
                     "id": "2e1e21a2-d033-4eca-8cc5-2cc2f0b8d2c1",
                     "expectedControlType": "",
@@ -77,7 +77,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme;Player2_Scheme",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -88,7 +88,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -99,8 +99,8 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
-                    "action": "A - Special Ammo",
+                    "groups": "Player1_Scheme;Player2_Scheme",
+                    "action": "A - Unused",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -110,8 +110,8 @@
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
-                    "action": "A - Special Ammo",
+                    "groups": "Player1_Scheme",
+                    "action": "A - Unused",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -121,7 +121,7 @@
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme;Player2_Scheme",
                     "action": "B - Main Cannon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -132,7 +132,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme",
                     "action": "B - Main Cannon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -143,7 +143,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme;Player2_Scheme",
                     "action": "X - Auxiliary Cannon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -154,7 +154,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme",
                     "action": "X - Auxiliary Cannon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -165,8 +165,8 @@
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
-                    "action": "Y - Unused",
+                    "groups": "Player1_Scheme;Player2_Scheme",
+                    "action": "Y - Special Ammo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -176,7 +176,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme;Player2_Scheme",
                     "action": "LeftTrigger - Start",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -187,7 +187,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1",
+                    "groups": "Player1_Scheme",
                     "action": "LeftTrigger - Start",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -198,7 +198,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1;Player2",
+                    "groups": "Player2;Player1_Scheme;Player2_Scheme",
                     "action": "RightTrigger - Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -209,221 +209,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Player1;Player2",
-                    "action": "RightTrigger - Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Player2_Map",
-            "id": "bdc5020e-02d4-4a86-bab2-3c386e57ce48",
-            "actions": [
-                {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "12532cf3-4d61-4224-8d50-545a30705810",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "A - Special Ammo",
-                    "type": "Button",
-                    "id": "f6bfd889-5737-4cf6-b5f4-7dfac51af403",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "B - Main Cannon",
-                    "type": "Button",
-                    "id": "9d19d446-4361-46d9-88e3-21ca3ed1bfab",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "X - Auxiliary Cannon",
-                    "type": "Button",
-                    "id": "d26eebbc-0f5c-4d1f-939e-a660234528d5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Y - Unused",
-                    "type": "Button",
-                    "id": "90fd65cd-48bf-47c7-9902-0259dcbda231",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "LeftTrigger - Start",
-                    "type": "Button",
-                    "id": "be86326a-9176-4d62-99b1-064905fb48e0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightTrigger - Pause",
-                    "type": "Button",
-                    "id": "fd7cf092-69a1-45a8-8038-7aa2e87683fc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "d435fc73-0af9-46ba-bdc0-3c7eee6e831c",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8033d352-fd97-4f4c-9f15-88bc82321157",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "31795591-0b24-4306-a9aa-b12c3a5f8ed8",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "A - Special Ammo",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6b7d2600-ce5c-4890-b42c-8b78e0a57945",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "A - Special Ammo",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b47a9af7-e86c-4936-9317-1f1511a6e7b9",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "B - Main Cannon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "13ae0e01-c837-4f20-8e38-5ada01fbaf99",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "B - Main Cannon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bc1ab238-3dbd-4953-80d7-bdcb1cef57b0",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "X - Auxiliary Cannon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0af3f90e-dee5-40fd-83e2-9eee65691b16",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "X - Auxiliary Cannon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a9c5523c-ac47-413a-82fb-6b934bd27ee3",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "Y - Unused",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "73539621-2af3-4994-9432-495df696ca26",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "LeftTrigger - Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "299af4e1-8616-4bee-8cb9-f1f563f9dfdb",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2",
-                    "action": "LeftTrigger - Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d290c39-c541-4ef3-89b4-8d3a1dd774ee",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2;Player1",
-                    "action": "RightTrigger - Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "642b508c-34db-49cc-920a-5e27b9b6b142",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Player2;Player1",
+                    "groups": "Player2;Player1_Scheme",
                     "action": "RightTrigger - Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -433,8 +219,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "Player1",
-            "bindingGroup": "Player1",
+            "name": "Player1_Scheme",
+            "bindingGroup": "Player1_Scheme",
             "devices": [
                 {
                     "devicePath": "<Mouse>",
@@ -454,21 +240,11 @@
             ]
         },
         {
-            "name": "Player2",
-            "bindingGroup": "Player2",
+            "name": "Player2_Scheme",
+            "bindingGroup": "Player2_Scheme",
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

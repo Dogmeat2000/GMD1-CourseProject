@@ -905,6 +905,14 @@ PrefabInstance:
       propertyPath: enemyCountText
       value: 
       objectReference: {fileID: 319498566}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Player1_Scheme
+      objectReference: {fileID: 0}
     - target: {fileID: 2785961573338971278, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -1689,6 +1697,14 @@ PrefabInstance:
       propertyPath: rolloffMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Player2_Scheme
+      objectReference: {fileID: 0}
     - target: {fileID: 2785961573338971278, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -1788,6 +1804,10 @@ PrefabInstance:
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: maxSlewSens
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: precisionSens
@@ -2321,6 +2341,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f923978916a1314b8e21cca946731d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Scoring.PlayerScore
+--- !u!1 &537574127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 482095312516544561, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+  m_PrefabInstance: {fileID: 1266981243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &537574128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537574127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b60275e8-d4e8-45b6-9c2f-75fc5c2d76e4
+    m_ActionName: 'Player1_Map/Movement[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4171c056-d2bb-44e2-96a4-c06e083a8638
+    m_ActionName: 'Player1_Map/A - Special Ammo[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4585ba7c-6eb6-421d-8c67-27557b1c45fa
+    m_ActionName: 'Player1_Map/B - Main Cannon[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4c616a9f-4761-4b46-8348-36630aa4a644
+    m_ActionName: 'Player1_Map/X - Auxiliary Cannon[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e1e21a2-d033-4eca-8cc5-2cc2f0b8d2c1
+    m_ActionName: 'Player1_Map/Y - Unused[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3660fc7c-d1eb-45b4-a9c2-4460a71fc008
+    m_ActionName: 'Player1_Map/LeftTrigger - Start[/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ddf46ee-17b0-447c-86cf-92214cd73ac5
+    m_ActionName: 'Player1_Map/RightTrigger - Pause[/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger,/Keyboard/escape]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Player1_Scheme
+  m_DefaultActionMap: 515004bc-cb70-4a1c-9871-670468c0b268
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &561476334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3037,6 +3120,14 @@ PrefabInstance:
     - target: {fileID: 2677030519434114328, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: rolloffMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Player1_Scheme
       objectReference: {fileID: 0}
     - target: {fileID: 2785961573338971278, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
@@ -4830,7 +4921,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3227112940336464230, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 561476335}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 482095312516544561, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 537574128}
   m_SourcePrefab: {fileID: 100100000, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
 --- !u!4 &1266981244 stripped
 Transform:
@@ -6236,6 +6330,14 @@ PrefabInstance:
       propertyPath: enemyCountText
       value: 
       objectReference: {fileID: 1887269029}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751514134013580851, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Player2_Scheme
+      objectReference: {fileID: 0}
     - target: {fileID: 2785961573338971278, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -6335,6 +6437,10 @@ PrefabInstance:
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: maxSlewSens
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
+      propertyPath: playerIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3273050658055507716, guid: ce250b5f27190a44ab1cbe741b5abcb1, type: 3}
       propertyPath: precisionSens
@@ -7216,6 +7322,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1682916070383412993, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
       propertyPath: pauseAction
+      value: 
+      objectReference: {fileID: 2988289799077641749, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+    - target: {fileID: 1682916070383412993, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
+      propertyPath: pauseActionRef
       value: 
       objectReference: {fileID: 2988289799077641749, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
     - target: {fileID: 1835902608788084999, guid: d96d06998aab8724aa924d1d52e95d5d, type: 3}
