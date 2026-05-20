@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement.Behaviors
 {
+    // TODO: Add interface description
     public class SeparationBehavior : IMovementBehavior
     {
         private readonly float _repelRadius;
@@ -30,9 +31,8 @@ namespace _01_Scripts.Core.Movement.Behaviors
                 count++;
             }
 
-            if (count > 0) {
+            if (count > 0)
                 repelForce /= count;
-            }
 
             return repelForce.normalized;
         }

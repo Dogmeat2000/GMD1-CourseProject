@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    // TODO Add description
     public class PlayerDeathHUDPresenter : MonoBehaviour
     {
         [Header("Config")]

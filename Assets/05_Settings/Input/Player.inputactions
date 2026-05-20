@@ -106,17 +106,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8684a16d-fa0f-410a-bcda-6340e89d554e",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player1_Scheme",
-                    "action": "A - Unused",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "654af75a-da38-4c1e-a754-eea58b48a0c1",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -166,6 +155,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1_Scheme;Player2_Scheme",
+                    "action": "Y - Special Ammo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8684a16d-fa0f-410a-bcda-6340e89d554e",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1_Scheme",
                     "action": "Y - Special Ammo",
                     "isComposite": false,
                     "isPartOfComposite": false

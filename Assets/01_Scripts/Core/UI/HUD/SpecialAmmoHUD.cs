@@ -33,9 +33,8 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private void UpdateAmmoDisplay(int currentAmmo, int maxAmmo) {
-            if (!_isInitialized) {
+            if (!_isInitialized)
                 InitializeIcons(maxAmmo);
-            }
             
             for (int i = 0; i < _spawnedIcons.Count; i++) {
                 _spawnedIcons[i].SetActive(i < currentAmmo);

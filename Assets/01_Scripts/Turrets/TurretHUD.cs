@@ -6,48 +6,39 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
+    // TODO Add description
     public class TurretHUD : MonoBehaviour
     {
         [Header("Targeting")]
-        [SerializeField] 
-        private Transform lowerMuzzleExit;
+        // TODO Add description
+        [SerializeField] private Transform lowerMuzzleExit;
         
-        [SerializeField] 
-        private Transform upperMuzzleExit;
+        // TODO Add description
+        [SerializeField] private Transform upperMuzzleExit;
         
-        [SerializeField] 
-        private RectTransform lowerReticleUI;
+        // TODO Add description
+        [SerializeField] private RectTransform lowerReticleUI;
         
-        [SerializeField] 
-        private RectTransform upperReticleUI;
+        // TODO Add description
+        [SerializeField] private RectTransform upperReticleUI;
         
-        [SerializeField] 
-        private Camera turretCamera;
+        // TODO Add description
+        [SerializeField] private Camera turretCamera;
         
         [Tooltip("What can the turret aim at? (Select Default, Water, Enemy, etc.)")]
-        [SerializeField] 
-        private LayerMask targetingMask = ~0; // ~0 means 'Everything'
+        [SerializeField] private LayerMask targetingMask = ~0; // ~0 means 'Everything'
 
         [Header("Aim Assist Settings")]
         [Tooltip("Link to the concrete player input handler")]
-        [SerializeField] 
-        private TurretPlayerInput playerInputHandler;
+        [SerializeField] private TurretPlayerInput playerInputHandler; // TODO Confirm this didn't break in latest Input Action changes!
         
         [Tooltip("Which layers contain the enemies that trigger friction?")]
-        [SerializeField] 
-        private LayerMask enemyLayerMask;
+        [SerializeField] private LayerMask enemyLayerMask;
         
         private LevelManager _levelManager;
 
         private void Awake() {
             _levelManager = ServiceLocator.Get<LevelManager>();
-        }
-
-        /// <summary>
-        /// Programmatically initializes the HUD with references. Useful, when dynamically spawning the player turret prefab.
-        /// </summary>
-        public void Initialize() {
-            
         }
 
         private void LateUpdate() {
@@ -59,9 +50,8 @@ namespace _01_Scripts.Turrets
             isPaintingTarget |= UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
             isPaintingTarget |= UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
             
-            if (playerInputHandler) {
+            if (playerInputHandler)
                 playerInputHandler.SetTargetFriction(isPaintingTarget);
-            }
         }
     
         /// <summary>
@@ -94,9 +84,8 @@ namespace _01_Scripts.Turrets
                 reticle.localPosition = localPoint;
             }
             
-            if (hitSomething) {
+            if (hitSomething)
                 return enemyLayerMask.Contains(hit.collider.gameObject.layer);
-            }
             
             return false;
         }

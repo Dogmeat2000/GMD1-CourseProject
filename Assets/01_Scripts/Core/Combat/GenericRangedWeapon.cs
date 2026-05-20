@@ -18,10 +18,13 @@ namespace _01_Scripts.Core.Combat
         [SerializeField] private Transform muzzleExit;
 
         [Header("Optional")]
-        [Tooltip("Optional VFX (Muzzle flash or similar) to spawn upon firing.")]
+        [Tooltip("Optional: VFX (Muzzle flash or similar) to spawn upon firing.")]
         [SerializeField] private GameObject muzzleFlashPrefab;
         
+        [Tooltip("Optional: Audio Source to play AudioCLip(s) provided below, from.")]
         [SerializeField] private AudioSource weaponAudioSource;
+        
+        [Tooltip("Optional: SFX to be played when firing this weapon.")]
         [SerializeField] private AudioClip fireSound;
 
         private Collider[] _myColliders;
@@ -33,26 +36,25 @@ namespace _01_Scripts.Core.Combat
         }
 
         public void Fire() {
-            if (!projectilePrefab || !muzzleExit) return;
+            if (!projectilePrefab || !muzzleExit) 
+                return;
 
             int poolSize = _levelManager ? _levelManager.Settings.DefaultObjectPoolSize : 10;
             int maxPoolSize = _levelManager ? _levelManager.Settings.MaxDefaultObjectPoolSize : 50;
 
-            if (muzzleFlashPrefab && UniversalPoolService.Instance) {
+            if (muzzleFlashPrefab && UniversalPoolService.Instance)
                 UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
-            }
 
             if (UniversalPoolService.Instance) {
-                var projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+                IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
                 
                 if (projInstance is IProjectile munition) {
                     munition.Fire(transform.root.gameObject, _myColliders);
                 }
             }
 
-            if (weaponAudioSource && fireSound) {
+            if (weaponAudioSource && fireSound)
                 weaponAudioSource.PlayOneShot(fireSound);
-            }
         }
     }
 }

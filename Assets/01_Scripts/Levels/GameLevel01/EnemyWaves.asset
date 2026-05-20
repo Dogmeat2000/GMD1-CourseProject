@@ -52,19 +52,11 @@ MonoBehaviour:
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 350
+  - <ThreatBudget>k__BackingField: 400
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 350
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 350
-    <AllowedEnemies>k__BackingField:
-    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
-    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 470
+  - <ThreatBudget>k__BackingField: 450
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
@@ -72,19 +64,27 @@ MonoBehaviour:
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 530
+  - <ThreatBudget>k__BackingField: 550
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 560
+  - <ThreatBudget>k__BackingField: 600
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 350
+  - <ThreatBudget>k__BackingField: 650
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
-  - <ThreatBudget>k__BackingField: 350
+  - <ThreatBudget>k__BackingField: 700
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 750
+    <AllowedEnemies>k__BackingField:
+    - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
+    - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
+  - <ThreatBudget>k__BackingField: 800
     <AllowedEnemies>k__BackingField:
     - {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
     - {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}

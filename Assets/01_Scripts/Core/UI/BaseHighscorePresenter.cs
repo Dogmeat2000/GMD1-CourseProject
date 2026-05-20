@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
+    // TODO Add description
     public abstract class BaseHighscorePresenter : MonoBehaviour
     {
         [Header("Base Leaderboard Panels")]
@@ -19,9 +20,8 @@ namespace _01_Scripts.Core.UI
 
         protected void InjectStaticRow(int rank, string playerName, int score) {
             GameObject rowObj = Instantiate(staticScoreRowPrefab, leaderboardContainer);
-            if (rowObj.TryGetComponent<Scoring.LeaderboardRow>(out var rowScript)) {
+            if (rowObj.TryGetComponent<Scoring.LeaderboardRow>(out var rowScript))
                 rowScript.Initialize(rank, playerName, score);
-            }
         }
     }
 }

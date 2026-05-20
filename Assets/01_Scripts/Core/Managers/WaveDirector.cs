@@ -16,32 +16,25 @@ namespace _01_Scripts.Core.Managers
     {
         [Header("Setup")]
         [Tooltip("The player ship to use as the center of the forward spawn cone")]
-        [SerializeField] 
-        private Transform playerShip;
+        [SerializeField] private Transform playerShip;
         
         [Tooltip("Particle system for the water splash when a drone breaches sea level")]
-        [SerializeField] 
-        private GameObject breachVfxPrefab; 
+        [SerializeField] private GameObject breachVfxPrefab; 
 
         [Header("Campaign Sequence")]
         [Tooltip("Slot the master campaign file for this level here")]
-        [SerializeField] 
-        private LevelCampaign activeCampaign;
+        [SerializeField] private LevelCampaign activeCampaign;
         
         [Tooltip("The time [s] to wait before starting the first wave")]
-        [SerializeField] 
-        private int firstWaveDelay;
+        [SerializeField] private int firstWaveDelay;
         
         [Tooltip("The time [s] to wait between each wave")]
-        [SerializeField] 
-        private int otherWaveDelay;
+        [SerializeField] private int otherWaveDelay;
         
         [Header("Narrative Broadcasts")]
-        [SerializeField] 
-        private string startMessage = "PROTECT THE FLEET.";
+        [SerializeField] private string startMessage = "PROTECT THE FLEET.";
         
-        [SerializeField] 
-        private string clearMessage = "ALL WAVES CLEARED!";
+        [SerializeField] private string clearMessage = "ALL WAVES CLEARED!";
         
         public event Action<int, int> OnWaveUpdated;
         public event Action<int> OnEnemyCountChanged;
@@ -65,7 +58,6 @@ namespace _01_Scripts.Core.Managers
             
             OnWaveUpdated?.Invoke(_currentWaveIndex, activeCampaign.Waves.Count);
             OnEnemyCountChanged?.Invoke(_activeHostiles);
-            
             OnStatusMessage?.Invoke(startMessage);
             
             Invoke(nameof(BeginNextWave), firstWaveDelay);
@@ -85,8 +77,9 @@ namespace _01_Scripts.Core.Managers
 
             WaveData currentWaveData = activeCampaign.Waves[_currentWaveIndex];
             Debug.Log($"Starting Wave {_currentWaveIndex + 1} / {activeCampaign.Waves.Count}");
+            
             OnWaveUpdated?.Invoke(_currentWaveIndex + 1, activeCampaign.Waves.Count);
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING"); // TODO: Make this a serialized field/regex!
             
             StartCoroutine(DeployWaveRoutine(currentWaveData));
         }
@@ -113,9 +106,8 @@ namespace _01_Scripts.Core.Managers
             
             _isDeployingWave = false;
             
-            if (_activeHostiles <= 0) {
+            if (_activeHostiles <= 0)
                 AdvanceToNextWave();
-            }
         }
         
         private void AdvanceToNextWave() {
@@ -124,15 +116,15 @@ namespace _01_Scripts.Core.Managers
             
             _isTransitioning = true;
             
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED");
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED"); // TODO: Make this a serialized field/regex!
             _currentWaveIndex++;
             StartCoroutine(TransitionToNextWaveRoutine());
         }
         
         private IEnumerator TransitionToNextWaveRoutine() {
-            if (otherWaveDelay > 0) {
+            if (otherWaveDelay > 0)
                 yield return new WaitForSeconds(otherWaveDelay);
-            }
+            
             BeginNextWave();
         }
 
@@ -148,7 +140,6 @@ namespace _01_Scripts.Core.Managers
             float difficultyMod = _levelManager.GetDifficultyMultiplier();
             
             int adjustedBudget = Mathf.RoundToInt(waveData.ThreatBudget * players * difficultyMod);
-            
             Debug.Log($"Base Budget: {waveData.ThreatBudget} | Adjusted Budget: {adjustedBudget} (Players: {players}, Difficulty: {difficultyMod})");
             
             int remainingBudget = adjustedBudget;
@@ -185,9 +176,8 @@ namespace _01_Scripts.Core.Managers
             _activeHostiles++;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            if (pooledObj.gameObject.TryGetComponent<EnemyController>(out var enemyCtrl)) {
+            if (pooledObj.gameObject.TryGetComponent<EnemyController>(out var enemyCtrl))
                 enemyCtrl.OnRemovedFromBoard += HandleEnemyRemoved;
-            }
             
             if (breachVfxPrefab) {
                 Vector3 surfacePoint = spawnPoint;
@@ -217,9 +207,8 @@ namespace _01_Scripts.Core.Managers
             _activeHostiles--;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            if (_activeHostiles <= 0) {
+            if (_activeHostiles <= 0)
                 AdvanceToNextWave();
-            }
         }
         
         /// <summary>
@@ -227,7 +216,7 @@ namespace _01_Scripts.Core.Managers
         /// engine deletion (falling out of bounds) rather than combat, it forces the next wave.
         /// </summary>
         private IEnumerator RadarSweepFailSafe() {
-            WaitForSeconds wait = new WaitForSeconds(10f);
+            WaitForSeconds wait = new WaitForSeconds(10f); // TODO: Make this a global settings option!
             while (true) {
                 yield return wait;
                 

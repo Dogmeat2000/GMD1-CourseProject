@@ -24,16 +24,23 @@ namespace _01_Scripts.Turrets
         [Tooltip("The projectile prefab to spawn (Must implement IProjectile)")]
         [SerializeField] private GameObject projectilePrefab;
         
-        [Tooltip("OPTIONAL: Force spawned projectiles to align with the rotation of another Transform, i.e. the barrels that can be elevated up/down.")]
+        [Tooltip("Optional: Force spawned projectiles to align with the rotation of another Transform, i.e. the barrels that can be elevated up/down.")]
         [SerializeField] private Transform aimReference;
         
         [Tooltip("Array of possible exit points. A random one is chosen per shot.")]
         [SerializeField] private Transform[] muzzleExits;
 
         [Header("Visuals")]
+        // TODO Add description
         [SerializeField] private GameObject muzzleFlashPrefab;
+        
+        // TODO Add description
         [SerializeField] private AudioSource weaponAudioSource;
+        
+        // TODO Add description
         [SerializeField] private AudioClip fireSound;
+        
+        // TODO Add description
         [SerializeField] private AudioClip emptyClickSound;
 
         /// <summary>
@@ -71,14 +78,15 @@ namespace _01_Scripts.Turrets
             OnAmmoChanged?.Invoke(_currentAmmo, maxAmmo);
         }
 
+        // TODO Add description
         public void Fire() {
             if (Time.time < _nextFireTime) 
                 return;
 
             if (_currentAmmo <= 0) {
-                if (weaponAudioSource && emptyClickSound) {
+                if (weaponAudioSource && emptyClickSound)
                     weaponAudioSource.PlayOneShot(emptyClickSound);
-                }
+                
                 _nextFireTime = Time.time + 0.25f;
                 return;
             }
@@ -99,21 +107,18 @@ namespace _01_Scripts.Turrets
             int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
 
-            if (muzzleFlashPrefab && UniversalPoolService.Instance) {
+            if (muzzleFlashPrefab && UniversalPoolService.Instance)
                 UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, selectedMuzzle.position, selectedMuzzle.rotation, poolSize, maxPoolSize);
-            }
 
             if (UniversalPoolService.Instance) {
                 IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, selectedMuzzle.position, launchRotation, poolSize, maxPoolSize);
                 
-                if (projInstance is IProjectile munition) {
+                if (projInstance is IProjectile munition)
                     munition.Fire(transform.root.gameObject, _myColliders);
-                }
             }
 
-            if (weaponAudioSource && fireSound) {
+            if (weaponAudioSource && fireSound)
                 weaponAudioSource.PlayOneShot(fireSound);
-            }
         }
     }
 }

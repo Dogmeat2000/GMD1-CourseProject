@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement.Behaviors
 {
+    // TODO: Add interface description
     public class EvasiveBehavior : IMovementBehavior
     {
         private float _noiseOffset;

@@ -5,8 +5,10 @@ using _01_Scripts.Core.Interfaces;
 
 namespace _01_Scripts.Core.Services
 {
+    // TODO Add description
     public class UniversalPoolService : MonoBehaviour
     {
+        // TODO Add description
         public static UniversalPoolService Instance { get; private set; }
         
         private readonly Dictionary<int, IObjectPool<IPoolable>> _pools = new();
@@ -25,9 +27,8 @@ namespace _01_Scripts.Core.Services
         public IPoolable Spawn(GameObject prefab, Vector3 position, Quaternion rotation, int poolCapacity, int maxCapacity) {
             int prefabId = prefab.GetInstanceID();
             
-            if (!_pools.ContainsKey(prefabId)) {
+            if (!_pools.ContainsKey(prefabId))
                 _pools[prefabId] = CreateNewPool(prefab, poolCapacity, maxCapacity);
-            }
 
             IPoolable pooledObj = _pools[prefabId].Get();
             pooledObj.gameObject.transform.SetPositionAndRotation(position, rotation);

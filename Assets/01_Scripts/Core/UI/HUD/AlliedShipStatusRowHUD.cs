@@ -13,42 +13,41 @@ namespace _01_Scripts.Core.UI.HUD
     {
         [Header("Telemetry Link")]
         [Tooltip("Link to the actual allied ship's HealthManager from the scene.")]
-        [SerializeField] 
-        private HealthManager targetShip;
+        [SerializeField] private HealthManager targetShip;
 
         [Header("UI Bindings")]
-        [SerializeField] 
-        private Image shipIconImage;
+        // TODO Add description
+        [SerializeField] private Image shipIconImage;
         
-        [SerializeField] 
-        private TextMeshProUGUI shipNameText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI shipNameText;
         
-        [SerializeField] 
-        private TextMeshProUGUI healthPercentageText;
+        // TODO Add description
+        [SerializeField] private TextMeshProUGUI healthPercentageText;
         
-        [SerializeField] 
-        private Slider healthSlider;
+        // TODO Add description
+        [SerializeField] private Slider healthSlider;
         
-        [SerializeField] 
-        private Image sliderFillImage;
+        // TODO Add description
+        [SerializeField] private Image sliderFillImage;
 
         [Header("Health Thresholds")]
-        [SerializeField] 
-        private Color healthyColor = Color.cyan;
+        // TODO Add description
+        [SerializeField] private Color healthyColor = Color.cyan;
         
-        [SerializeField] 
-        private Color warningColor = Color.yellow;
+        // TODO Add description
+        [SerializeField] private Color warningColor = Color.yellow;
         
-        [SerializeField] 
-        private Color criticalColor = Color.red;
+        // TODO Add description
+        [SerializeField] private Color criticalColor = Color.red;
 
+        // TODO Add description
         [Range(0f, 1f)] 
-        [SerializeField] 
-        private float warningThreshold = 0.5f;
+        [SerializeField] private float warningThreshold = 0.5f;
         
+        // TODO Add description
         [Range(0f, 1f)] 
-        [SerializeField] 
-        private float criticalThreshold = 0.25f;
+        [SerializeField] private float criticalThreshold = 0.25f;
 
         private void OnEnable() {
             if (!targetShip) 
@@ -80,9 +79,8 @@ namespace _01_Scripts.Core.UI.HUD
         private void UpdateHealthDisplay(int currentHealth, int maxHealth, GameObject instigator) {
             float healthPercent = (float) currentHealth / maxHealth;
 
-            if (healthPercentageText) {
+            if (healthPercentageText)
                 healthPercentageText.text = $"[ {(int) (healthPercent * 100)}% ]";
-            }
 
             if (healthSlider) {
                 healthSlider.maxValue = maxHealth;
@@ -92,15 +90,15 @@ namespace _01_Scripts.Core.UI.HUD
             if (sliderFillImage) {
                 Color targetColor = healthyColor;
                 
-                if (healthPercent <= criticalThreshold) {
+                if (healthPercent <= criticalThreshold)
                     targetColor = criticalColor;
-                    
-                } else if (healthPercent <= warningThreshold) {
+                else if (healthPercent <= warningThreshold)
                     targetColor = warningColor;
-                }
 
                 sliderFillImage.color = targetColor;
-                if (healthPercentageText) healthPercentageText.color = targetColor;
+                
+                if (healthPercentageText) 
+                    healthPercentageText.color = targetColor;
             }
         }
 
@@ -117,7 +115,7 @@ namespace _01_Scripts.Core.UI.HUD
                 healthSlider.value = 0;
             
             if (shipIconImage) {
-                shipIconImage.color = new Color(0.3f, 0.3f, 0.3f, 0.5f);
+                shipIconImage.color = new Color(0.3f, 0.3f, 0.3f, 0.5f); // TODO Perhaps make this a serialized field, so the "destroyed" color can be set in the inspector?
             }
         }
     }

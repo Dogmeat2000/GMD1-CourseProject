@@ -8,12 +8,10 @@ namespace _01_Scripts.Core.Entities
     /// </summary>
     public class ShipIdentity : MonoBehaviour
     {
-        [Tooltip("The tactical designation of this vessel (e.g., CVN-73 WASP)")]
-        [field: SerializeField] 
-        public string DisplayName { get; private set; } = "CVN-00 NoName";
+        [Tooltip("The name of this vessel (e.g., CVN-73 WASP)")]
+        [field: SerializeField] public string DisplayName { get; private set; } = "CVN-00 NoName";
 
-        [Tooltip("The 2D sprite representing this ship on the HUD")]
-        [field: SerializeField] 
-        public Sprite HudIcon { get; private set; }
+        [Tooltip("The 2D sprite (Icon) representing this ship on the HUD")]
+        [field: SerializeField] public Sprite HudIcon { get; private set; }
     }
 }

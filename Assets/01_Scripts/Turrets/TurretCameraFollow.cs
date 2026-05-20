@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
+    // TODO Add description
     public class TurretCameraFollow : MonoBehaviour
     {
         [Header("Tracking Target")]

@@ -8,17 +8,31 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.VFX
 {
+    // TODO Add description
     [RequireComponent(typeof(HealthManager))]
     public class ShipDamageEffectsController : MonoBehaviour
     { 
         [Header("Damage Thresholds (Percentages)")]
-        [Range(0f, 1f)] [SerializeField] private float lightSmokeThreshold = 0.80f;
-        [Range(0f, 1f)] [SerializeField] private float heavySmokeThreshold = 0.50f;
-        [Range(0f, 1f)] [SerializeField] private float fireThreshold = 0.30f;
+        // TODO Add description
+        [Range(0f, 1f)] 
+        [SerializeField] private float lightSmokeThreshold = 0.80f;
+        
+        // TODO Add description
+        [Range(0f, 1f)] 
+        [SerializeField] private float heavySmokeThreshold = 0.50f;
+        
+        // TODO Add description
+        [Range(0f, 1f)] 
+        [SerializeField] private float fireThreshold = 0.30f;
 
         [Header("Visual Effects")]
+        // TODO Add description
         [SerializeField] private ParticleSystem lightSmokeVfx;
+        
+        // TODO Add description
         [SerializeField] private ParticleSystem heavySmokeVfx;
+        
+        // TODO Add description
         [SerializeField] private ParticleSystem fireVfx;
         
         [Tooltip("The VFX prefab to spawn upon ship destruction")]
@@ -37,9 +51,9 @@ namespace _01_Scripts.Core.VFX
             _healthManager.OnHealthChanged += EvaluateDamageState;
             _healthManager.OnZeroHealth += HandleDestruction;
             
-        _isLightlySmoking = false;
-        _isHeavilySmoking = false;
-        _isOnFire = false;
+            _isLightlySmoking = false; 
+            _isHeavilySmoking = false; 
+            _isOnFire = false;
             
             if (lightSmokeVfx) 
                 lightSmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -59,6 +73,7 @@ namespace _01_Scripts.Core.VFX
         private void EvaluateDamageState(int currentHealth, int maxHealth, GameObject instigator) {
             float healthPercentage = (float) currentHealth / maxHealth;
             
+            // TODO This seems like repeating logic with shifting values! Refactor!
             if (!_isLightlySmoking && healthPercentage <= lightSmokeThreshold) {
                 _isLightlySmoking = true;
                 if (lightSmokeVfx) 
@@ -85,6 +100,7 @@ namespace _01_Scripts.Core.VFX
                 _isOnFire = true;
                 fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
+            // TODO Applies down to here
         }
 
         private void HandleDestruction(HealthManager source, GameObject killer) {
@@ -110,6 +126,7 @@ namespace _01_Scripts.Core.VFX
             
             Transform shipRoot = transform.parent ? transform.parent : transform;
             
+            // TODO Consider moving below into its own method and just calling that
             if (TryGetComponent<RadarTransponder>(out var transponder)) 
                 transponder.enabled = false;
             

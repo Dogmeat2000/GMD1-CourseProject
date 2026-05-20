@@ -12,41 +12,35 @@ namespace _01_Scripts.Turrets
     public class TurretWeapon : MonoBehaviour, IRangedWeapon
     {
         [Header("Configuration")]
-        [SerializeField] 
-        private GameObject projectilePrefab;
+        // TODO Add description
+        [SerializeField] private GameObject projectilePrefab;
         
-        [SerializeField] 
-        private Transform muzzleExit;
+        // TODO Add description
+        [SerializeField] private Transform muzzleExit;
         
-        [SerializeField] 
-        private float fireRate = 0.15f;
+        // TODO Add description
+        [SerializeField] private float fireRate = 0.2f;
         
         [Tooltip("The scoring manager that assigned to this player")]
-        [SerializeField] 
-        private PlayerScore ownerScore;
+        [SerializeField] private PlayerScore ownerScore;
         
         [Header("Visuals")] 
         [Tooltip("The recoil script attached to the visual barrel mesh")]
-        [SerializeField] 
-        private TurretBarrelRecoil barrelRecoil;
+        [SerializeField] private TurretBarrelRecoil barrelRecoil;
         
         [Tooltip("The VFX prefab spawned at the muzzle upon firing")]
-        [SerializeField] 
-        private GameObject muzzleFlashPrefab;
+        [SerializeField] private GameObject muzzleFlashPrefab;
         
         [Header("Acoustics")]
         [Tooltip("The speaker attached to the turret")]
-        [SerializeField] 
-        private AudioSource weaponAudioSource;
+        [SerializeField] private AudioSource weaponAudioSource;
         
         [Tooltip("The sound file to play upon firing")]
-        [SerializeField] 
-        private AudioClip fireSound;
+        [SerializeField] private AudioClip fireSound;
         
         [Header("Optionals")]
         [Tooltip("Assign a TurretCapacitor to enable overheat mechanics.")]
-        [SerializeField] 
-        private TurretCapacitor energyCapacitor;
+        [SerializeField] private TurretCapacitor energyCapacitor;
 
         private float _nextFireTime;
         private Collider[] _myColliders;
@@ -55,9 +49,8 @@ namespace _01_Scripts.Turrets
         private void Awake() {
             _levelManager = ServiceLocator.Get<LevelManager>();
             
-            if (weaponAudioSource && GlobalManager.Instance) {
+            if (weaponAudioSource && GlobalManager.Instance)
                 weaponAudioSource.outputAudioMixerGroup = GlobalManager.Instance.GlobalSettings.SfxMixerGroup;
-            }
             
             GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
             _myColliders = shooterIdentity.GetComponentsInChildren<Collider>();
@@ -82,9 +75,8 @@ namespace _01_Scripts.Turrets
             int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
             
-            if (muzzleFlashPrefab) {
+            if (muzzleFlashPrefab)
                 UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
-            }
             
             IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
             
@@ -96,22 +88,19 @@ namespace _01_Scripts.Turrets
                     energyCapacitor.ConsumeEnergy();
             }
 
-            if (weaponAudioSource && fireSound) {
+            if (weaponAudioSource && fireSound)
                 weaponAudioSource.PlayOneShot(fireSound);
-            }
             
-            if (barrelRecoil) {
+            if (barrelRecoil)
                 barrelRecoil.TriggerRecoil();
-            }
         }
         
         /// <summary>
         /// Informs attached modules that the player has let go of the trigger.
         /// </summary>
         public void ReleaseTrigger() {
-            if (energyCapacitor) {
+            if (energyCapacitor)
                 energyCapacitor.NotifyTriggerReleased();
-            }
         }
     }
 }

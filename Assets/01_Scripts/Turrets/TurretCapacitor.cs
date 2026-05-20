@@ -19,13 +19,13 @@ namespace _01_Scripts.Turrets
         [SerializeField] private float energyCostPerShot = 2.5f;
         
         [Tooltip("How much energy regenerates per second while not firing.")]
-        [SerializeField] private float rechargeRatePerSecond = 7.5f;
+        [SerializeField] private float rechargeRatePerSecond = 15f;
         
         [Tooltip("Delay [s] after firing before recharge begins.")]
         [SerializeField] private float rechargeDelayAfterFire = 0.5f;
         
         [Tooltip("Mandatory cooldown time [s] when overheated before it begins recharging.")]
-        [SerializeField] private float overheatPenaltyTime = 2.0f;
+        [SerializeField] private float overheatPenaltyTime = 3f;
 
         [Header("Visual Feedback")]
         [Tooltip("The VFX prefab to spawn from the UniversalPoolService when overheated.")]
@@ -57,11 +57,10 @@ namespace _01_Scripts.Turrets
             _timeSinceLastFire += Time.deltaTime;
 
             if (_isOverheated) {
-                if (_overheatTimer > 0) {
+                if (_overheatTimer > 0)
                     _overheatTimer -= Time.deltaTime;
-                } else {
+                else
                     ResolveOverheat();
-                }
             } else if (_timeSinceLastFire >= rechargeDelayAfterFire) {
                 Recharge(rechargeRatePerSecond * Time.deltaTime);
             }
@@ -74,6 +73,7 @@ namespace _01_Scripts.Turrets
             }
         }
         
+        // TODO Add description
         public bool CanFire() {
             if (_isOverheated) 
                 return false;
@@ -84,6 +84,7 @@ namespace _01_Scripts.Turrets
             return _currentEnergy >= energyCostPerShot;
         }
         
+        // TODO Add description
         public void ConsumeEnergy() {
             _currentEnergy -= energyCostPerShot;
             _timeSinceLastFire = 0f;
@@ -96,6 +97,7 @@ namespace _01_Scripts.Turrets
             }
         }
         
+        // TODO Add description
         public void NotifyTriggerReleased() {
             _triggerReleasedSinceOverheat = true;
         }

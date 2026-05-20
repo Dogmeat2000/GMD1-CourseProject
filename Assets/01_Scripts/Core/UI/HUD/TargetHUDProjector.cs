@@ -18,7 +18,7 @@ namespace _01_Scripts.Core.UI.HUD
         [Tooltip("The main player camera used for projection.")]
         [SerializeField] private Camera mainCamera;
         
-        [Tooltip("The UI Prefab featuring to project.")]
+        [Tooltip("The UI Prefab featuring the Sprite to project.")]
         [SerializeField] private TargetMarkerUI markerPrefab;
         
         [Tooltip("An empty RectTransform high in the Canvas hierarchy to keep markers behind other UI.")]
@@ -29,19 +29,19 @@ namespace _01_Scripts.Core.UI.HUD
         [SerializeField] private float closeDistance = 20f;
         
         [Tooltip("Distance [m] where the marker shrinks to its minimum size.")]
-        [SerializeField] private float farDistance = 300f;
+        [SerializeField] private float farDistance = 450f;
         
         [Tooltip("Maximum scale the HUD marker has near closeDistance.")]
-        [SerializeField] private float maxScale = 1.5f;
+        [SerializeField] private float maxScale = 1.3f;
         
         [Tooltip("Minimum scale the HUD marker has near farDistance.")]
-        [SerializeField] private float minScale = 0.3f;
+        [SerializeField] private float minScale = 0.4f;
         
         [Tooltip("Alpha value when the target is at the closeDistance (0 to 1)")]
         [SerializeField, Range(0f, 1f)] private float maxAlpha = 1.0f;
         
         [Tooltip("Alpha value when the target is at the farDistance (0 to 1)")]
-        [SerializeField, Range(0f, 1f)] private float minAlpha = 0.1f;
+        [SerializeField, Range(0f, 1f)] private float minAlpha = 0.65f;
 
         private BattlefieldRadar _radar;
         private readonly List<TargetMarkerUI> _markerPool = new List<TargetMarkerUI>();
@@ -95,9 +95,8 @@ namespace _01_Scripts.Core.UI.HUD
         }
         
         private TargetMarkerUI GetOrCreateMarker(int index) {
-            if (index < _markerPool.Count) {
+            if (index < _markerPool.Count)
                 return _markerPool[index];
-            }
 
             TargetMarkerUI newMarker = Instantiate(markerPrefab, markerContainer);
             _markerPool.Add(newMarker);

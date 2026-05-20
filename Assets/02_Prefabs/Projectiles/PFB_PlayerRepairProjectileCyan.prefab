@@ -203,17 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2015bb4aac66f7141b9fb065a089fc56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Combat.RepairWarhead
-  explosionVfxPrefab: {fileID: 0}
   validTargetLayers:
     serializedVersion: 2
     m_Bits: 1553
-  onDetonate:
-    m_PersistentCalls:
-      m_Calls: []
-  repairVfxPrefab: {fileID: 0}
-  validTargetLayers:
-    serializedVersion: 2
-    m_Bits: 1553
+  explosionVfxPrefab: {fileID: 8942541999124790028, guid: c43dc49287f9ef546a14d4f1e440eae7, type: 3}
   onDetonate:
     m_PersistentCalls:
       m_Calls: []

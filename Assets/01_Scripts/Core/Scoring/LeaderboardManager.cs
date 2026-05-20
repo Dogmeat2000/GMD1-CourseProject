@@ -3,25 +3,27 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Scoring
 {
+    // TODO: Add class description
     public class LeaderboardManager : MonoBehaviour
     { 
+        // TODO: Add method description
         public static LeaderboardManager Instance { get; private set; }
 
         [Header("Leaderboard Settings")]
+        [Tooltip("Maximum number of entries to show on the leaderboard")]
         [SerializeField] private int maxLeaderboardSize = 10;
 
         private LeaderboardSaveData _saveData = new();
         private const string LEADERBOARD_SAVE_KEY = "Nereus_Leaderboard_SaveData";
 
         private void Awake() {
-            // Singleton enforcement
             if (Instance && Instance != this) {
                 Destroy(gameObject);
                 return;
             }
+            
             Instance = this;
             
-            // Persist across scenes
             DontDestroyOnLoad(gameObject); 
             LoadLeaderboard();
         }
@@ -34,12 +36,12 @@ namespace _01_Scripts.Core.Scoring
             _saveData.entries.Add(newEntry);
             _saveData.entries.Sort();
             
-            if (_saveData.entries.Count > maxLeaderboardSize) {
+            if (_saveData.entries.Count > maxLeaderboardSize)
                 _saveData.entries.RemoveRange(maxLeaderboardSize, _saveData.entries.Count - maxLeaderboardSize);
-            }
             SaveLeaderboard();
         }
 
+        // TODO: Add method description
         public int GetProjectedRank(int scoreToCheck) {
             int rank = 1; 
             foreach (var entry in _saveData.entries) {
@@ -49,10 +51,11 @@ namespace _01_Scripts.Core.Scoring
             return rank;
         }
 
+        // TODO: Add method description
         public IReadOnlyList<ScoreEntry> GetTopScores() {
             return _saveData.entries.AsReadOnly();
         }
-
+        
         private void SaveLeaderboard() {
             string json = JsonUtility.ToJson(_saveData, true);
             PlayerPrefs.SetString(LEADERBOARD_SAVE_KEY, json);

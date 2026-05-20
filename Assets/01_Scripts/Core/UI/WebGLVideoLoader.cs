@@ -20,9 +20,11 @@ namespace _01_Scripts.Core.UI
             _videoPlayer = GetComponent<VideoPlayer>();
             string rawPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
             _videoPlayer.url = rawPath.Replace("\\", "/");
+            
             for (ushort i = 0; i < _videoPlayer.audioTrackCount; i++) {
                 _videoPlayer.SetDirectAudioMute(i, true);
             }
+            
             _videoPlayer.Prepare();
             _videoPlayer.prepareCompleted += OnVideoPrepared;
         }

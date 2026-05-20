@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement.Behaviors
 {
+    // TODO: Add interface description
     public class SeekBehavior : IMovementBehavior
     {
         public Vector3 CalculateDirection(Transform entityTransform, Vector3 targetPosition) {

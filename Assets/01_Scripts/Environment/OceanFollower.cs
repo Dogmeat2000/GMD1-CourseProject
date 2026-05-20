@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace _01_Scripts.Environment
 {
+    // TODO Add description
     public class OceanFollower : MonoBehaviour
     {
         [Tooltip("The player vessel or camera this ocean should follow.")]
@@ -11,7 +12,9 @@ namespace _01_Scripts.Environment
         [SerializeField] private float seaLevelY = 0f;
 
         private void LateUpdate() {
-            if (!target) return;
+            if (!target)
+                return;
+            
             Vector3 targetPosition = target.position;
             transform.position = new Vector3(targetPosition.x, seaLevelY, targetPosition.z);
         }

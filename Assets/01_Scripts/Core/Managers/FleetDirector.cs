@@ -10,9 +10,7 @@ namespace _01_Scripts.Core.Managers
         [Header("Fleet Roster")]
         [Tooltip("Drag and drop the HealthManagers of all pre-placed allied ships into this list.")]
         [SerializeField] private List<HealthManager> alliedFleet = new();
-        
-        public event Action<float> OnFleetHealthAverageChanged; // Broadcasts: 0.0f to 1.0f (Percentage)
-        public event Action<int, int> OnFleetCountChanged;      // Broadcasts: Current Alive, Total Starting
+       
         public event Action OnFleetDestroyed;
 
         private int _totalStartingShips;
@@ -28,69 +26,29 @@ namespace _01_Scripts.Core.Managers
                 if (!ship) 
                     continue;
                 
-                ship.OnHealthChanged += HandleShipHealthChanged;
                 ship.OnZeroHealth += HandleShipDestroyed;
             }
-            BroadcastFleetStatus();
         }
 
         private void OnDestroy() {
-            foreach (var ship in alliedFleet) {
+            foreach (HealthManager ship in alliedFleet) {
                 if (!ship) 
                     continue;
                 
-                ship.OnHealthChanged -= HandleShipHealthChanged;
                 ship.OnZeroHealth -= HandleShipDestroyed;
             }
         }
 
-        private void HandleShipHealthChanged(int current, int max, GameObject instigator) {
-            BroadcastFleetStatus();
-        }
-
         private void HandleShipDestroyed(HealthManager ship, GameObject killer) {
-            ship.OnHealthChanged -= HandleShipHealthChanged;
             ship.OnZeroHealth -= HandleShipDestroyed;
             
             alliedFleet.Remove(ship);
             _currentAliveShips--;
-
-            BroadcastFleetStatus();
             
             if (_currentAliveShips <= 0) {
                 OnFleetDestroyed?.Invoke();
-                Debug.LogWarning("GameOver: All allied ships lost. Triggering Defeat.");
+                Debug.LogWarning("GameOver: All allied ships lost. Defeat Triggered.");
             }
-        }
-        
-        /// <summary>
-        /// Allows late-joining UI elements to request an immediate update
-        /// without waiting for a ship to take damage.
-        /// </summary>
-        public void RequestFleetStatusUpdate() {
-            BroadcastFleetStatus();
-        }
-
-        private void BroadcastFleetStatus() {
-            if (_totalStartingShips == 0) return;
-
-            OnFleetCountChanged?.Invoke(_currentAliveShips, _totalStartingShips);
-
-            if (_currentAliveShips == 0) {
-                OnFleetHealthAverageChanged?.Invoke(0f);
-                return;
-            }
-
-            float totalCurrentHealth = 0;
-            float totalMaxHealth = 0;
-
-            foreach (var ship in alliedFleet) {
-                totalCurrentHealth += ship.CurrentHealth;
-                totalMaxHealth += ship.MaxHealth;
-            }
-            
-            float averageHealth = totalCurrentHealth / totalMaxHealth;
-            OnFleetHealthAverageChanged?.Invoke(averageHealth);
         }
     }
 }

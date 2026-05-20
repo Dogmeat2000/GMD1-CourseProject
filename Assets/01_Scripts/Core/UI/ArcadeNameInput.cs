@@ -6,29 +6,29 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI
 {
+    // TODO Add description
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class ArcadeNameInput : Selectable
     { 
         [Header("Arcade Input Specifications")]
         [Tooltip("The maximum number of letters allowed")]
-        [SerializeField] 
-        private int maxCharacters = 10;
+        [SerializeField] private int maxCharacters = 10;
         
         [Tooltip("The characters available to scroll through")]
-        [SerializeField] 
-        private string characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.- ";
+        [SerializeField] private string characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.- ";
         
-        [SerializeField] 
-        private Color activeCharColor = Color.yellow;
+        // TODO Add description
+        [SerializeField] private Color activeCharColor = Color.yellow;
         
-        [SerializeField] 
-        private Color normalCharColor = Color.white;
+        // TODO Add description
+        [SerializeField] private Color normalCharColor = Color.white;
 
         private char[] _nameChars;
         private int _currentSlotIndex = 0;
         private TextMeshProUGUI _textDisplay;
         private bool _isEditing = false;
 
+        // TODO Add description
         public string text => new string(_nameChars).Trim();
 
         protected override void Awake() {
@@ -121,8 +121,11 @@ namespace _01_Scripts.Core.UI
             int charIndex = characterSet.IndexOf(currentChar);
             charIndex += direction;
             
-            if (charIndex >= characterSet.Length) charIndex = 0;
-            if (charIndex < 0) charIndex = characterSet.Length - 1;
+            if (charIndex >= characterSet.Length) 
+                charIndex = 0;
+            
+            if (charIndex < 0) 
+                charIndex = characterSet.Length - 1;
 
             _nameChars[_currentSlotIndex] = characterSet[charIndex];
             UpdateDisplay();

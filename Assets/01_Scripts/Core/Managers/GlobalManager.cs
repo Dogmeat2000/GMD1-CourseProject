@@ -22,6 +22,7 @@ namespace _01_Scripts.Core.Managers
                 Destroy(gameObject);
                 return;
             }
+            
             Instance = this;
             DontDestroyOnLoad(gameObject);
             
@@ -30,9 +31,8 @@ namespace _01_Scripts.Core.Managers
         }
         
         public void PlayPersistentUISound(AudioClip clip) {
-            if (persistentUIAudioSource && clip) {
+            if (persistentUIAudioSource && clip)
                 persistentUIAudioSource.PlayOneShot(clip);
-            }
         }
     }
 }
