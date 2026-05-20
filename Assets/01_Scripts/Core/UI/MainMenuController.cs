@@ -36,35 +36,43 @@ namespace _01_Scripts.Core.UI
         [SerializeField] private GameObject p2Container;
         [SerializeField] private TextMeshProUGUI p2StatusText;
         
-        [Tooltip("Binding to Player1's Start Button")]
-        [SerializeField] private InputActionReference p1ReadyAction;
+        [Tooltip("Binding to Start Button")]
+        [SerializeField] private InputActionReference readyActionRef;
         
-        [Tooltip("Binding to Player1's Start Button")]
-        [SerializeField] private InputActionReference p2ReadyAction;
-        
+        private InputAction _readyAction;
         private bool _isP1Ready = false;
         private bool _isP2Ready = false;
         private bool _requiresTwoPlayers = false;
         private bool _isAwaitingPlayersReady = false;
         
         private void OnEnable() {
-            if (p1ReadyAction) {
-                p1ReadyAction.action.Enable();
-                p1ReadyAction.action.performed += HandleP1Ready;
-            }
-            
-            if (p2ReadyAction) {
-                p2ReadyAction.action.Enable();
-                p2ReadyAction.action.performed += HandleP2Ready;
+            if (readyActionRef != null) {
+                _readyAction = readyActionRef.action;
+                _readyAction.Enable();
+                _readyAction.performed += HandleReadyInput;
             }
         }
         
         private void OnDisable() {
-            if (p1ReadyAction)
-                p1ReadyAction.action.performed -= HandleP1Ready;
+            if (_readyAction != null)
+                _readyAction.performed -= HandleReadyInput;
+        }
+        
+        private void HandleReadyInput(InputAction.CallbackContext context) 
+        {
+            if (!_isAwaitingPlayersReady) return;
             
-            if (p2ReadyAction)
-                p2ReadyAction.action.performed -= HandleP2Ready;
+            var device = context.control.device;
+            
+            if (Gamepad.all.Count >= 1 && device == Gamepad.all[0]) {
+                _isP1Ready = !_isP1Ready;
+                UpdatePlayerStatusUI(1, _isP1Ready);
+            } else if (Gamepad.all.Count >= 2 && device == Gamepad.all[1]) {
+                if (_requiresTwoPlayers) {
+                    _isP2Ready = !_isP2Ready;
+                    UpdatePlayerStatusUI(2, _isP2Ready);
+                }
+            }
         }
         
         private void Start() {
@@ -145,22 +153,6 @@ namespace _01_Scripts.Core.UI
                 _isP2Ready = false;
                 if (_requiresTwoPlayers) UpdatePlayerStatusUI(2, false);
             }
-        }
-        
-        private void HandleP1Ready(InputAction.CallbackContext context) {
-            if (!_isAwaitingPlayersReady) 
-                return;
-            
-            _isP1Ready = !_isP1Ready;
-            UpdatePlayerStatusUI(1, _isP1Ready);
-        }
-
-        private void HandleP2Ready(InputAction.CallbackContext context) {
-            if (!_isAwaitingPlayersReady || !_requiresTwoPlayers) 
-                return; 
-            
-            _isP2Ready = !_isP2Ready;
-            UpdatePlayerStatusUI(2, _isP2Ready);
         }
 
         private void UpdatePlayerStatusUI(int playerNum, bool isReady) {

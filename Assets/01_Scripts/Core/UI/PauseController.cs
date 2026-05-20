@@ -1,6 +1,6 @@
 using _01_Scripts.Core.Services;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static _01_Scripts.Core.Utilities.CursorUtilities;
 
@@ -21,11 +21,12 @@ namespace _01_Scripts.Core.UI
         [SerializeField] 
         private string mainMenuSceneName = "SCN_MainMenu";
 
-        [Header("Input Setup")]
+        /*[Header("Input Setup")]
         [Tooltip("The Input Action bound to pausing the game")]
         [SerializeField] 
-        private InputActionReference pauseAction;
+        private InputActionReference pauseActionRef;*/
         
+        //private InputAction _pauseAction;
         private GameStateService _gameState;
 
         private void Awake() {
@@ -36,38 +37,42 @@ namespace _01_Scripts.Core.UI
             if (_gameState != null) 
                 _gameState.OnStateChanged += HandleStateChanged;
             
-            if (pauseAction) {
-                pauseAction.action.Enable();
-                pauseAction.action.performed += HandlePauseInput;
-            }
+            /*if (pauseActionRef != null) {
+                _pauseAction = pauseActionRef.action;
+                _pauseAction.Enable();
+                _pauseAction.performed += HandlePauseInput;
+            }*/
         }
         
         private void OnDisable() {
             if (_gameState != null) 
                 _gameState.OnStateChanged -= HandleStateChanged;
+            
+            /*if (_pauseAction != null)
+                _pauseAction.performed -= HandlePauseInput;*/
         }
         
         private void Start() {
-            
-            if (UnityEngine.EventSystems.EventSystem.current) {
+            if (UnityEngine.EventSystems.EventSystem.current) 
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
-            }
             
-            if (pauseMenuPanel) {
+            
+            if (pauseMenuPanel) 
                 pauseMenuPanel.SetActive(false);
-            }
+            
             
             LockAndHideCursor();
         }
         
-        private void HandlePauseInput(InputAction.CallbackContext context) {
+        /*private void HandlePauseInput(InputAction.CallbackContext context) {
+            Debug.LogError("PauseInput was fired.");
             if (_gameState != null && _gameState.CurrentState == GameState.GameOver) 
                 return;
             
             TogglePause();
-        }
+        }*/
 
-        public void TogglePause() {
+        /*public void TogglePause() {
             switch (_gameState.CurrentState) {
                 case GameState.Playing:
                     _gameState.PauseGame();
@@ -77,7 +82,7 @@ namespace _01_Scripts.Core.UI
                     _gameState.ResumeGame();
                     break;
             }
-        }
+        }*/
         
         public void ResumeGame() => _gameState.ResumeGame();
         

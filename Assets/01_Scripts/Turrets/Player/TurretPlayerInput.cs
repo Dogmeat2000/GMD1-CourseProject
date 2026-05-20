@@ -1,3 +1,4 @@
+using _01_Scripts.Core.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,10 +9,8 @@ namespace _01_Scripts.Turrets.Player
     public class TurretPlayerInput : MonoBehaviour
     {
         [Header("Input Action Assets")]
-        [SerializeField] private InputActionReference moveAction;
-        [SerializeField] private InputActionReference fireMainWeaponAction;
-        [SerializeField] private InputActionReference fireAuxWeaponAction;
-        [SerializeField] private InputActionReference fireSpecialWeapon1Action;
+        [Tooltip("0 for Gamepad 1, 1 for Gamepad 2")]
+        [SerializeField] private int playerIndex = 0;
 
         [Header("Mouse Sensitivity Settings")]
         [SerializeField] private float mouseSens = 10f;
@@ -32,8 +31,16 @@ namespace _01_Scripts.Turrets.Player
         [Tooltip("How much the turret slows down when the reticle is over an enemy (e.g., 0.4 = 40% speed).")]
         [Range(0.1f, 1f)]
         [SerializeField] private float frictionMultiplier = 0.4f;
-
+        
         private TurretMotor _motor;
+        private PlayerInput _playerInput;
+        
+        private InputAction _moveAction;
+        private InputAction _fireMainAction;
+        private InputAction _fireAuxAction;
+        private InputAction _fireSpecial1Action;
+        private InputAction _pauseAction;
+        
         private bool _isFireMainRequested = false;
         private bool _isFireSpecialWeapon1Requested = false;
         private bool _isReticleOnTarget = false;
@@ -42,23 +49,45 @@ namespace _01_Scripts.Turrets.Player
         private Vector2 _currentMovement;
         private Vector2 _movementVelocity;
 
-        void Awake() => _motor = GetComponent<TurretMotor>();
+        void Awake() {
+            _playerInput = GetComponent<PlayerInput>();
+            _motor = GetComponent<TurretMotor>();
+            
+            _moveAction = _playerInput.actions["Movement"];
+            _fireMainAction = _playerInput.actions["B - Main Cannon"];
+            _fireAuxAction = _playerInput.actions["X - Auxiliary Cannon"];
+            _fireSpecial1Action = _playerInput.actions["Y - Special Ammo"];
+            _pauseAction = _playerInput.actions["RightTrigger - Pause"];
+        }
+
+        void Start() {
+            if (Gamepad.all.Count > playerIndex) {
+                _playerInput.SwitchCurrentControlScheme(Gamepad.all[playerIndex]);
+            } else {
+                Debug.LogError($"Gamepad {playerIndex} not found!");
+            }
+        }
 
         void OnEnable() {
-            moveAction.action.Enable();
+            if (_fireMainAction != null)
+                _fireMainAction.performed += ExecuteFireMainCommand;
             
-            fireMainWeaponAction.action.Enable();
-            fireMainWeaponAction.action.performed += ExecuteFireMainCommand;
+            if(_fireSpecial1Action != null)
+                _fireSpecial1Action.performed += ExecuteFireSpecial1Command;
             
-            fireSpecialWeapon1Action.action.Enable();
-            fireSpecialWeapon1Action.action.performed += ExecuteFireSpecial1Command;
-            
-            fireAuxWeaponAction.action.Enable();
+            if (_pauseAction != null) 
+                _pauseAction.performed += ExecutePauseCommand;
         }
         
         void OnDisable() {
-            fireMainWeaponAction.action.performed -= ExecuteFireMainCommand;
-            fireSpecialWeapon1Action.action.performed -= ExecuteFireSpecial1Command;
+            if (_fireMainAction != null)
+                _fireMainAction.performed -= ExecuteFireMainCommand;
+            
+            if(_fireSpecial1Action != null)
+                _fireSpecial1Action.performed -= ExecuteFireSpecial1Command;
+            
+            if (_pauseAction != null) 
+                _pauseAction.performed -= ExecutePauseCommand;
         }
 
         private void ExecuteFireMainCommand(InputAction.CallbackContext context) {
@@ -69,15 +98,29 @@ namespace _01_Scripts.Turrets.Player
             _isFireSpecialWeapon1Requested = true;
         }
         
+        private void ExecutePauseCommand(InputAction.CallbackContext context) 
+        {
+            var gameState = ServiceLocator.Get<GameStateService>();
+            if (gameState == null || gameState.CurrentState == GameState.GameOver) return;
+
+            if (gameState.CurrentState == GameState.Playing) {
+                gameState.PauseGame();
+            } 
+            else if (gameState.CurrentState == GameState.Paused) {
+                gameState.ResumeGame();
+            }
+        }
+        
         public void SetTargetFriction(bool onTarget) {
             _isReticleOnTarget = onTarget;
         }
 
         void Update() {
-            Vector2 rawInput = moveAction.action.ReadValue<Vector2>();
             
-            if (moveAction.action.activeControl != null) {
-                _wasLastInputMouse = moveAction.action.activeControl.device is Pointer;
+            Vector2 rawInput = _moveAction.ReadValue<Vector2>();
+            
+            if (_moveAction.activeControl != null) {
+                _wasLastInputMouse = _moveAction.activeControl.device is Pointer;
             }
             
             float activeSens;
@@ -111,12 +154,12 @@ namespace _01_Scripts.Turrets.Player
                     _motor.PullTrigger(TurretMotor.WeaponSlot.Main);
                 }
                 _isFireMainRequested = false;
-            } else if (!fireMainWeaponAction.action.IsPressed()) {
+            } else if (!_fireMainAction.IsPressed()) {
                 _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Main);
             }
             
             // Auxiliary Fire Mode:
-            if (fireAuxWeaponAction.action.IsPressed()) {
+            if (_fireAuxAction.IsPressed()) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject()) {
                     _motor.PullTrigger(TurretMotor.WeaponSlot.Auxiliary);
                 }

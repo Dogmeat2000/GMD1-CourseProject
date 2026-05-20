@@ -1418,8 +1418,8 @@ MonoBehaviour:
   farDistance: 450
   maxScale: 1.3
   minScale: 0.4
-  maxAlpha: 0.939
-  minAlpha: 0.451
+  maxAlpha: 1
+  minAlpha: 0.651
 --- !u!1 &3765844205605194638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,6 +3718,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8982796509448179334, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3273050658055507716}
+    - targetCorrespondingSourceObject: {fileID: 8982796509448179334, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2751514134013580851}
     - targetCorrespondingSourceObject: {fileID: 4098789629087386823, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9115080528539084923}
@@ -3784,16 +3787,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6450aff63dffd4cbac0f5df8d4a789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretPlayerInput
-  moveAction: {fileID: -5364082752855386657, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
-  fireMainWeaponAction: {fileID: 7734853038599820013, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
-  fireAuxWeaponAction: {fileID: 2988289799077641749, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
-  fireSpecialWeapon1Action: {fileID: 3462165978175702600, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+  playerIndex: 0
   mouseSens: 10
   precisionSens: 15
   maxSlewSens: 70
   timeToMaxSpeed: 0.7
   slideDuration: 0.15
   frictionMultiplier: 0.3
+--- !u!114 &2751514134013580851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482095312516544561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b60275e8-d4e8-45b6-9c2f-75fc5c2d76e4
+    m_ActionName: 'Default/Movement[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4171c056-d2bb-44e2-96a4-c06e083a8638
+    m_ActionName: 'Default/A - Special Ammo[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4585ba7c-6eb6-421d-8c67-27557b1c45fa
+    m_ActionName: 'Default/B - Main Cannon[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4c616a9f-4761-4b46-8348-36630aa4a644
+    m_ActionName: 'Default/X - Auxiliary Cannon[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e1e21a2-d033-4eca-8cc5-2cc2f0b8d2c1
+    m_ActionName: 'Default/Y - Unused[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3660fc7c-d1eb-45b4-a9c2-4460a71fc008
+    m_ActionName: 'Default/LeftTrigger - Start[/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ddf46ee-17b0-447c-86cf-92214cd73ac5
+    m_ActionName: 'Default/RightTrigger - Pause[/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger,/Keyboard/escape]'
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 515004bc-cb70-4a1c-9871-670468c0b268
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &2358493219367117054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6531063758463276617, guid: d122d7ce7a15fbb4ca594142c82361c8, type: 3}

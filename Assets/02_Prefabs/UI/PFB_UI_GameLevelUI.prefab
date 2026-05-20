@@ -406,6 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.PauseManager
   pauseMenuPanel: {fileID: 5353708913921437490}
   mainMenuSceneName: SCN_MainMenu
+  pauseAction: {fileID: 2988289799077641749, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
 --- !u!114 &7825283180129307924
 MonoBehaviour:
   m_ObjectHideFlags: 0
