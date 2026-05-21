@@ -6,15 +6,17 @@ using _01_Scripts.Core.Managers;
 
 namespace _01_Scripts.Core.UI
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class that applies various visual styles on UI elements.
+    /// </summary>
     [RequireComponent(typeof(Selectable))]
     public class UIButtonVisuals : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, ISubmitHandler, IPointerClickHandler
     {
         [Header("Button Visuals Settings")]
-        [Tooltip("Overrides the global scale multiplier. Set to 0 to use global default.")]
+        [Tooltip("Optional: Overrides the global scale multiplier. Set to 0 to use global default.")]
         [SerializeField] private float overrideTargetScale = 0f;
         
-        [Tooltip("Overrides the global transition speed. Set to 0 to use global default.")]
+        [Tooltip("Optional: Overrides the global transition speed. Set to 0 to use global default.")]
         [SerializeField] private float overrideTransitionSpeed = 0f;
         
         
@@ -41,13 +43,11 @@ namespace _01_Scripts.Core.UI
         }
 
         // Triggered by Joystick / Keyboard Navigation
-        // TODO Validate if this is still the proper approach, after the recent changes to input mapping!
         public void OnSelect(BaseEventData eventData) => EngageFocus();
         public void OnDeselect(BaseEventData eventData) => DisengageFocus();
         public void OnSubmit(BaseEventData eventData) => ExecuteClickFeedback();
 
         // Triggered by Mouse / Pointer Fallback
-        // TODO Validate if this is still the proper approach, after the recent changes to input mapping!
         public void OnPointerEnter(PointerEventData eventData) => EngageFocus();
         public void OnPointerExit(PointerEventData eventData) => DisengageFocus();
         public void OnPointerClick(PointerEventData eventData) => ExecuteClickFeedback();

@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
-    // TODO Add description
+    /// <summary>
+    /// Handles presenting the Credits text part of the Main Menu scene.
+    /// </summary>
     public class CreditsPresenter : MonoBehaviour
     {
         [Header("Data Source")]

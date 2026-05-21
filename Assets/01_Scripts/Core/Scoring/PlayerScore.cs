@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Scoring
 {
-    // TODO Add class description
+    /// <summary>
+    /// Represents a single Players Score.
+    /// </summary>
     public class PlayerScore : MonoBehaviour
     {
         [Header("Player")]
@@ -12,16 +14,26 @@ namespace _01_Scripts.Core.Scoring
         
         private int _currentScore;
 
-        // TODO Add description
+        /// <summary>
+        /// Broadcast whenever the players score changes.
+        /// Attribute: The new score of the player.
+        /// </summary>
         public event Action<int> OnScoreChanged;
 
-        // TODO Add description
+        /// <summary>
+        /// Property containing a reference to the current score of this Player.
+        /// </summary>
         public int CurrentScore => _currentScore;
         
-        // TODO Add description
-        public string DefaultPlayerName  => defaultPlayerName;
+        /// <summary>
+        /// Property that holds the default name of this Player (i.e Player1 or Player2)
+        /// </summary>
+        public string DefaultPlayerName => defaultPlayerName;
 
-        // TODO Add description
+        /// <summary>
+        /// Adds the given amount of points to this Player's Score.
+        /// </summary>
+        /// <param name="points"></param>
         public void AddScore(int points) {
             if (points <= 0) 
                 return;
@@ -30,7 +42,11 @@ namespace _01_Scripts.Core.Scoring
             OnScoreChanged?.Invoke(_currentScore);
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Submits this Score to the Leaderboard.
+        /// If no CustomName is provided, it just commits the score under the Default Player Name.
+        /// </summary>
+        /// <param name="customName"></param>
         public void CommitScore(string customName = "") {
             string finalName = string.IsNullOrWhiteSpace(customName) ? defaultPlayerName : customName;
             LeaderboardManager.Instance.SubmitScore(finalName, _currentScore);

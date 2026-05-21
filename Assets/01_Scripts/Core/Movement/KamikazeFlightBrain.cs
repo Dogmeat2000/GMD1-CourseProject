@@ -9,7 +9,9 @@ using _01_Scripts.Core.Targeting.Strategies;
 
 namespace _01_Scripts.Core.Movement
 {
-    // TODO: Add class descriptor
+    /// <summary>
+    /// Primary AI brain that makes decisions for the Kamikaze type of attackers.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class KamikazeFlightBrain : MonoBehaviour, IEntityBrain
     {
@@ -55,8 +57,6 @@ namespace _01_Scripts.Core.Movement
         [Header("Swarm Profile")]
         [Tooltip("How close [m] allies can get before repelling")]
         [SerializeField] private float repelRadius = 15f;
-        
-        private enum FlightPhase { Asleep, Breaching, Pursuing } // TODO: Move to external Class (DRY VIOLATION)
         
         private FlightPhase _currentPhase = FlightPhase.Asleep;
         private Rigidbody _rb;
@@ -106,7 +106,7 @@ namespace _01_Scripts.Core.Movement
             }
         }
 
-        private void ExecuteBreachManeuver() { // TODO: Move to external class. Dry violation
+        private void ExecuteBreachManeuver() {
             _rb.linearVelocity = Vector3.up * breachSpeed;
             
             Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
@@ -117,7 +117,7 @@ namespace _01_Scripts.Core.Movement
                 AcquireTarget();
         }
 
-        private void AcquireTarget() { // TODO: Move to external class. Dry violation
+        private void AcquireTarget() {
             _assignedTarget = _battlefieldRadar.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
 
             if (_assignedTarget != null) {
@@ -127,7 +127,7 @@ namespace _01_Scripts.Core.Movement
             }
         }
 
-        private void ExecuteSwarmPursuit() { // TODO: Potentially has some DRY violations
+        private void ExecuteSwarmPursuit() {
             if (_assignedTarget == null || !_assignedTarget.IsTargetable) {
                 AcquireTarget();
                 return;

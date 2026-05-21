@@ -2,7 +2,9 @@
 
 namespace _01_Scripts.Core.Utilities
 {
-    // TODO Add description
+    /// <summary>
+    /// Cursor utility helper class.
+    /// </summary>
     public static class CursorUtilities
     { 
         /// <summary>

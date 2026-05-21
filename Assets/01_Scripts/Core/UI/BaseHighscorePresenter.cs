@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
-    // TODO Add description
+    /// <summary>
+    /// Responsible for presenting the basic Leaderboard.
+    /// </summary>
     public abstract class BaseHighscorePresenter : MonoBehaviour
     {
         [Header("Base Leaderboard Panels")]

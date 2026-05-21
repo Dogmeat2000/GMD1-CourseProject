@@ -17,17 +17,27 @@ namespace _01_Scripts.Core
         [Tooltip("The current/starting health this entity is initialized with")]
         [SerializeField] private int currentHealth = 100;
         
-        // TODO Add description
+        /// <summary>
+        /// Property reflecting the Current health of the attached entity.
+        /// </summary>
         public int CurrentHealth  => currentHealth;
         
-        // TODO Add description
+        /// <summary>
+        /// Property reflecting the Maximum possible health of the attached entity.
+        /// </summary>
         public int MaxHealth => maxHealth;
 
-        // TODO Add description
-        public event Action<int, int, GameObject> OnHealthChanged; // Broadcasts: CurrentHealth, MaxHealth
+        /// <summary>
+        /// Event that is broadcast whenever the health of this entity changes.
+        /// Attributes: CurrentHealth, MaxHealth, GameObject that caused the change in health.
+        /// </summary>
+        public event Action<int, int, GameObject> OnHealthChanged;
         
-        // TODO Add description
-        public event Action<HealthManager, GameObject> OnZeroHealth;  // Broadcasts: GameObject that destroyed this entity.
+        /// <summary>
+        /// Event that is broadcast whenever the health of this entity becomes zero.
+        /// Attributes: This HealthManager, GameObject that caused this entity to die.
+        /// </summary>
+        public event Action<HealthManager, GameObject> OnZeroHealth;
         
         private void Awake() {
             currentHealth = maxHealth;
@@ -50,7 +60,9 @@ namespace _01_Scripts.Core
             AdjustHealth(Mathf.Abs(amount), null);
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Resets the health of this entity to maximum.
+        /// </summary>
         public void ResetHealth() {
             currentHealth = maxHealth;
             OnHealthChanged?.Invoke(currentHealth, maxHealth, gameObject);

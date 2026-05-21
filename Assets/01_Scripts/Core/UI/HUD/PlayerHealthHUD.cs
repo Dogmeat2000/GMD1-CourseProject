@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI.HUD
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class responsible for displaying information relating to the health of a Player on the Player HUD.
+    /// </summary>
     public class PlayerHealthHUD : MonoBehaviour
     {
         [Header("Telemetry Link")]
@@ -15,13 +17,13 @@ namespace _01_Scripts.Core.UI.HUD
         [Tooltip("Text element for percentage health (e.g., '100%')")]
         [SerializeField] private TextMeshProUGUI healthText;
         
-        // TODO Add description
+        [Tooltip("Color to use for Player health Slider and Text, when in good condition")]
         [SerializeField] private Color healthyColor = Color.cyan;
         
-        // TODO Add description
+        [Tooltip("Color to use for Player health Slider and Text, when in worn condition")]
         [SerializeField] private Color warningColor = Color.yellow;
         
-        // TODO Add description
+        [Tooltip("Color to use for Player health Slider and Text, when in critical condition")]
         [SerializeField] private Color criticalColor = Color.red;
         
         [Tooltip("Percentage (0.0 to 1.0) when the bar turns warningColor")]

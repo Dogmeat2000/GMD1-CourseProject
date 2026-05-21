@@ -5,7 +5,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Waves
 {
-    // TODO This seems like repeating logic with shifting values! Refactor!
+    /// <summary>
+    /// Configuration class for how each wave should progress in difficulty and type of allowed entities.
+    /// </summary>
     [Serializable]
     public struct WaveData
     {

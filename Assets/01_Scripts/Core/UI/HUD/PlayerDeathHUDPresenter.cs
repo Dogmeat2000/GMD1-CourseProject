@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class responsible for displaying relevant information to a Player upon death.
+    /// </summary>
     public class PlayerDeathHUDPresenter : MonoBehaviour
     {
         [Header("Config")]

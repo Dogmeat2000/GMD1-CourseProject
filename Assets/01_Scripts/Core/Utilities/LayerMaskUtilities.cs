@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Utilities
 {
-    // TODO Add description
+    /// <summary>
+    /// Utility class for helper methods relating to Layers in Unity.
+    /// </summary>
     public static class LayerMaskUtilities
     {
         /// <summary>

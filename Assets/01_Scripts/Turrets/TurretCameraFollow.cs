@@ -2,7 +2,11 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
-    // TODO Add description
+    /// <summary>
+    /// Custom Camera Script that follows the provided Transform, but does not follow it super strictly.
+    /// It allows for moving the provided Transform more than the following Camera,
+    /// giving a sense of not being fully locked to a single Transform.
+    /// </summary>
     public class TurretCameraFollow : MonoBehaviour
     {
         [Header("Tracking Target")]

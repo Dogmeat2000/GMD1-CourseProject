@@ -49,7 +49,7 @@ namespace _01_Scripts.Core.Combat
                 IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
                 
                 if (projInstance is IProjectile munition) {
-                    munition.Fire(transform.root.gameObject, _myColliders);
+                    munition.ConfigureProjectile(transform.root.gameObject, _myColliders);
                 }
             }
 

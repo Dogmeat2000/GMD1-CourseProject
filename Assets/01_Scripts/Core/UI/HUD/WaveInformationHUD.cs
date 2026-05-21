@@ -6,27 +6,31 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class responsible for displaying information about the current Wave of enemies, to players in their HUD.
+    /// </summary>
     public class WaveInformationHUD : MonoBehaviour
     {
         [Header("Readout Displays")]
-        // TODO Add description
+        [Tooltip("The TextMeshPro GameObject to display information about current wave. Ex: [WAVE 1 / 10]")]
         [SerializeField] private TextMeshProUGUI waveText;
         
-        // TODO Add description
+        [Tooltip("The TextMeshPro GameObject to display information about number of hostiles. Ex: HOSTILES: 7")]
         [SerializeField] private TextMeshProUGUI enemyCountText;
         
-        // TODO Add description
+        [Tooltip("The TextMeshPro GameObject to display brief status information in. Ex.: INCOMING ENEMIES")]
         [SerializeField] private TextMeshProUGUI statusText;
 
         [Header("HUD Settings")]
         [Tooltip("How long central status messages stay on screen before fading")]
         [SerializeField] private float statusDisplayDuration = 3f;
 
+        private WaitForSeconds _delay;
         private Coroutine _statusClearCoroutine;
         private WaveDirector _waveDirector;
 
         private void Awake() {
+            _delay = new WaitForSeconds(statusDisplayDuration);
             _waveDirector = ServiceLocator.Get<WaveDirector>();
         }
         
@@ -86,7 +90,7 @@ namespace _01_Scripts.Core.UI.HUD
         }
 
         private IEnumerator ClearStatusRoutine() {
-            yield return new WaitForSeconds(statusDisplayDuration);
+            yield return _delay;
             
             if (!statusText) 
                 yield break;

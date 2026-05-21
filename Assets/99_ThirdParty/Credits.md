@@ -15,11 +15,11 @@
 ## 3. Audio & Music
 * **Composer:** K. Dashnaw
 * **Sound Design:** K. Dashnaw
-* **Voice Acting:** None (So Far)
+* **Voice Acting:** None
 
 ## 4. Quality Assurance & Testing
 * **Lead Tester:** K. Dashnaw
-* **Playtesters:** K. Dashnaw
+* **Playtesters:** K. Dashnaw, Kim Madsen, Alexander Larsen.
 
 ## 5. Assets & Attributions
 > This section fulfills legal requirements for external materials.

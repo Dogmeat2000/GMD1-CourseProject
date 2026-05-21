@@ -5,26 +5,18 @@ using UnityEngine;
 namespace _01_Scripts.Core.Services
 {
     /// <summary>
-    /// Defines the absolute states of the game.
-    /// </summary>
-    // TODO: Consider moving into its own class
-    public enum GameState
-    {
-        Deploying,
-        Playing,
-        Paused,
-        GameOver
-    }
-
-    /// <summary>
     /// Centralized authority for game state and time manipulation.
     /// </summary>
     public class GameStateService : IService
     {
-        // TODO Add description
+        /// <summary>
+        /// Property that reflects the current state of the game (Deploying, Playing, Paused, GameOver)
+        /// </summary>
         public GameState CurrentState { get; private set; }
         
-        // TODO Add description
+        /// <summary>
+        /// Event that is broadcast whenever the state of the game changes.
+        /// </summary>
         public event Action<GameState> OnStateChanged;
 
         public GameStateService() {

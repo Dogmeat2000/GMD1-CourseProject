@@ -1,20 +1,26 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Serialization;
 
 namespace _01_Scripts.Core.Settings
 {
-    // TODO Add description
+    /// <summary>
+    /// Handles all global settings.
+    /// </summary>
     [CreateAssetMenu(fileName = "NewGlobalSettings", menuName = "Game/Settings/Global Settings", order = 0)]
     public class GlobalSettings : ScriptableObject
     {
         [field: Header("Global Audio Settings")]
-        [field: Tooltip("The master channel for all background tracks.")]
+        [field: Tooltip("The audio channel for all sound.")]
+        [field: SerializeField] public AudioMixerGroup MasterMixerGroup { get; private set; }
+        
+        [field: Tooltip("The audio channel for all background music tracks.")]
         [field: SerializeField] public AudioMixerGroup MusicMixerGroup { get; private set; }
         
-        [field: Tooltip("The master channel for all weapons, explosions, and gameplay SFX.")]
+        [field: Tooltip("The audio channel for all weapons, explosions, and gameplay SFX.")]
         [field: SerializeField] public AudioMixerGroup SfxMixerGroup { get; private set; }
         
-        [field: Tooltip("The master channel for UI interactions.")]
+        [field: Tooltip("The audio channel for UI interactions.")]
         [field: SerializeField] public AudioMixerGroup UiMixerGroup { get; private set; }
         
         [field: Tooltip("The universal sound played when a joystick navigates to a button")]
@@ -76,5 +82,49 @@ namespace _01_Scripts.Core.Settings
         
         [field: Tooltip("Active Game Mode")]
         [field: SerializeField] public GameMode ActiveGameMode { get; set; } = GameMode.SinglePlayer;
+        
+        [field: Header("Game Levels / Scenes")]
+        [field: Tooltip("Name of the MainMenu Scene")]
+        [field: SerializeField] public string MainMenuSceneName { get; set; } = "SCN_MainMenu";
+        
+        [field: Tooltip("Name of the Level01 Scene")]
+        [field: SerializeField] public string Level01Name { get; set; } = "SCN_GameLevel01";
+        
+        public string MusicVolumeParam { get; private set; } = "MusicVolume";
+        public string SfxVolumeParam { get; private set; } = "SFXVolume";
+        public string UIVolumeParam { get; private set; } = "UIVolume";
+        public string MasterVolumeParam { get; private set; } = "MasterVolume";
+        
+        /// <summary>
+        /// Gets the Music Audio volume.
+        /// </summary>
+        public float GetMusicVolume() {
+            MusicMixerGroup.audioMixer.GetFloat(MusicVolumeParam, out float currentVolume);
+            return currentVolume;
+        }
+        
+        /// <summary>
+        /// Gets the Master Audio volume.
+        /// </summary>
+        public float GetMasterVolume() {
+            MasterMixerGroup.audioMixer.GetFloat(MasterVolumeParam, out float currentVolume);
+            return currentVolume;
+        }
+        
+        /// <summary>
+        /// Gets the SFX Audio volume.
+        /// </summary>
+        public float GetSfxVolume() {
+            SfxMixerGroup.audioMixer.GetFloat(SfxVolumeParam, out float currentVolume);
+            return currentVolume;
+        }
+        
+        /// <summary>
+        /// Gets the UI Audio volume.
+        /// </summary>
+        public float GetUIAudioVolume() {
+            UiMixerGroup.audioMixer.GetFloat(UIVolumeParam, out float currentVolume);
+            return currentVolume;
+        }
     }
 }

@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
-    // TODO Add description
+    /// <summary>
+    /// Responsible for controlling Floating health bars, commonly used above Hostile entities.
+    /// </summary>
     public class FloatingHealthBar : MonoBehaviour
     {
         [Header("Telemetry Link")]

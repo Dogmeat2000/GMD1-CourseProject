@@ -7,7 +7,11 @@ using UnityEngine.InputSystem;
 
 namespace _01_Scripts.Turrets.Player
 {
-    // TODO Add description
+    /// <summary>
+    /// Handles Player Input and translates these into actions that are executed on the referenced TurretMotor.
+    /// Dynamically configures the input based on which player (Player1 or Player2) this script is applied to,
+    /// allowing for COOP using multiple GamePads/Controllers.
+    /// </summary>
     [RequireComponent(typeof(TurretMotor))]
     public class TurretPlayerInput : MonoBehaviour
     {
@@ -111,7 +115,11 @@ namespace _01_Scripts.Turrets.Player
                 gameState.ResumeGame();
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Applies a reduction in mouse/stick movement, when the player has a target in its sights.
+        /// This makes it easier to track and shoot distant targets.
+        /// </summary>
+        /// <param name="onTarget"></param>
         public void SetTargetFriction(bool onTarget) {
             _isReticleOnTarget = onTarget;
         }
@@ -120,12 +128,12 @@ namespace _01_Scripts.Turrets.Player
             HandleMoveTurret();
             
             // Semi-Automatic weapons:
-            HandleFireWeapon(ref _isFireMainRequested, TurretMotor.WeaponSlot.Main);
-            HandleFireWeapon(ref _isFireSpecialWeapon1Requested, TurretMotor.WeaponSlot.Special1);
+            HandleFireWeapon(ref _isFireMainRequested, WeaponSlot.Main);
+            HandleFireWeapon(ref _isFireSpecialWeapon1Requested, WeaponSlot.Special1);
             
             // Full-Automatic weapons:
             bool isFireAuxiliaryPressed = _fireAuxAction.IsPressed();
-            HandleFireWeapon(ref isFireAuxiliaryPressed, TurretMotor.WeaponSlot.Auxiliary);
+            HandleFireWeapon(ref isFireAuxiliaryPressed, WeaponSlot.Auxiliary);
         }
 
         private void HandleMoveTurret() {
@@ -159,7 +167,7 @@ namespace _01_Scripts.Turrets.Player
             _motor.RotateJoints(_currentMovement.x * Time.deltaTime, _currentMovement.y * Time.deltaTime);
         }
 
-        private void HandleFireWeapon(ref bool condition, TurretMotor.WeaponSlot weaponSlot) {
+        private void HandleFireWeapon(ref bool condition, WeaponSlot weaponSlot) {
             if (condition) {
                 if (EventSystem.current && !EventSystem.current.IsPointerOverGameObject())
                     _motor.PullTrigger(weaponSlot);

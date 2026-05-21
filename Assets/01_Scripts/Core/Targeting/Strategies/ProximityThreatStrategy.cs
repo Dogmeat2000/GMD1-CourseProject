@@ -7,8 +7,11 @@ using _01_Scripts.Core.Settings;
 
 namespace _01_Scripts.Core.Targeting.Strategies
 {
-    // TODO Add description
-    // TODO Consider deleting, since it's not used!
+    /// <summary>
+    /// A concrete TargetingStrategy that prioritizes which target an entity (allied turret or hostile entity)
+    /// should engage based on a mix of the importance (priority) of the targets on the field as well as their distance.
+    /// Will generally prioritize targets in closer proximity.
+    /// </summary>
     public class ProximityThreatStrategy : ITargetingStrategy
     {
         public ITargetable SelectTarget(List<ITargetable> availableTargets, Vector3 requesterPosition) {

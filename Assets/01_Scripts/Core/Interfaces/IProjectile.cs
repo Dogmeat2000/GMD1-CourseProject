@@ -7,7 +7,7 @@ namespace _01_Scripts.Core.Interfaces
         /// <summary>
         /// Initializes and fires the munition.
         /// </summary>
-        void Fire(GameObject shooterIdentity, Collider[] ignoredColliders);
+        void ConfigureProjectile(GameObject shooterIdentity, Collider[] ignoredColliders);
         
         /// <summary>
         /// Implementation to return the projectile to its Object Pool

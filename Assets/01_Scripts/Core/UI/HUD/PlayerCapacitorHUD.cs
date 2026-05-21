@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI.HUD
 {
+    /// <summary>
+    /// Presenter class responsible for presenting information about the Players Capacitor on the Player HUD.
+    /// </summary>
     public class PlayerCapacitorHUD : MonoBehaviour
     { 
         [Header("Telemetry Link")]
@@ -11,13 +14,13 @@ namespace _01_Scripts.Core.UI.HUD
         [SerializeField] private TurretCapacitor capacitor;
 
         [Header("Readout Displays")]
-        // TODO Add description
+        [Tooltip("Color to use while this Capacitor has a good amounts of energy left")]
         [SerializeField] private Color healthyColor = Color.yellow;
         
-        // TODO Add description
+        [Tooltip("Color to use while this Capacitor has a mediocre amounts of energy left")]
         [SerializeField] private Color warningColor = Color.orange;
         
-        // TODO Add description
+        [Tooltip("Color to use while this Capacitor has a very low amounts of energy left")]
         [SerializeField] private Color criticalColor = Color.red;
         
         [Tooltip("Percentage (0.0 to 1.0) when the bar turns warningColor")]

@@ -16,38 +16,41 @@ namespace _01_Scripts.Core.UI.HUD
         [SerializeField] private HealthManager targetShip;
 
         [Header("UI Bindings")]
-        // TODO Add description
+        [Tooltip("The Image GameObject to use as HUD Icon for this ship")]
         [SerializeField] private Image shipIconImage;
         
-        // TODO Add description
+        [Tooltip("The TextMeshPro GameObject that should display the ship name in the HUD")]
         [SerializeField] private TextMeshProUGUI shipNameText;
         
-        // TODO Add description
+        [Tooltip("The TextMeshPro GameObject that should display the ship health percentage in the HUD")]
         [SerializeField] private TextMeshProUGUI healthPercentageText;
         
-        // TODO Add description
+        [Tooltip("The Slider GameObject that should show how much health this ship has left, in the HUD")]
         [SerializeField] private Slider healthSlider;
         
-        // TODO Add description
+        [Tooltip("The Image that should be used to fill in the slider for the ship health in the HUD")]
         [SerializeField] private Image sliderFillImage;
 
         [Header("Health Thresholds")]
-        // TODO Add description
+        [Tooltip("Color to use for Ship health Slider and Text, when in good condition")]
         [SerializeField] private Color healthyColor = Color.cyan;
         
-        // TODO Add description
+        [Tooltip("Color to use for Ship health Slider and Text, when in worn condition")]
         [SerializeField] private Color warningColor = Color.yellow;
         
-        // TODO Add description
+        [Tooltip("Color to use for Ship health Slider and Text, when in critical condition")]
         [SerializeField] private Color criticalColor = Color.red;
-
-        // TODO Add description
-        [Range(0f, 1f)] 
-        [SerializeField] private float warningThreshold = 0.5f;
         
-        // TODO Add description
+        [Tooltip("Which color to repaint the Ship HUD Icon with, when this ship is destroyed")]
+        [SerializeField] private Color destroyedColor = new (0.3f, 0.3f, 0.3f, 0.5f);
+
+        [Tooltip("When to begin using the Warning Color (0.7 = 70% health remaining)")]
         [Range(0f, 1f)] 
-        [SerializeField] private float criticalThreshold = 0.25f;
+        [SerializeField] private float warningThreshold = 0.7f;
+        
+        [Tooltip("When to begin using the Critical Color (0.3 = 30% health remaining)")]
+        [Range(0f, 1f)] 
+        [SerializeField] private float criticalThreshold = 0.3f;
 
         private void OnEnable() {
             if (!targetShip) 
@@ -115,7 +118,7 @@ namespace _01_Scripts.Core.UI.HUD
                 healthSlider.value = 0;
             
             if (shipIconImage) {
-                shipIconImage.color = new Color(0.3f, 0.3f, 0.3f, 0.5f); // TODO Perhaps make this a serialized field, so the "destroyed" color can be set in the inspector?
+                shipIconImage.color = destroyedColor;
             }
         }
     }

@@ -4,7 +4,10 @@ using _01_Scripts.Core.Services;
 
 namespace _01_Scripts.Core.Targeting
 {
-    // TODO Add description
+    /// <summary>
+    /// Mandatory identifier that is attached to all Entities involves in the battle (Ships & Hostile entities).
+    /// Attaching this script to an entity makes it visible on the BattlefieldRadar, allowing for game entities to properly interact with each other - identify friends and foes.
+    /// </summary>
     public class RadarTransponder : MonoBehaviour, ITargetable
     {
         [Header("Transponder Settings")]
@@ -14,10 +17,14 @@ namespace _01_Scripts.Core.Targeting
         [Tooltip("The tactical value of this target to the opposing faction")]
         [field: SerializeField] public TargetPriority Priority { get; private set; } = TargetPriority.Standard;
 
-        // TODO Add description
+        /// <summary>
+        /// Property that holds the Transform (GameObject) this script is attached to.
+        /// </summary>
         public Transform TargetTransform => transform;
         
-        // TODO Add description
+        /// <summary>
+        /// Property that indicates whether the entity this script is attached to, is alive and active.
+        /// </summary>
         public bool IsTargetable => isActiveAndEnabled;
         
         private BattlefieldRadar _battlefieldRadar;

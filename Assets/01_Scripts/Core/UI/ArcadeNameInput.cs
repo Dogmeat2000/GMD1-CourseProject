@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 namespace _01_Scripts.Core.UI
 {
-    // TODO Add description
+    /// <summary>
+    /// Generates a row for the Leaderboard, where a player can input their name and submit their score.
+    /// </summary>
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class ArcadeNameInput : Selectable
     { 
@@ -17,10 +19,10 @@ namespace _01_Scripts.Core.UI
         [Tooltip("The characters available to scroll through")]
         [SerializeField] private string characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.- ";
         
-        // TODO Add description
+        [Tooltip("Color to use, for the current character the player has active")]
         [SerializeField] private Color activeCharColor = Color.yellow;
         
-        // TODO Add description
+        [Tooltip("Default color that characters in the UI should have")]
         [SerializeField] private Color normalCharColor = Color.white;
 
         private char[] _nameChars;
@@ -28,7 +30,9 @@ namespace _01_Scripts.Core.UI
         private TextMeshProUGUI _textDisplay;
         private bool _isEditing = false;
 
-        // TODO Add description
+        /// <summary>
+        /// Observable, that is used to update the UI as the player fills out their name.
+        /// </summary>
         public string text => new string(_nameChars).Trim();
 
         protected override void Awake() {

@@ -8,7 +8,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement
 {
-    // TODO: Add class descriptor
+    /// <summary>
+    /// Primary AI brain that makes decisions for the Ranged type of attackers.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(Animator), typeof(HealthManager))]
     public class RangedFlightBrain : MonoBehaviour, IEntityBrain
     { 
@@ -67,8 +69,6 @@ namespace _01_Scripts.Core.Movement
         
         [Tooltip("Matches the Trigger parameter in the Animator Controller.")]
         [SerializeField] private string shootTrigger = "Shoot";
-
-        private enum FlightPhase { Asleep, Breaching, Moving, Idling } // TODO: Move to external class. DRY violation.
         
         private FlightPhase _currentState = FlightPhase.Asleep;
         private Rigidbody _rb;
@@ -162,7 +162,7 @@ namespace _01_Scripts.Core.Movement
             _animator.SetBool(_isMovingHash, isMoving);
         }
 
-        private void AcquireTarget() { // TODO: Move to external class. Dry violation
+        private void AcquireTarget() {
             _assignedTarget = _battlefieldRadar.GetOptimalTarget(transform.position, Faction.Friendly, _targetingStrategy);
 
             if (_assignedTarget != null) {
@@ -173,7 +173,7 @@ namespace _01_Scripts.Core.Movement
             }
         }
         
-        private void ExecuteBreachManeuver() { // TODO: Move to external class. Dry violation
+        private void ExecuteBreachManeuver() {
             _rb.linearVelocity = Vector3.up * breachSpeed;
             
             Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up, Vector3.back);
@@ -184,7 +184,7 @@ namespace _01_Scripts.Core.Movement
                 AcquireTarget();
         }
 
-        private void ExecuteSwarmPursuit() { // TODO: Potentially has some DRY violations
+        private void ExecuteSwarmPursuit() {
             Vector3 targetPos = _assignedTarget.TargetTransform.position;
             
             Vector3 seekForce = _seek.CalculateDirection(transform, targetPos);

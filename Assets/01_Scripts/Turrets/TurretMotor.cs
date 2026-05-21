@@ -3,14 +3,17 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
-    // TODO Add description
+    /// <summary>
+    /// The primary motor, responsible for moving a Turret and initiating function such as firing a weapon.
+    /// This raw Engine script takes either input from a Player or from an AI brain and uses these to move the Turret in physical world space (aim, rotate, shoot).
+    /// </summary>
     public class TurretMotor : MonoBehaviour
     {
         [Header("Mechanical Components")]
-        // TODO Add description
+        [Tooltip("The base of the Turret, around which the turret rotates (left/right)")]
         [SerializeField] private Transform turretBase; 
         
-        // TODO Add description
+        [Tooltip("The base of the barrels/weapons, that can be aimed up/down.")]
         [SerializeField] private Transform barrelBase; 
 
         [Header("Weapons Systems")]
@@ -33,36 +36,23 @@ namespace _01_Scripts.Turrets
         private float _currentPitch = 0f;
         private GameStateService _gameStateService;
         
-        /// <summary>
-        /// Defines the specific weapon hardware to fire.
-        /// </summary>
-        /// // TODO Consider moving into dedicated ENUM class/folder/libs
-        public enum WeaponSlot {
-            Main,
-            Auxiliary,
-            Special1,
-            Both
-        }
-        
-        
         private void Awake() {
             _gameStateService = ServiceLocator.Get<GameStateService>();
         }
 
-        // TODO Add description
+        /// <summary>
+        /// Applies rotation and pitch to the Turret and its weapons.
+        /// </summary>
+        /// <param name="yawDelta"></param>
+        /// <param name="pitchDelta"></param>
         public void RotateJoints(float yawDelta, float pitchDelta) {
-            // Pitch Axis (Up/Down)
             if (barrelBase) {
                 _currentPitch += pitchDelta;
                 _currentPitch = Mathf.Clamp(_currentPitch, minPitch, maxPitch);
-
-                // Rotate along Barrel Y-Axis (Up/Down)
                 barrelBase.localRotation = Quaternion.Euler(0f, _currentPitch, 0f);
             }
-
-            // Yaw Axis (Left/Right)
+            
             if (turretBase) {
-                // Rotate along Turret Y-Axis (Left/Right)
                 turretBase.Rotate(Vector3.forward * yawDelta, Space.Self);
             }
         }

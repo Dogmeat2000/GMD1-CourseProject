@@ -3,7 +3,10 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
-    // TODO Add description
+    /// <summary>
+    /// Provides access to Recoil movement, for the GameObject this script is attached to.
+    /// Used for applying recoil upon firing the ranges turret weapons.
+    /// </summary>
     public class TurretBarrelRecoil : MonoBehaviour
     {
         [Header("Recoil Settings")]
@@ -23,7 +26,9 @@ namespace _01_Scripts.Turrets
             _originalLocalPosition = transform.localPosition;
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Triggers the recoil effect.
+        /// </summary>
         public void TriggerRecoil() {
             if (_recoilRoutine != null)
                 StopCoroutine(_recoilRoutine);

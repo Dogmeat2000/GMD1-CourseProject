@@ -4,7 +4,9 @@ using _01_Scripts.Core.Interfaces;
 
 namespace _01_Scripts.Core.Targeting
 {
-    // TODO Add description
+    /// <summary>
+    /// Manages all active entities on the map, allowing other scripts access to updates information about Friendly, Enemy and Neutral game entities.
+    /// </summary>
     public class BattlefieldRadar : MonoBehaviour, IService
     {
         private readonly Dictionary<Faction, List<ITargetable>> _radarBlips = new Dictionary<Faction, List<ITargetable>> {
@@ -20,13 +22,19 @@ namespace _01_Scripts.Core.Targeting
             return _radarBlips.TryGetValue(faction, out var blips) ? blips : new List<ITargetable>();
         }
 
-        // TODO Add description
+        /// <summary>
+        /// Used by Entities to register with this script, to make their presence known on the map.
+        /// </summary>
+        /// <param name="target"></param>
         public void RegisterTarget(ITargetable target) {
             if (!_radarBlips[target.Faction].Contains(target))
                 _radarBlips[target.Faction].Add(target);
         }
 
-        // TODO Add description
+        /// <summary>
+        /// Unregisters an entity from this script.
+        /// </summary>
+        /// <param name="target"></param>
         public void UnregisterTarget(ITargetable target) {
             if (_radarBlips.TryGetValue(target.Faction, out var blip))
                 blip.Remove(target);
@@ -42,7 +50,10 @@ namespace _01_Scripts.Core.Targeting
             return strategy.SelectTarget(_radarBlips[targetFaction], requesterPosition);
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Returns the number of entities belonging til the Hostile faction, that are still alive on the map.
+        /// </summary>
+        /// <returns></returns>
         public int GetActiveHostileCount() {
             if (!_radarBlips.TryGetValue(Faction.Hostile, out var blip)) 
                 return 0;

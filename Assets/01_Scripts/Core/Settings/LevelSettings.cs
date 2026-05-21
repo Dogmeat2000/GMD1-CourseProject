@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Settings
 {
-    // TODO Add description
+    /// <summary>
+    /// Settings that only apply inside each mission/level.
+    /// </summary>
     [CreateAssetMenu(fileName = "NewLevelSettings", menuName = "Game/Settings/Level Settings", order = 1)]
     public class LevelSettings : ScriptableObject
     { 

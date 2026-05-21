@@ -3,10 +3,14 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Scoring
 {
-    // TODO: Add class description
+    /// <summary>
+    /// Managers the LeaderBoard.
+    /// </summary>
     public class LeaderboardManager : MonoBehaviour
     { 
-        // TODO: Add method description
+        /// <summary>
+        /// Returns a Singleton reference to this Manager.
+        /// </summary>
         public static LeaderboardManager Instance { get; private set; }
 
         [Header("Leaderboard Settings")]
@@ -41,7 +45,11 @@ namespace _01_Scripts.Core.Scoring
             SaveLeaderboard();
         }
 
-        // TODO: Add method description
+        /// <summary>
+        /// Returns a projected Rank that the provided score would receive, compared against the current Leaderboard.
+        /// </summary>
+        /// <param name="scoreToCheck"></param>
+        /// <returns></returns>
         public int GetProjectedRank(int scoreToCheck) {
             int rank = 1; 
             foreach (var entry in _saveData.entries) {
@@ -51,7 +59,10 @@ namespace _01_Scripts.Core.Scoring
             return rank;
         }
 
-        // TODO: Add method description
+        /// <summary>
+        /// Returns an immutable list of the current top scores on this Leaderboard.
+        /// </summary>
+        /// <returns></returns>
         public IReadOnlyList<ScoreEntry> GetTopScores() {
             return _saveData.entries.AsReadOnly();
         }

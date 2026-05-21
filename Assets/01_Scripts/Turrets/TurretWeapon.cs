@@ -12,13 +12,13 @@ namespace _01_Scripts.Turrets
     public class TurretWeapon : MonoBehaviour, IRangedWeapon
     {
         [Header("Configuration")]
-        // TODO Add description
+        [Tooltip("Which Projectile prefab this weapon should fire.")]
         [SerializeField] private GameObject projectilePrefab;
         
-        // TODO Add description
+        [Tooltip("The Muzzle Point on which to spawn and launch projectiles.")]
         [SerializeField] private Transform muzzleExit;
         
-        // TODO Add description
+        [Tooltip("The maximum firing rate, that this weapon has.")]
         [SerializeField] private float fireRate = 0.2f;
         
         [Tooltip("The scoring manager that assigned to this player")]
@@ -82,7 +82,7 @@ namespace _01_Scripts.Turrets
             
             if (projInstance is IProjectile munition) {
                 GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;
-                munition.Fire(shooterIdentity, _myColliders);
+                munition.ConfigureProjectile(shooterIdentity, _myColliders);
                 
                 if (energyCapacitor)
                     energyCapacitor.ConsumeEnergy();

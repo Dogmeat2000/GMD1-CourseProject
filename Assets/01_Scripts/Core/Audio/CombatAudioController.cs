@@ -31,6 +31,10 @@ namespace _01_Scripts.Core.Audio
         private AudioSource _audioSource;
         private GameStateService _gameState;
         private Coroutine _sequenceRoutine;
+        
+        private WaitForSeconds _initialDelay;
+        private WaitForSeconds _introVoiceOverDelay;
+        private WaitForSeconds _delayBetweenTracks;
 
         private void Awake() {
             _audioSource = GetComponent<AudioSource>();
@@ -47,6 +51,10 @@ namespace _01_Scripts.Core.Audio
         }
 
         private void Start() {
+            _initialDelay = new WaitForSeconds(initialDelay);
+            _introVoiceOverDelay = new WaitForSeconds(introVoiceover.length);
+            _delayBetweenTracks = new WaitForSeconds(delayBetweenTracks);
+            
             _sequenceRoutine = StartCoroutine(AudioSequenceRoutine());
         }
         
@@ -86,12 +94,12 @@ namespace _01_Scripts.Core.Audio
 
         private IEnumerator AudioSequenceRoutine() {
             if (initialDelay > 0)
-                yield return new WaitForSeconds(initialDelay);
+                yield return _initialDelay;
             
             if (introVoiceover) {
                 _audioSource.clip = introVoiceover;
                 _audioSource.Play();
-                yield return new WaitForSeconds(introVoiceover.length);
+                yield return _introVoiceOverDelay;
             }
             
             if (combatTracks == null || combatTracks.Length == 0) {
@@ -101,7 +109,7 @@ namespace _01_Scripts.Core.Audio
 
             while (true) {
                 if (delayBetweenTracks > 0)
-                    yield return new WaitForSeconds(delayBetweenTracks);
+                    yield return _delayBetweenTracks;
                 
                 AudioClip nextTrack = combatTracks[Random.Range(0, combatTracks.Length)];
 

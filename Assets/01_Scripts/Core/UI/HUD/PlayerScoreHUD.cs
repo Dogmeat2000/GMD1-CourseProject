@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI.HUD
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class responsible for displaying each Player's score on the screen.
+    /// </summary>
     public class PlayerScoreHUD : MonoBehaviour
     {
         [Header("Telemetry Links")]

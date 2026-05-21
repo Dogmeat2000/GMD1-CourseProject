@@ -6,23 +6,21 @@ using UnityEngine;
 
 namespace _01_Scripts.Turrets
 {
-    // TODO Add description
+    /// <summary>
+    /// Presentor class responsible for displaying the Player Crosshairs on a Player Turret.
+    /// The basic principle is to shoot a Raycast from a provided Muzzle a maximum distance out, see where it impacts, and project that position onto the screen, displaying a crosshair.
+    /// This allows for an accurate estimation of where the provided muzzle or barrel would impact.
+    /// </summary>
     public class TurretHUD : MonoBehaviour
     {
-        [Header("Targeting")]
-        // TODO Add description
+        [Header("Configuration")]
+        [Tooltip("The Transform belonging to the primary firing point (muzzle) of the primary weapon")]
         [SerializeField] private Transform lowerMuzzleExit;
         
-        // TODO Add description
-        [SerializeField] private Transform upperMuzzleExit;
-        
-        // TODO Add description
+        [Tooltip("The Crosshair to project onto the camera.")]
         [SerializeField] private RectTransform lowerReticleUI;
         
-        // TODO Add description
-        [SerializeField] private RectTransform upperReticleUI;
-        
-        // TODO Add description
+        [Tooltip("The Crosshair to project onto the camera.")]
         [SerializeField] private Camera turretCamera;
         
         [Tooltip("What can the turret aim at? (Select Default, Water, Enemy, etc.)")]
@@ -30,7 +28,7 @@ namespace _01_Scripts.Turrets
 
         [Header("Aim Assist Settings")]
         [Tooltip("Link to the concrete player input handler")]
-        [SerializeField] private TurretPlayerInput playerInputHandler; // TODO Confirm this didn't break in latest Input Action changes!
+        [SerializeField] private TurretPlayerInput playerInputHandler;
         
         [Tooltip("Which layers contain the enemies that trigger friction?")]
         [SerializeField] private LayerMask enemyLayerMask;
@@ -48,7 +46,6 @@ namespace _01_Scripts.Turrets
             bool isPaintingTarget = false;
             
             isPaintingTarget |= UpdateReticlePosition(lowerMuzzleExit, lowerReticleUI);
-            isPaintingTarget |= UpdateReticlePosition(upperMuzzleExit, upperReticleUI);
             
             if (playerInputHandler)
                 playerInputHandler.SetTargetFriction(isPaintingTarget);

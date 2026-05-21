@@ -73,7 +73,10 @@ namespace _01_Scripts.Turrets
             }
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Evaluates if this TurretCapacitor is ready to fire (true), or not (false).
+        /// </summary>
+        /// <returns></returns>
         public bool CanFire() {
             if (_isOverheated) 
                 return false;
@@ -84,7 +87,10 @@ namespace _01_Scripts.Turrets
             return _currentEnergy >= energyCostPerShot;
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Consumes energy from the remaining energy.
+        /// Triggers an overheat effect, if energy consumption drops below 0.
+        /// </summary>
         public void ConsumeEnergy() {
             _currentEnergy -= energyCostPerShot;
             _timeSinceLastFire = 0f;
@@ -97,7 +103,9 @@ namespace _01_Scripts.Turrets
             }
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Informs that the Player has released their Trigger since last Overheat incident.
+        /// </summary>
         public void NotifyTriggerReleased() {
             _triggerReleasedSinceOverheat = true;
         }

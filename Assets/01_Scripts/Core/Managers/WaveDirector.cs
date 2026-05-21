@@ -48,6 +48,8 @@ namespace _01_Scripts.Core.Managers
         private LevelManager _levelManager;
         private BattlefieldRadar _battlefieldRadar;
         
+        private readonly WaitForSeconds _delay = new (10f);
+        
         private void Awake() {
             _levelManager = ServiceLocator.Get<LevelManager>();
             _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
@@ -79,7 +81,7 @@ namespace _01_Scripts.Core.Managers
             Debug.Log($"Starting Wave {_currentWaveIndex + 1} / {activeCampaign.Waves.Count}");
             
             OnWaveUpdated?.Invoke(_currentWaveIndex + 1, activeCampaign.Waves.Count);
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING"); // TODO: Make this a serialized field/regex!
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} INCOMING");
             
             StartCoroutine(DeployWaveRoutine(currentWaveData));
         }
@@ -116,7 +118,7 @@ namespace _01_Scripts.Core.Managers
             
             _isTransitioning = true;
             
-            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED"); // TODO: Make this a serialized field/regex!
+            OnStatusMessage?.Invoke($"WAVE {_currentWaveIndex + 1} CLEARED");
             _currentWaveIndex++;
             StartCoroutine(TransitionToNextWaveRoutine());
         }
@@ -216,9 +218,8 @@ namespace _01_Scripts.Core.Managers
         /// engine deletion (falling out of bounds) rather than combat, it forces the next wave.
         /// </summary>
         private IEnumerator RadarSweepFailSafe() {
-            WaitForSeconds wait = new WaitForSeconds(10f); // TODO: Make this a global settings option!
             while (true) {
-                yield return wait;
+                yield return _delay;
                 
                 if (_activeHostiles > 0 && !_isDeployingWave) {
                     int actualEnemies = _battlefieldRadar.GetActiveHostileCount();

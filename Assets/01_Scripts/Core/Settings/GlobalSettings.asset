@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d84c43a922a344181e897ff8cc3e49, type: 3}
   m_Name: GlobalSettings
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Settings.GlobalSettings
+  <MasterMixerGroup>k__BackingField: {fileID: 24300002, guid: e50b63a63841960459f756573e4699fa, type: 2}
   <MusicMixerGroup>k__BackingField: {fileID: -6272596638330137754, guid: e50b63a63841960459f756573e4699fa, type: 2}
   <SfxMixerGroup>k__BackingField: {fileID: 396246894466676119, guid: e50b63a63841960459f756573e4699fa, type: 2}
   <UiMixerGroup>k__BackingField: {fileID: -4499391006344453827, guid: e50b63a63841960459f756573e4699fa, type: 2}
@@ -19,4 +20,17 @@ MonoBehaviour:
   <DefaultButtonSelectSound>k__BackingField: {fileID: 0}
   <DefaultButtonHighlightScale>k__BackingField: 1.1
   <DefaultButtonTransitionSpeed>k__BackingField: 15
-  <ActiveGameMode>k__BackingField: 2
+  <MoveInputAction>k__BackingField: Movement
+  <FireMainCannonInputAction>k__BackingField: B - Main Cannon
+  <FireAuxCannonInputAction>k__BackingField: X - Auxiliary Cannon
+  <FireSpecialAmmo1InputAction>k__BackingField: Y - Special Ammo
+  <PauseGameInputAction>k__BackingField: RightTrigger - Pause
+  <MouseSens>k__BackingField: 5
+  <P1InputControlSchemeName>k__BackingField: Player1_Scheme
+  <P2InputControlSchemeName>k__BackingField: Player2_Scheme
+  <PrecisionSens>k__BackingField: 10
+  <MaxSlewSens>k__BackingField: 100
+  <TimeToMaxSpeed>k__BackingField: 0.4
+  <SlideDuration>k__BackingField: 0.15
+  <FrictionMultiplier>k__BackingField: 0.4
+  <ActiveGameMode>k__BackingField: 0

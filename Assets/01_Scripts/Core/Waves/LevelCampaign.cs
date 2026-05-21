@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Waves
 {
-    // TODO This seems like repeating logic with shifting values! Refactor!
-    // TODO: Consider moving this into another folder with scriptable objects?
+    /// <summary>
+    /// Configuration class for how each campaign/mission should progress in difficulty and encounters across waves of attack.
+    /// </summary>
     [CreateAssetMenu(fileName = "NewLevelCampaign", menuName = "Game/Waves/Level Campaign")]
     public class LevelCampaign : ScriptableObject {
         [Tooltip("The sequential list of waves for this specific level")]

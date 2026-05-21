@@ -3,14 +3,18 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.UI
 {
-    // TODO Add description
+    /// <summary>
+    /// Presenter class, responsible for adapting and presenting the Leaderboard onto the Main Menu scene.
+    /// </summary>
     public class MainMenuHighscorePresenter : BaseHighscorePresenter
     {
         private void OnEnable() {
             GenerateStaticLeaderboard();
         }
 
-        // TODO Add description
+        /// <summary>
+        /// Generates a simple non-interactable Leaderboard (i.e. there will be no input fields).
+        /// </summary>
         public void GenerateStaticLeaderboard() {
             if (!LeaderboardManager.Instance) {
                 Debug.LogWarning("LeaderboardManager is missing in Main Menu Scene.");

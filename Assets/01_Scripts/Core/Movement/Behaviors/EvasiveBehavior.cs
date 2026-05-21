@@ -3,10 +3,14 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement.Behaviors
 {
-    // TODO: Add interface description
+    /// <summary>
+    /// A Behavior subtype that applies an evasive movement pattern to entities,
+    /// causing them to move away from near neighbors, thus avoiding collision.
+    /// This is achieved by adjusting the Vector3 that is used to propel entities forward in each frame.
+    /// </summary>
     public class EvasiveBehavior : IMovementBehavior
     {
-        private float _noiseOffset;
+        private readonly float _noiseOffset;
         private readonly float _evasionIntensity;
         private readonly float _evasionSpeed;
 

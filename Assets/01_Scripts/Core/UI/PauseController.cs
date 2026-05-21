@@ -1,6 +1,6 @@
 using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Utilities;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
@@ -12,13 +12,7 @@ namespace _01_Scripts.Core.UI
     {
         [Header("UI Overlay")]
         [Tooltip("The Panel to be displayed when Pause is invoked")]
-        [SerializeField] 
-        private GameObject pauseMenuPanel;
-        
-        [Header("Scene Navigation")]
-        [Tooltip("The exact name of the Main Menu scene to load upon exit")]
-        [SerializeField] 
-        private string mainMenuSceneName = "SCN_MainMenu";
+        [SerializeField] private GameObject pauseMenuPanel;
         
         private GameStateService _gameState;
 
@@ -40,21 +34,22 @@ namespace _01_Scripts.Core.UI
             if (UnityEngine.EventSystems.EventSystem.current) 
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
             
-            
             if (pauseMenuPanel) 
                 pauseMenuPanel.SetActive(false);
-            
             
             LockAndHideCursor();
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Resumes the Game.
+        /// </summary>
         public void ResumeGame() => _gameState.ResumeGame();
         
-        // TODO Add description
+        /// <summary>
+        /// Load the Main Menu scene.
+        /// </summary>
         public void ReturnToMainMenu() {
-            _gameState.ResumeGame();
-            SceneManager.LoadSceneAsync(mainMenuSceneName);
+            SceneNavigationUtilities.LoadMainMenu();
         }
         
         private void HandleStateChanged(GameState newState) {

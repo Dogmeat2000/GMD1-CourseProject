@@ -31,16 +31,16 @@ namespace _01_Scripts.Turrets
         [SerializeField] private Transform[] muzzleExits;
 
         [Header("Visuals")]
-        // TODO Add description
+        [Tooltip("The Prefab containing the VFX effect to apply upon firing this weapons system")]
         [SerializeField] private GameObject muzzleFlashPrefab;
         
-        // TODO Add description
+        [Tooltip("Optional: The Audio Source to use to play any provided sound effects from.")]
         [SerializeField] private AudioSource weaponAudioSource;
         
-        // TODO Add description
+        [Tooltip("Optional: The AudioClip to play when firing this weapon.")]
         [SerializeField] private AudioClip fireSound;
         
-        // TODO Add description
+        [Tooltip("Optional: The AudioClip to play when failing to fire this weapon.")]
         [SerializeField] private AudioClip emptyClickSound;
 
         /// <summary>
@@ -78,7 +78,9 @@ namespace _01_Scripts.Turrets
             OnAmmoChanged?.Invoke(_currentAmmo, maxAmmo);
         }
 
-        // TODO Add description
+        /// <summary>
+        /// Fires this weapon.
+        /// </summary>
         public void Fire() {
             if (Time.time < _nextFireTime) 
                 return;
@@ -114,7 +116,7 @@ namespace _01_Scripts.Turrets
                 IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, selectedMuzzle.position, launchRotation, poolSize, maxPoolSize);
                 
                 if (projInstance is IProjectile munition)
-                    munition.Fire(transform.root.gameObject, _myColliders);
+                    munition.ConfigureProjectile(transform.root.gameObject, _myColliders);
             }
 
             if (weaponAudioSource && fireSound)

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using _01_Scripts.Core.Managers;
 using _01_Scripts.Core.Scoring;
 using _01_Scripts.Core.Services;
+using _01_Scripts.Core.Utilities;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using static _01_Scripts.Core.Utilities.CursorUtilities;
 
 namespace _01_Scripts.Core.UI
@@ -15,25 +15,25 @@ namespace _01_Scripts.Core.UI
     public class GameOverPresenter : BaseHighscorePresenter
     { 
         [Header("UI Data and Bindings")]
-        // TODO Add description
+        [Tooltip("The Primary Canvas that contains the Game Over UI elements")]
         [SerializeField] private GameObject gameOverCanvas;
         
-        // TODO Add description
+        [Tooltip("A TextMeshPro Game Object which should be used for displaying the results of the Game (I.e. Victory or Defeat)")]
         [SerializeField] private TextMeshProUGUI matchResultText;
         
         [Tooltip("The text element displaying the final scores at the bottom of the screen")]
-        [SerializeField] private TextMeshProUGUI finalTelemetryText;
+        [SerializeField] private TextMeshProUGUI playerScoresText;
 
-        // TODO Add description
+        [Tooltip("Text to display in matchResultText Game Object upon Victory")]
         [SerializeField] private string victoryText = "VICTORY";
         
-        // TODO Add description
+        [Tooltip("Color to display victory text in.")]
         [SerializeField] private Color victoryColor = Color.cyan;
         
-        // TODO Add description
+        [Tooltip("Text to display in matchResultText Game Object upon Defeat")]
         [SerializeField] private string defeatText = "DEFEAT";
         
-        // TODO Add description
+        [Tooltip("Color to display defeat text in.")]
         [SerializeField] private Color defeatColor = Color.red;
         
         [Header("Prefabs")]
@@ -41,22 +41,18 @@ namespace _01_Scripts.Core.UI
         [SerializeField] private GameObject inputScoreRowPrefab;
 
         [Header("Audio")]
-        // TODO Add description
+        [Tooltip("Audio Source to use to play Win/Lose music")]
         [SerializeField] private AudioSource audioSource;
         
-        // TODO Add description
+        [Tooltip("Music to play upon victory")]
         [SerializeField] private AudioClip victoryAudioClip;
         
-        // TODO Add description
+        [Tooltip("Music to play upon defeat")]
         [SerializeField] private AudioClip defeatAudioClip;
 
         [Header("Local Players")]
         [Tooltip("Slot all PlayerScore scripts, for players in this level, here")]
         [SerializeField] private List<PlayerScore> localPlayers;
-        
-        [Header("Scene Navigation")]
-        [Tooltip("The exact name of the Main Menu scene to load upon exit")]
-        [SerializeField] private string mainMenuSceneName = "SCN_MainMenu";
         
         [Header("UI Navigation")]
         [Tooltip("The button the joystick should snap to after saving a score")]
@@ -112,7 +108,7 @@ namespace _01_Scripts.Core.UI
         }
         
         private void GeneratePlayerSummary() {
-            if (!finalTelemetryText) 
+            if (!playerScoresText) 
                 return;
 
             string displayText = "";
@@ -124,7 +120,7 @@ namespace _01_Scripts.Core.UI
                 }
             }
             
-            finalTelemetryText.text = displayText.TrimEnd('\n'); 
+            playerScoresText.text = displayText.TrimEnd('\n'); 
         }
         
         /// <summary>
@@ -240,14 +236,16 @@ namespace _01_Scripts.Core.UI
             }
         }
         
-        // TODO Add description
+        /// <summary>
+        /// Loads the Main Menu Scene.
+        /// </summary>
         public void ReturnToMainMenu() {
-            ServiceLocator.Get<GameStateService>()?.ResumeGame();
-            SceneManager.LoadSceneAsync(mainMenuSceneName);
+            SceneNavigationUtilities.LoadMainMenu();
         }
 
-        // TODO Add description
-        // TODO Consider moving to another class/file -> Libs perhaps?
+        /// <summary>
+        /// Temporary player scores that have not yet been submitted to the Leaderboard.
+        /// </summary>
         private struct PendingEntry {
             public int Rank;
             public PlayerScore ScoreData;

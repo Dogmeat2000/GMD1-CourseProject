@@ -1,6 +1,8 @@
 namespace _01_Scripts.Core.Targeting
 {
-    // TODO Add description
+    /// <summary>
+    /// Faction definitions.
+    /// </summary>
     // TODO Consider moving to Enums/Util/lib folder?
     public enum Faction 
     {

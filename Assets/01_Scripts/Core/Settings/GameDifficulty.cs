@@ -1,6 +1,8 @@
 namespace _01_Scripts.Core.Settings
 {
-    // TODO Add description
+    /// <summary>
+    /// Game Difficulty definitions.
+    /// </summary>
     // TODO Consider moving to Enums/Util/lib folder?
     public enum GameDifficulty 
     { 

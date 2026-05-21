@@ -1,6 +1,8 @@
 namespace _01_Scripts.Core.Interfaces
 {
-    // TODO: Add class descriptor
+    /// <summary>
+    /// Primary interface that AI controlled attackers must implement.
+    /// </summary>
     public interface IEntityBrain
     {
         /// <summary>

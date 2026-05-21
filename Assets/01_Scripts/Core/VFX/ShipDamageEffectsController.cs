@@ -3,36 +3,40 @@ using _01_Scripts.Core.Services;
 using _01_Scripts.Core.Settings;
 using _01_Scripts.Core.Targeting;
 using _01_Scripts.Turrets;
+using _01_Scripts.Turrets.AI;
 using _01_Scripts.Turrets.Player;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace _01_Scripts.Core.VFX
 {
-    // TODO Add description
+    /// <summary>
+    /// Controller class responsible to handling how damage effects are applied to ships.
+    /// </summary>
     [RequireComponent(typeof(HealthManager))]
     public class ShipDamageEffectsController : MonoBehaviour
     { 
         [Header("Damage Thresholds (Percentages)")]
-        // TODO Add description
+        [Tooltip("A which damage level, the ship should begin displaying signs of light damage (0.8 = 80% health)")]
         [Range(0f, 1f)] 
         [SerializeField] private float lightSmokeThreshold = 0.80f;
         
-        // TODO Add description
+        [Tooltip("A which damage level, the ship should begin displaying signs of medium damage (0.5 = 50% health)")]
         [Range(0f, 1f)] 
         [SerializeField] private float heavySmokeThreshold = 0.50f;
         
-        // TODO Add description
+        [Tooltip("A which damage level, the ship should begin displaying signs of heavy damage (0.3 = 30% health)")]
         [Range(0f, 1f)] 
         [SerializeField] private float fireThreshold = 0.30f;
 
         [Header("Visual Effects")]
-        // TODO Add description
+        [Tooltip("The Particle System VFX to use to indicate light damage")]
         [SerializeField] private ParticleSystem lightSmokeVfx;
         
-        // TODO Add description
+        [Tooltip("The Particle System VFX to use to indicate medium damage")]
         [SerializeField] private ParticleSystem heavySmokeVfx;
         
-        // TODO Add description
+        [Tooltip("The Particle System VFX to use to indicate heavy damage")]
         [SerializeField] private ParticleSystem fireVfx;
         
         [Tooltip("The VFX prefab to spawn upon ship destruction")]
@@ -72,35 +76,23 @@ namespace _01_Scripts.Core.VFX
 
         private void EvaluateDamageState(int currentHealth, int maxHealth, GameObject instigator) {
             float healthPercentage = (float) currentHealth / maxHealth;
-            
-            // TODO This seems like repeating logic with shifting values! Refactor!
-            if (!_isLightlySmoking && healthPercentage <= lightSmokeThreshold) {
-                _isLightlySmoking = true;
-                if (lightSmokeVfx) 
-                    lightSmokeVfx.Play(true);
-            } else if (_isLightlySmoking && healthPercentage > lightSmokeThreshold) {
-                _isLightlySmoking = true;
-                lightSmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            ApplyDamageEffect(ref _isLightlySmoking, healthPercentage, lightSmokeThreshold, lightSmokeVfx);
+            ApplyDamageEffect(ref _isHeavilySmoking, healthPercentage, heavySmokeThreshold, heavySmokeVfx);
+            ApplyDamageEffect(ref _isOnFire, healthPercentage, fireThreshold, fireVfx);
+        }
+
+        private void ApplyDamageEffect(ref bool isEffectActive, float healthPercentage, float damageThreshold, [CanBeNull] ParticleSystem vfx) {
+            if (!isEffectActive && healthPercentage <= damageThreshold) {
+                isEffectActive = true;
+                if (vfx) 
+                    vfx.Play(true);
+                
+            } else if (isEffectActive && healthPercentage > damageThreshold) {
+                isEffectActive = true;
+                
+                if (vfx) 
+                    vfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
-            
-            if (!_isHeavilySmoking && healthPercentage <= heavySmokeThreshold) {
-                _isHeavilySmoking = true;
-                if (heavySmokeVfx) 
-                    heavySmokeVfx.Play(true);
-            } else if (_isHeavilySmoking && healthPercentage > heavySmokeThreshold) {
-                _isHeavilySmoking = true;
-                heavySmokeVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            }
-            
-            if (!_isOnFire && healthPercentage <= fireThreshold) {
-                _isOnFire = true;
-                if (fireVfx) 
-                    fireVfx.Play(true);
-            } else if (_isOnFire && healthPercentage > fireThreshold) {
-                _isOnFire = true;
-                fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            }
-            // TODO Applies down to here
         }
 
         private void HandleDestruction(HealthManager source, GameObject killer) {
@@ -123,26 +115,36 @@ namespace _01_Scripts.Core.VFX
                     settings.MaxDefaultObjectPoolSize
                 );
             }
-            
+            DeactivateShipComponents();
+        }
+
+        private void DeactivateShipComponents() {
             Transform shipRoot = transform.parent ? transform.parent : transform;
             
-            // TODO Consider moving below into its own method and just calling that
             if (TryGetComponent<RadarTransponder>(out var transponder)) 
                 transponder.enabled = false;
             
-            foreach (var input in shipRoot.GetComponentsInChildren<TurretPlayerInput>()) {
+            foreach (TurretPlayerInput input in shipRoot.GetComponentsInChildren<TurretPlayerInput>()) {
                 input.enabled = false;
             }
             
-            foreach (var motor in shipRoot.GetComponentsInChildren<TurretMotor>()) {
+            foreach (TurretAIBrain input in shipRoot.GetComponentsInChildren<TurretAIBrain>()) {
+                input.enabled = false;
+            }
+            
+            foreach (TurretAISensor input in shipRoot.GetComponentsInChildren<TurretAISensor>()) {
+                input.enabled = false;
+            }
+            
+            foreach (TurretMotor motor in shipRoot.GetComponentsInChildren<TurretMotor>()) {
                 motor.enabled = false;
             }
             
-            foreach (var col in shipRoot.GetComponentsInChildren<Collider>()) {
+            foreach (Collider col in shipRoot.GetComponentsInChildren<Collider>()) {
                 col.enabled = false;
             }
             
-            foreach (var mesh in shipRoot.GetComponentsInChildren<MeshRenderer>()) {
+            foreach (MeshRenderer mesh in shipRoot.GetComponentsInChildren<MeshRenderer>()) {
                 mesh.enabled = false;
             }
         }

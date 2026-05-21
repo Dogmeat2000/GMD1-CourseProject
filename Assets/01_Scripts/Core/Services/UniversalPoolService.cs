@@ -5,10 +5,14 @@ using _01_Scripts.Core.Interfaces;
 
 namespace _01_Scripts.Core.Services
 {
-    // TODO Add description
+    /// <summary>
+    /// A scalable Object Pooling service, that provides easy access to Object Pool handling in various Game Objects.
+    /// </summary>
     public class UniversalPoolService : MonoBehaviour
     {
-        // TODO Add description
+        /// <summary>
+        /// Singleton accessor for this class.
+        /// </summary>
         public static UniversalPoolService Instance { get; private set; }
         
         private readonly Dictionary<int, IObjectPool<IPoolable>> _pools = new();

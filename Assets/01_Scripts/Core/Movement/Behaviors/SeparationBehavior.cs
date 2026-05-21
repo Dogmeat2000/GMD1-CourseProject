@@ -3,7 +3,11 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Movement.Behaviors
 {
-    // TODO: Add interface description
+    /// <summary>
+    /// A Behavior subtype that applies a separation movement pattern to entities,
+    /// causing them to more straight towards a given target.
+    /// This is achieved by adjusting the Vector3 that is used to propel entities forward in each frame.
+    /// </summary>
     public class SeparationBehavior : IMovementBehavior
     {
         private readonly float _repelRadius;

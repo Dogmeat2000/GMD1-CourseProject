@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Scoring
 {
-    // TODO: Add class description
+    /// <summary>
+    /// A standard non-interactable row on the Leaderboard.
+    /// </summary>
     public class LeaderboardRow : MonoBehaviour
     {
         [Header("Configuration")]

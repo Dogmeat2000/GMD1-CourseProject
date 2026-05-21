@@ -20,7 +20,6 @@ namespace _01_Scripts.Turrets.AI
         [SerializeField] private Transform muzzleReference;
 
         [Header("Configuration")]
-        // TODO Consider moving this out into Global Settings? Will make it easier to expand with future upgrades of the turrets as wave rewards, etc.
         [Tooltip("How fast the AI moves to track the target.")]
         [SerializeField] private float aimSpeed = 150f;
         
@@ -82,11 +81,11 @@ namespace _01_Scripts.Turrets.AI
             if (totalAngleError <= fireToleranceAngle) 
                 EngageTarget();
             else 
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Both);
+                _motor.ReleaseTrigger(WeaponSlot.Both);
         }
         
         private void ExecuteRestingProtocol() {
-            _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Both);
+            _motor.ReleaseTrigger(WeaponSlot.Both);
             
             Vector3 worldHomeAim = transform.TransformDirection(_homeLocalAimDirection);
             Vector3 targetPos = muzzleReference.position + (worldHomeAim * 200);
@@ -113,14 +112,14 @@ namespace _01_Scripts.Turrets.AI
 
         private void EngageTarget() {
             if (Time.time >= _nextMainFireTime) {
-                _motor.PullTrigger(TurretMotor.WeaponSlot.Main);
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Main);
+                _motor.PullTrigger(WeaponSlot.Main);
+                _motor.ReleaseTrigger(WeaponSlot.Main);
                 _nextMainFireTime = Time.time + aiMainFireInterval;
             }
 
             if (Time.time >= _nextAuxFireTime) {
-                _motor.PullTrigger(TurretMotor.WeaponSlot.Auxiliary);
-                _motor.ReleaseTrigger(TurretMotor.WeaponSlot.Auxiliary);
+                _motor.PullTrigger(WeaponSlot.Auxiliary);
+                _motor.ReleaseTrigger(WeaponSlot.Auxiliary);
                 _nextAuxFireTime = Time.time + aiAuxFireInterval;
             }
         }

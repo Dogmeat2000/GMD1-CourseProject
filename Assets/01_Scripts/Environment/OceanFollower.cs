@@ -2,7 +2,10 @@ using UnityEngine;
 
 namespace _01_Scripts.Environment
 {
-    // TODO Add description
+    /// <summary>
+    /// Allows attaching this script to an Ocean plane and giving a Target object that this should move with.
+    /// Allows for a "never-ending" ocean like effect, as the ocean will move with the provided Transform.
+    /// </summary>
     public class OceanFollower : MonoBehaviour
     {
         [Tooltip("The player vessel or camera this ocean should follow.")]

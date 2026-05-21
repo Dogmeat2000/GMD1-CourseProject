@@ -7,7 +7,11 @@ using _01_Scripts.Core.Settings;
 
 namespace _01_Scripts.Core.Targeting.Strategies
 {
-    // TODO Add description
+    /// <summary>
+    /// A concrete TargetingStrategy that prioritizes which target an entity (allied turret or hostile entity)
+    /// should engage based primarily the priority/importance of available targets. Will prioritize selecting the more important targets,
+    /// while still sometimes selecting less important targets - to provide a random element to this strategy.
+    /// </summary>
     public class WeightedRandomStrategy : ITargetingStrategy
     {
         public ITargetable SelectTarget(List<ITargetable> availableTargets, Vector3 requesterPosition) {

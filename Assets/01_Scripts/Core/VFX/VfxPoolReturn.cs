@@ -6,19 +6,23 @@ using _01_Scripts.Core.Managers;
 
 namespace _01_Scripts.Core.VFX
 {
-    // TODO This seems like repeating logic with shifting values! Refactor!
+    /// <summary>
+    /// A Poolable VFX script that utilizes Unities Object Pool pattern to effectively spawn/despawn
+    /// VFX effects of the VFX Game Object that this script is attached to.
+    /// </summary>
     public class VfxPoolReturn : MonoBehaviour, IPoolable
     {
         [Header("Acoustics (Optional)")]
-        [Tooltip("The speaker attached to this VFX prefab.")]
+        [Tooltip("Optional: The speaker attached to this VFX prefab.")]
         [SerializeField] private AudioSource vfxAudioSource;
         
-        [Tooltip("The sound to play when this VFX spawns.")]
+        [Tooltip("Optional: The sound to play when this VFX spawns.")]
         [SerializeField] private AudioClip vfxSound;
         
         private Action<IPoolable> _returnToPoolCommand;
         private ParticleSystem[] _particleSystems; 
         private Coroutine _monitorCoroutine;
+        private readonly WaitForSeconds _delay = new (0.2f);
 
         private void Awake() {
             _particleSystems = GetComponentsInChildren<ParticleSystem>();
@@ -26,13 +30,11 @@ namespace _01_Scripts.Core.VFX
             if (vfxAudioSource && GlobalManager.Instance)
                 vfxAudioSource.outputAudioMixerGroup = GlobalManager.Instance.GlobalSettings.SfxMixerGroup;
         }
-
-        // TODO This seems like repeating logic with shifting values! Refactor!
+        
         public void Initialize(Action<IPoolable> returnAction) {
             _returnToPoolCommand = returnAction;
         }
-
-        // TODO This seems like repeating logic with shifting values! Refactor!
+        
         public void OnSpawned() {
             foreach (var ps in _particleSystems) {
                 if (ps) ps.Play(true);
@@ -46,8 +48,7 @@ namespace _01_Scripts.Core.VFX
             
             _monitorCoroutine = StartCoroutine(MonitorVfxRoutine());
         }
-
-        // TODO This seems like repeating logic with shifting values! Refactor!
+        
         public void OnDespawned() {
             if (_monitorCoroutine != null) 
                 StopCoroutine(_monitorCoroutine);
@@ -77,7 +78,7 @@ namespace _01_Scripts.Core.VFX
                 if (vfxAudioSource && vfxAudioSource.isPlaying)
                     isAlive = true;
                 
-                yield return new WaitForSeconds(0.2f); 
+                yield return _delay; 
             }
             
             _returnToPoolCommand?.Invoke(this);

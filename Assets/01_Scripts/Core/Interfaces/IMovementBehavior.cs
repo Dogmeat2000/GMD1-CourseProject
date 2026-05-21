@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace _01_Scripts.Core.Interfaces
 {
-    // TODO: Add Interface description
+    /// <summary>
+    /// Primary interface that attackers use to select appropriate movement behaviors, as they approach the players.
+    /// </summary>
     public interface IMovementBehavior
     {
         /// <summary>
