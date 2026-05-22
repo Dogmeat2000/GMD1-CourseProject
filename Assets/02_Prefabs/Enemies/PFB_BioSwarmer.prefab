@@ -615,16 +615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5ad8790b52889428c349e7085cf844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyController
-  pointValue: 30
   centerMassBone: {fileID: 227402255438423770}
-  deathVfxPrefab: {fileID: 5380161503271617941, guid: fb93185be9bd2574ca402e5ff30bff35, type: 3}
-  defaultRespawnState: Move
-  deathTriggerName: Die
-  interruptTriggersToPurge:
-  - Hit
-  - Shoot
+  profile: {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
   knockbackForce: 30
-  baseCollisionDamage: 0
   warhead: {fileID: 0}
 --- !u!114 &6032943870929107973
 MonoBehaviour:
@@ -655,24 +648,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f1c32485e5aa04d87dfcb47fa8b265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Movement.RangedFlightBrain
-  breachSpeed: 150
-  pursuitSpeed: 30
-  turnSpeed: 10
-  allyLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  profile: {fileID: 11400000, guid: aeb2d086631911f4ba24b80d2d166a58, type: 2}
   engagementRange: 290
   fireCooldown: 7.5
   seekWeight: 1
   evadeWeight: 0.1
   separateWeight: 0.6
-  hardDeckAltitude: 10
   pullUpForce: 15
   evasionIntensity: 2
   evasionSpeed: 2.5
   repelRadius: 15
   isMovingBool: isMoving
   hitTrigger: Hit
+  shootTrigger: Shoot
 --- !u!114 &7306444015155375751
 MonoBehaviour:
   m_ObjectHideFlags: 0

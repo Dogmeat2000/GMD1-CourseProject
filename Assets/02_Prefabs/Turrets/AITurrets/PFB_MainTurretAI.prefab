@@ -948,8 +948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0712130c075ee0a4dbee812463a1895d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Turrets.AI.TurretAISensor
-  maxTargetingDistance: 300
-  scanInterval: 0.1
 --- !u!114 &6172817970338812993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,7 +981,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Turrets.TurretMotor
   turretBase: {fileID: 3714779845266924552}
   barrelBase: {fileID: 8993965216605465282}
+  mainWeaponMount: {fileID: 4027894540751455511}
+  auxiliaryWeaponMount: {fileID: 7728328859819879431}
+  sepcialWeapon1Mount: {fileID: 0}
   mainWeapon: {fileID: 4628123735498163880}
   auxiliaryWeapon: {fileID: 4821728092198613737}
+  specialWeapon1: {fileID: 0}
   minPitch: -15
   maxPitch: 50

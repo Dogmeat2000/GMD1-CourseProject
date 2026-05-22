@@ -393,14 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5ad8790b52889428c349e7085cf844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyController
-  pointValue: 10
   centerMassBone: {fileID: 8871611567736668110}
-  deathVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
-  defaultRespawnState: Idle
-  deathTriggerName: Die
-  interruptTriggersToPurge: []
+  profile: {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
   knockbackForce: 30
-  baseCollisionDamage: 100
   warhead: {fileID: 3182308281185901545}
 --- !u!114 &3086181098216495819
 MonoBehaviour:
@@ -414,16 +409,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51885229b04b8a64a9375d1de30faccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Movement.KamikazeFlightBrain
-  breachSpeed: 100
-  pursuitSpeed: 30
-  turnSpeed: 5
-  allyLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  profile: {fileID: 11400000, guid: f380cb58727863d47b18901a08419cfe, type: 2}
   seekWeight: 1
   evadeWeight: 0.2
   separateWeight: 0.6
-  hardDeckAltitude: 2
   pullUpForce: 30
   evasionIntensity: 1.5
   evasionSpeed: 1.25

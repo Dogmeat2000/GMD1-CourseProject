@@ -405,7 +405,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.PauseManager
   pauseMenuPanel: {fileID: 5353708913921437490}
-  mainMenuSceneName: SCN_MainMenu
 --- !u!114 &7825283180129307924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,7 +431,6 @@ MonoBehaviour:
   victoryAudioClip: {fileID: 8300000, guid: f5abec65ca2b12d4197b1a3666e7c173, type: 3}
   defeatAudioClip: {fileID: 8300000, guid: 1766c66504ad0cb4eb0f09a0e100d541, type: 3}
   localPlayers: []
-  mainMenuSceneName: SCN_MainMenu
   returnToMainMenuButton: {fileID: 7075659787282744638}
 --- !u!1 &3380257320223128697
 GameObject:
@@ -657,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 1517429028793868636}
-  inputDelay: 1
+  inputDelay: 0
 --- !u!225 &72549490209538762
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -977,7 +975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 7075659787282744638}
-  inputDelay: 2
+  inputDelay: 0
 --- !u!225 &4435130727362692085
 CanvasGroup:
   m_ObjectHideFlags: 0

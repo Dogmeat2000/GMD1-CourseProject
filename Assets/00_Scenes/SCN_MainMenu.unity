@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 290342391}
-  inputDelay: 1
+  inputDelay: 0.25
 --- !u!225 &68358716
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 1442412575}
-  inputDelay: 1
+  inputDelay: 0.25
 --- !u!225 &240899319
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2481,6 +2481,8 @@ GameObject:
   m_Component:
   - component: {fileID: 433166577}
   - component: {fileID: 433166576}
+  - component: {fileID: 433166579}
+  - component: {fileID: 433166578}
   m_Layer: 0
   m_Name: System_MenuManager
   m_TagString: Untagged
@@ -2508,7 +2510,6 @@ MonoBehaviour:
   p1StatusText: {fileID: 411691103}
   p2Container: {fileID: 131707798}
   p2StatusText: {fileID: 1444675248}
-  readyActionRef: {fileID: 7734853038599820013, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
 --- !u!4 &433166577
 Transform:
   m_ObjectHideFlags: 0
@@ -2524,6 +2525,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &433166578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433166575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7336625bbc0d948a6111f6a4197cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MainMenuController
+--- !u!114 &433166579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433166575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdcbd18e94b70843a99c47647622bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MainMenuInput
+  readyActionRef: {fileID: 7734853038599820013, guid: 5115a36d22a976241a4f5d640cd6042c, type: 3}
 --- !u!1 &456952682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,7 +3927,7 @@ PrefabInstance:
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 433166576}
+      objectReference: {fileID: 433166578}
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -5032,7 +5058,7 @@ PrefabInstance:
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 433166576}
+      objectReference: {fileID: 433166578}
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -5579,7 +5605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 1946491263}
-  inputDelay: 1
+  inputDelay: 0.25
 --- !u!225 &1084178157
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7703,7 +7729,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuAudioController
   menuMusic: {fileID: 1542182423}
   fadeDuration: 3
-  targetVolume: 0.2
 --- !u!1 &1571252656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8386,7 +8411,7 @@ PrefabInstance:
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 433166576}
+      objectReference: {fileID: 433166578}
     - target: {fileID: 5216583714861263768, guid: 50c7eb523f4a076409082337605c95d0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -9286,7 +9311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 60904390}
-  inputDelay: 1
+  inputDelay: 0.25
 --- !u!225 &1863417879
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9766,7 +9791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.UI.MenuFocusController
   defaultSelectedButton: {fileID: 908017833}
-  inputDelay: 1
+  inputDelay: 0.25
 --- !u!225 &1919794457
 CanvasGroup:
   m_ObjectHideFlags: 0
