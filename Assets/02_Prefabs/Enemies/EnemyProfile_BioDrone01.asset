@@ -13,5 +13,18 @@ MonoBehaviour:
   m_Name: EnemyProfile_BioDrone01
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyProfile
   <Prefab>k__BackingField: {fileID: 7235597898165779499, guid: 80787eedac9d15c48becf46cc6474500, type: 3}
+  breachSpeed: 100
+  pursuitSpeed: 30
+  turnSpeed: 10
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  hardDeckAltitude: 2
   <ThreatCost>k__BackingField: 10
+  pointValue: 10
+  baseCollisionDamage: 55
+  defaultRespawnState: Idle
+  deathTriggerName: Die
+  interruptTriggersToPurge: []
+  deathVfxPrefab: {fileID: 405856629079260746, guid: af75dffd936383f46b80d2688df8ecbf, type: 3}
   <UnitDesignation>k__BackingField: Kamikaze Drone

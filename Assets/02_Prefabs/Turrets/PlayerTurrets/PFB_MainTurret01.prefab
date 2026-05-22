@@ -1160,9 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretHUD
   lowerMuzzleExit: {fileID: 2178201685759922987}
-  upperMuzzleExit: {fileID: 3134516474967417139}
   lowerReticleUI: {fileID: 4978318061297438717}
-  upperReticleUI: {fileID: 4978318061297438717}
   turretCamera: {fileID: 5822660717279764986}
   targetingMask:
     serializedVersion: 2
@@ -3747,9 +3745,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretMotor
   turretBase: {fileID: 2358493219367117054}
   barrelBase: {fileID: 3355167979685350985}
-  mainWeapon: {fileID: 9222329926461067599}
-  auxiliaryWeapon: {fileID: 5021854189995232514}
-  specialWeapon1: {fileID: 7418589605539294762}
+  mainWeaponMount: {fileID: 6291825636318493704}
+  auxiliaryWeaponMount: {fileID: 347618519103964407}
+  specialWeapon1Mount: {fileID: 482095312516544561}
   minPitch: -15
   maxPitch: 50
 --- !u!114 &7418589605539294762
@@ -3788,12 +3786,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretPlayerInput
   playerIndex: 0
-  mouseSens: 10
-  precisionSens: 15
-  maxSlewSens: 70
-  timeToMaxSpeed: 0.7
-  slideDuration: 0.15
-  frictionMultiplier: 0.3
 --- !u!114 &2751514134013580851
 MonoBehaviour:
   m_ObjectHideFlags: 0

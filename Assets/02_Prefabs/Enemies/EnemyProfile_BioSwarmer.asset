@@ -13,5 +13,20 @@ MonoBehaviour:
   m_Name: EnemyProfile_BioSwarmer
   m_EditorClassIdentifier: Assembly-CSharp::_01_Scripts.Core.Enemies.EnemyProfile
   <Prefab>k__BackingField: {fileID: 2041167890648720703, guid: 9981402e7b65b8d498ab59757fe58c1e, type: 3}
+  breachSpeed: 150
+  pursuitSpeed: 30
+  turnSpeed: 10
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  hardDeckAltitude: 10
   <ThreatCost>k__BackingField: 30
+  pointValue: 10
+  baseCollisionDamage: 0
+  defaultRespawnState: Idle
+  deathTriggerName: Die
+  interruptTriggersToPurge:
+  - Hit
+  - Shoot
+  deathVfxPrefab: {fileID: 5380161503271617941, guid: fb93185be9bd2574ca402e5ff30bff35, type: 3}
   <UnitDesignation>k__BackingField: BioSwarmer Drone
