@@ -50,16 +50,24 @@
     * *Note:* Sound/music was created using the music software Suno.
     * *License:* Non-Commercial
 
+* **[Sound Track] Music_Spearhead_CombatLoop01_NonCommercial** by K. Dashnaw
+    * *Note:* Sound/music was created using the music software Suno.</i>
+    *License:* Non-Commercial
+
+* **[Sound Track] Music_Spearhead_DefeatTrack_NonCommercial** by K. Dashnaw
+    * *Note:* Sound/music was created using the music software Suno.</i>
+    *License:* Non-Commercial
+
+* **[Sound Track] Music_Spearhead_VictoryTrack_NonCommercial** by K. Dashnaw
+    * *Note: Sound/music was created using the music software Suno.</i>
+    *License:* Non-Commercial
+
 * **[Sound Effect] SFX_ButtonClick** by Artem_Zaitsev
     * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 * **[Sound Effect] SFX_ButtonHighlight** by Artem_Zaitsev
     * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
-    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
-
-* **[Sound Effect] SFX_DroneExplosion** by AudioPapkin
-    * *Source:* [https://freesound.org/people/AudioPapkin/sounds/822731/](https://freesound.org/people/AudioPapkin/sounds/822731/)
     * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 * **[Sound Effect] SFX_DroneExplosion** by AudioPapkin
@@ -105,10 +113,6 @@
 * **[Sound Effect] SFX_WarshipEngine** by jgrzinich
     * *Source:* [https://freesound.org/people/jgrzinich/sounds/377629/](https://freesound.org/people/jgrzinich/sounds/377629/)
     * *License:* [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
-
-* **[Sound Effect] SFX_SoftExplosion** by qubodup
-    * *Source:* [https://freesound.org/people/qubodup/sounds/714257/](https://freesound.org/people/qubodup/sounds/714257/)
-    * *License:* [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 * **[Sound Effect] SFX_SoftExplosion** by Jarusca
     * *Source:* [https://freesound.org/people/Jarusca/sounds/521377/](https://freesound.org/people/Jarusca/sounds/521377/)
