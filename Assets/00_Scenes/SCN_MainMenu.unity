@@ -10230,7 +10230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'GAMEPAD MAXI SENS:'
+  m_text: 'GAMEPAD MAXIMUM SENS:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5ae361fa12ccaf545ae2c41df1c59c7f, type: 2}
   m_sharedMaterial: {fileID: 4674614031709290016, guid: 5ae361fa12ccaf545ae2c41df1c59c7f, type: 2}

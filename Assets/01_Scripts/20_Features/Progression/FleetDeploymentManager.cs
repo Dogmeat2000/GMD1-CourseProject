@@ -5,7 +5,6 @@ using _01_Scripts._10_Core.DependencyInjection;
 using _01_Scripts._10_Core.Persistence;
 using _01_Scripts._20_Features.Vitals;
 using _01_Scripts._20_Features.Weapons;
-using _01_Scripts.Core;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Progression
@@ -13,7 +12,7 @@ namespace _01_Scripts._20_Features.Progression
     /// <summary>
     /// Evaluates the GlobalManager's GameMode and dynamically populates the fleet's hardpoints.
     /// </summary>
-    public class FleetDeploymentManager : MonoBehaviour, IService
+    public class FleetDeploymentManager : MonoBehaviour
     {
         [Header("Possible Player controlled ships")]
         [SerializeField] private GameObject centerPlayerShip;
@@ -71,7 +70,7 @@ namespace _01_Scripts._20_Features.Progression
             GameMode mode = GlobalManager.Instance ? GlobalManager.Instance.GlobalSettings.ActiveGameMode : GameMode.SinglePlayer;
             Debug.Log($"Selected Game mode is: {mode}");
             
-            GameDirector gameDirector = ServiceLocator.Get<GameDirector>();
+            IGameDirectorService gameDirector = ServiceLocator.Get<IGameDirectorService>();
             
             DisableAllPlayerTurrets();
             EnableAllHardpoints();
@@ -81,7 +80,7 @@ namespace _01_Scripts._20_Features.Progression
                     singlePlayerP1Turret.SetActive(true);
                     singlePlayerP1ShipHardPoint.SetActive(false);
                     
-                    if (gameDirector && centerPlayerShip) 
+                    if (gameDirector != null && centerPlayerShip) 
                         gameDirector.RegisterPlayerTarget(centerPlayerShip.GetComponent<HealthManager>());
                     break;
 
@@ -91,7 +90,7 @@ namespace _01_Scripts._20_Features.Progression
                     coopSeparateShipsP2Turret.SetActive(true);
                     coopSeparateShipP2ShipHardPoint.SetActive(false);
                     
-                    if (gameDirector) {
+                    if (gameDirector != null) {
                         if (leftPlayerShip) 
                             gameDirector.RegisterPlayerTarget(leftPlayerShip.GetComponent<HealthManager>());
                         
@@ -106,7 +105,7 @@ namespace _01_Scripts._20_Features.Progression
                     coopSameShipP2Turret.SetActive(true);
                     coopSameShipP2ShipHardPoint.SetActive(false);
                     
-                    if (gameDirector && centerPlayerShip)
+                    if (gameDirector != null && centerPlayerShip)
                         gameDirector.RegisterPlayerTarget(centerPlayerShip.GetComponent<HealthManager>());
                     break;
                 

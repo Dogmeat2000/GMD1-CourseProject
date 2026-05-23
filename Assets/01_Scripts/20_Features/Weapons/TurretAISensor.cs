@@ -17,13 +17,13 @@ namespace _01_Scripts._20_Features.Weapons
         /// </summary>
         public ITargetable CurrentTarget { get; private set; }
         
-        private BattlefieldRadar _radar;
-        private float _nextScanTime;
+        private IActorTracker _radar;
+        private float _nextScanTime = 0f;
         private LevelSettings _settings;
 
         private void Start() {
-            _radar = ServiceLocator.Get<BattlefieldRadar>();
-            _settings = ServiceLocator.Get<LevelManager>().Settings;
+            _radar = ServiceLocator.Get<IActorTracker>();
+            _settings = ServiceLocator.Get<ILevelManager>().Settings;
         }
 
         private void Update() {
@@ -34,7 +34,7 @@ namespace _01_Scripts._20_Features.Weapons
         }
 
         private void ScanForTargets() {
-            if (!_radar) {
+            if (_radar == null) {
                 CurrentTarget = null;
                 return;
             }

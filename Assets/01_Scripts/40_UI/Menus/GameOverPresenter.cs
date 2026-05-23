@@ -57,23 +57,23 @@ namespace _01_Scripts._40_UI.Menus
         [Tooltip("The button the joystick should snap to after saving a score")]
         [SerializeField] private GameObject returnToMainMenuButton;
 
-        private GameDirector _gameDirector;
+        private IGameDirectorService _gameDirector;
         private int _unsavedInputsCount = 0;
 
         private void Awake() {
-            _gameDirector = ServiceLocator.Get<GameDirector>();
+            _gameDirector = ServiceLocator.Get<IGameDirectorService>();
         }
         
         private void Start() {
             if (gameOverCanvas)
                 gameOverCanvas.SetActive(false);
             
-            if (_gameDirector)
+            if (_gameDirector != null)
                 _gameDirector.OnMatchEnded += ShowGameOverMenu;
         }
         
         private void OnDestroy() {
-            if (_gameDirector)
+            if (_gameDirector != null)
                 _gameDirector.OnMatchEnded -= ShowGameOverMenu;
         }
 

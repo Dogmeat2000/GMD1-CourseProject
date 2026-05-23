@@ -24,11 +24,11 @@ namespace _01_Scripts._10_Core.Audio
             float currentTime = 0;
             while (currentTime < fadeDuration) {
                 currentTime += Time.deltaTime;
-                menuMusic.volume = Mathf.Lerp(0f, GlobalManager.Instance.GlobalSettings.GetMusicVolume(), currentTime / fadeDuration);
+                menuMusic.volume = Mathf.Lerp(0f, 1f, currentTime / fadeDuration);
                 yield return null;
             }
             
-            menuMusic.volume = GlobalManager.Instance.GlobalSettings.GetMusicVolume();
+            menuMusic.volume = 1f;
         }
 
         private void OnDisable() {

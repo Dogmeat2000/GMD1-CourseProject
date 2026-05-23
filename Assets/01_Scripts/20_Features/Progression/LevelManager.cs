@@ -1,10 +1,9 @@
-using _01_Scripts._10_Core.DependencyInjection;
 using _01_Scripts._10_Core.Persistence;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Progression
 {
-    public class LevelManager : MonoBehaviour, IService
+    public class LevelManager : MonoBehaviour, ILevelManager
     {
         [Header("Level Configuration")]
         [Tooltip("Slot the active LevelSettings ScriptableObject here")]
@@ -17,14 +16,8 @@ namespace _01_Scripts._20_Features.Progression
         [Tooltip("The difficulty selected by the host")]
         [field: SerializeField] public GameDifficulty CurrentDifficulty { get; set; } = GameDifficulty.Normal;
         
-        /// <summary>
-        /// Public getter for all other scripts to read from
-        /// </summary>
         public LevelSettings Settings => activeSettings;
         
-        /// <summary>
-        /// Returns a mathematical multiplier based on the chosen difficulty.
-        /// </summary>
         public float GetDifficultyMultiplier() {
             if (!Settings) {
                 Debug.LogError("Active Settings is NULL. Defaulting multiplier to 1.0f.");

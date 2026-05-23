@@ -3,7 +3,6 @@ using _01_Scripts._10_Core.Persistence;
 using _01_Scripts._20_Features.Progression;
 using _01_Scripts._20_Features.Targeting;
 using _01_Scripts._30_Actors.Enemies;
-using _01_Scripts.Core.Targeting;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Navigation
@@ -47,8 +46,8 @@ namespace _01_Scripts._20_Features.Navigation
         private FlightPhase _currentPhase = FlightPhase.Asleep;
         private Rigidbody _rb;
         private ITargetable _assignedTarget;
-        private LevelManager _levelManager;
-        private BattlefieldRadar _battlefieldRadar;
+        private ILevelManager _levelManager;
+        private IActorTracker _battlefieldRadar;
         
         private ITargetingStrategy _targetingStrategy;
         private SeekBehavior _seek;
@@ -58,8 +57,8 @@ namespace _01_Scripts._20_Features.Navigation
         private float _targetBreachAltitude;
         
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
-            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<IActorTracker>();
             _rb = GetComponent<Rigidbody>();
             _targetingStrategy = new WeightedRandomStrategy();
         }

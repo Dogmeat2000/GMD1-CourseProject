@@ -7,26 +7,10 @@ namespace _01_Scripts._10_Core.Pooling
     /// <summary>
     /// A scalable Object Pooling service, that provides easy access to Object Pool handling in various Game Objects.
     /// </summary>
-    public class UniversalPoolService : MonoBehaviour
+    public class UniversalPoolService : MonoBehaviour, IObjectPoolProvider
     {
-        /// <summary>
-        /// Singleton accessor for this class.
-        /// </summary>
-        public static UniversalPoolService Instance { get; private set; }
-        
         private readonly Dictionary<int, IObjectPool<IPoolable>> _pools = new();
 
-        private void Awake() {
-            if (Instance && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-        }
-
-        /// <summary>
-        /// Requests an object from the pool associated with the given prefab.
-        /// </summary>
         public IPoolable Spawn(GameObject prefab, Vector3 position, Quaternion rotation, int poolCapacity, int maxCapacity) {
             int prefabId = prefab.GetInstanceID();
             

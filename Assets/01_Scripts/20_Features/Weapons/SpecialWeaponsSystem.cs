@@ -51,10 +51,13 @@ namespace _01_Scripts._20_Features.Weapons
         private int _currentAmmo;
         private float _nextFireTime;
         private Collider[] _myColliders;
-        private LevelManager _levelManager;
+        private ILevelManager _levelManager;
+        private IObjectPoolProvider _poolProvider;
+        
 
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
             
             Transform currentAncestor = transform;
             Transform confirmedShipRoot = transform.root; 
@@ -109,11 +112,11 @@ namespace _01_Scripts._20_Features.Weapons
             int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
 
-            if (muzzleFlashPrefab && UniversalPoolService.Instance)
-                UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, selectedMuzzle.position, selectedMuzzle.rotation, poolSize, maxPoolSize);
+            if (muzzleFlashPrefab && _poolProvider != null)
+                _poolProvider.Spawn(muzzleFlashPrefab, selectedMuzzle.position, selectedMuzzle.rotation, poolSize, maxPoolSize);
 
-            if (UniversalPoolService.Instance) {
-                IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, selectedMuzzle.position, launchRotation, poolSize, maxPoolSize);
+            if (_poolProvider != null) {
+                IPoolable projInstance = _poolProvider.Spawn(projectilePrefab, selectedMuzzle.position, launchRotation, poolSize, maxPoolSize);
                 
                 if (projInstance is IProjectile munition)
                     munition.ConfigureProjectile(transform.root.gameObject, _myColliders);

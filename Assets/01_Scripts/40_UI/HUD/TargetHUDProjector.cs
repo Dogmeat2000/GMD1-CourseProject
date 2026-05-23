@@ -42,11 +42,11 @@ namespace _01_Scripts._40_UI.HUD
         [Tooltip("Alpha value when the target is at the farDistance (0 to 1)")]
         [SerializeField, Range(0f, 1f)] private float minAlpha = 0.65f;
 
-        private BattlefieldRadar _radar;
+        private IActorTracker _radar;
         private readonly List<TargetMarkerUI> _markerPool = new List<TargetMarkerUI>();
 
         private void Start() {
-            _radar = ServiceLocator.Get<BattlefieldRadar>();
+            _radar = ServiceLocator.Get<IActorTracker>();
             if (!mainCamera) 
                 mainCamera = Camera.main;
             
@@ -55,7 +55,7 @@ namespace _01_Scripts._40_UI.HUD
         }
 
         private void LateUpdate() {
-            if (!_radar || !mainCamera|| !parentCanvas) 
+            if (_radar == null || !mainCamera|| !parentCanvas) 
                 return;
             
             List<ITargetable> hostiles = _radar.GetRadarTargets(Faction.Hostile);

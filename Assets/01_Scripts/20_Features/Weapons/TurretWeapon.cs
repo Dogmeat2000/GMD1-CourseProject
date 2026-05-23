@@ -44,10 +44,13 @@ namespace _01_Scripts._20_Features.Weapons
 
         private float _nextFireTime;
         private Collider[] _myColliders;
-        private LevelManager _levelManager;
+        
+        private ILevelManager _levelManager;
+        private IObjectPoolProvider _poolProvider;
 
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
             
             if (weaponAudioSource && GlobalManager.Instance)
                 weaponAudioSource.outputAudioMixerGroup = GlobalManager.Instance.GlobalSettings.SfxMixerGroup;
@@ -66,8 +69,8 @@ namespace _01_Scripts._20_Features.Weapons
             if (Time.time < _nextFireTime) 
                 return;
             
-            if (!UniversalPoolService.Instance) {
-                Debug.LogError("UniversalPoolService.Instance is not available!");
+            if (_poolProvider == null) {
+                Debug.LogError("IObjectPoolProvider is not available!");
                 return;
             }
             
@@ -76,9 +79,9 @@ namespace _01_Scripts._20_Features.Weapons
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
             
             if (muzzleFlashPrefab)
-                UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+                _poolProvider.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
             
-            IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            IPoolable projInstance = _poolProvider.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
             
             if (projInstance is IProjectile munition) {
                 GameObject shooterIdentity = ownerScore ? ownerScore.gameObject : transform.root.gameObject;

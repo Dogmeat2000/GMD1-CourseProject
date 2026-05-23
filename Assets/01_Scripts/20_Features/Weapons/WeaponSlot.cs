@@ -7,7 +7,6 @@ namespace _01_Scripts._20_Features.Weapons
     {
         Main,
         Auxiliary,
-        Special1,
-        Both
+        Special1
     }
 }

@@ -5,7 +5,6 @@ using _01_Scripts._20_Features.Progression;
 using _01_Scripts._20_Features.Targeting;
 using _01_Scripts._20_Features.Vitals;
 using _01_Scripts._20_Features.Weapons;
-using _01_Scripts.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -47,9 +46,12 @@ namespace _01_Scripts._20_Features.VFX
         private bool _isLightlySmoking = false;
         private bool _isHeavilySmoking = false;
         private bool _isOnFire = false;
+        
+        private IObjectPoolProvider _poolProvider;
 
         private void Awake() {
             _healthManager = GetComponent<HealthManager>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
         }
 
         private void OnEnable() {
@@ -106,9 +108,9 @@ namespace _01_Scripts._20_Features.VFX
             if (fireVfx) 
                 fireVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             
-            if (shipDestructionVfxPrefab && UniversalPoolService.Instance) {
-                LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
-                UniversalPoolService.Instance.Spawn(
+            if (shipDestructionVfxPrefab && _poolProvider != null) {
+                LevelSettings settings = ServiceLocator.Get<ILevelManager>().Settings;
+                _poolProvider.Spawn(
                     shipDestructionVfxPrefab, 
                     transform.position, 
                     Quaternion.identity, 

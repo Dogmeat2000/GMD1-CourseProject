@@ -28,10 +28,12 @@ namespace _01_Scripts._20_Features.Weapons
         [SerializeField] private AudioClip fireSound;
 
         private Collider[] _myColliders;
-        private LevelManager _levelManager;
+        private ILevelManager _levelManager;
+        private IObjectPoolProvider _poolProvider;
 
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
             _myColliders = transform.root.GetComponentsInChildren<Collider>();
         }
 
@@ -39,14 +41,14 @@ namespace _01_Scripts._20_Features.Weapons
             if (!projectilePrefab || !muzzleExit) 
                 return;
 
-            int poolSize = _levelManager ? _levelManager.Settings.DefaultObjectPoolSize : 10;
-            int maxPoolSize = _levelManager ? _levelManager.Settings.MaxDefaultObjectPoolSize : 50;
+            int poolSize = _levelManager != null ? _levelManager.Settings.DefaultObjectPoolSize : 10;
+            int maxPoolSize = _levelManager != null ? _levelManager.Settings.MaxDefaultObjectPoolSize : 50;
 
-            if (muzzleFlashPrefab && UniversalPoolService.Instance)
-                UniversalPoolService.Instance.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            if (muzzleFlashPrefab && _poolProvider != null)
+                _poolProvider.Spawn(muzzleFlashPrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
 
-            if (UniversalPoolService.Instance) {
-                IPoolable projInstance = UniversalPoolService.Instance.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
+            if (_poolProvider != null) {
+                IPoolable projInstance = _poolProvider.Spawn(projectilePrefab, muzzleExit.position, muzzleExit.rotation, poolSize, maxPoolSize);
                 
                 if (projInstance is IProjectile munition) {
                     munition.ConfigureProjectile(transform.root.gameObject, _myColliders);

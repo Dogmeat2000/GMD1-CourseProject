@@ -18,7 +18,7 @@ namespace _01_Scripts._20_Features.Weapons
         [SerializeField] private float lifeTime = 3f;
         
         [Tooltip("The amount of Damage this projectile inflicts")]
-        [SerializeField] private int damageAmount = 50; // TODO I believe I define this in multiple places! Confirm whether I want this as a serialized field here, or if it should always be defined by the shooting entity!
+        [SerializeField] private int damageAmount = 50;
 
         private float _currentLifeTime;
         private Rigidbody _rb;
