@@ -19,9 +19,12 @@ namespace _01_Scripts._20_Features.Weapons
         [Tooltip("Event triggered upon detonation.")]
         [SerializeField] private UnityEvent onDetonate;
         
+        private IObjectPoolProvider _poolProvider;
+        
         private bool _hasDetonated;
 
         private void OnEnable() {
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
             _hasDetonated = false;
         }
 
@@ -52,13 +55,13 @@ namespace _01_Scripts._20_Features.Weapons
         }
 
         private void Detonate(IDamageable target) {
-            LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
+            LevelSettings settings = ServiceLocator.Get<ILevelManager>().Settings;
             
             _hasDetonated = true;
             target.TakeDamage(ImpactAmount, Instigator ? Instigator : gameObject);
             
             if (explosionVfxPrefab)
-                UniversalPoolService.Instance.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity, settings.DefaultObjectPoolSize , settings.MaxDefaultObjectPoolSize);
+                _poolProvider.Spawn(explosionVfxPrefab, transform.position, Quaternion.identity, settings.DefaultObjectPoolSize , settings.MaxDefaultObjectPoolSize);
             
             onDetonate?.Invoke();
             

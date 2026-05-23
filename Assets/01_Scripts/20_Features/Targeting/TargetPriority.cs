@@ -1,4 +1,4 @@
-namespace _01_Scripts.Core.Targeting
+namespace _01_Scripts._20_Features.Targeting
 {
     /// <summary>
     /// Definitions for various priorities each ITargetable can have.

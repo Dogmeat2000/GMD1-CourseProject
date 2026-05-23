@@ -37,7 +37,8 @@ namespace _01_Scripts._30_Actors.Enemies
         private int _deathTriggerHash;
         private int[] _interruptHashes;
         
-        private LevelManager _levelManager;
+        private ILevelManager _levelManager;
+        private IObjectPoolProvider _poolProvider;
         
         private HealthManager _healthManager;
         private Animator _animator;
@@ -53,7 +54,8 @@ namespace _01_Scripts._30_Actors.Enemies
         private readonly List<TransformBlueprint> _structuralBlueprint = new();
         
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
             _healthManager = GetComponent<HealthManager>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
@@ -111,7 +113,7 @@ namespace _01_Scripts._30_Actors.Enemies
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
             
-            if (warhead && _levelManager) {
+            if (warhead && _levelManager != null) {
                 GameDifficulty currentDiff = _levelManager.CurrentDifficulty;
                 float difficultyMultiplier = _levelManager.Settings.GetDifficultyMultiplier(currentDiff);
                 warhead.ImpactAmount = Mathf.RoundToInt(profile.baseCollisionDamage * difficultyMultiplier);
@@ -185,11 +187,11 @@ namespace _01_Scripts._30_Actors.Enemies
         /// Handles spawning any optional pooled VFX before removing the entity.
         /// </summary>
         public void FinalizeDeathSequence() {
-            LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
+            LevelSettings settings = ServiceLocator.Get<ILevelManager>().Settings;
             
-            if (profile.deathVfxPrefab && UniversalPoolService.Instance) {
+            if (profile.deathVfxPrefab && _poolProvider != null) {
                 Vector3 spawnPoint = centerMassBone ? centerMassBone.transform.position : transform.position;
-                UniversalPoolService.Instance.Spawn(profile.deathVfxPrefab, spawnPoint, Quaternion.identity, settings.DefaultObjectPoolSize, settings.MaxDefaultObjectPoolSize);
+                _poolProvider.Spawn(profile.deathVfxPrefab, spawnPoint, Quaternion.identity, settings.DefaultObjectPoolSize, settings.MaxDefaultObjectPoolSize);
             }
             
             DespawnRoutine();

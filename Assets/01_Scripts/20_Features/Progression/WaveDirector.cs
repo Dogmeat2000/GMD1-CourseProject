@@ -6,13 +6,12 @@ using _01_Scripts._10_Core.Persistence;
 using _01_Scripts._10_Core.Pooling;
 using _01_Scripts._20_Features.Targeting;
 using _01_Scripts._30_Actors.Enemies;
-using _01_Scripts.Core.Targeting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace _01_Scripts._20_Features.Progression
 {
-    public class WaveDirector : MonoBehaviour, IService
+    public class WaveDirector : MonoBehaviour, IWaveSpawnService
     {
         [Header("Setup")]
         [Tooltip("The player ship to use as the center of the forward spawn cone")]
@@ -45,16 +44,18 @@ namespace _01_Scripts._20_Features.Progression
         private int _activeHostiles;
         private bool _isDeployingWave;
         private bool _isTransitioning;
-        private LevelManager _levelManager;
-        private BattlefieldRadar _battlefieldRadar;
+        private ILevelManager _levelManager;
+        private IActorTracker _battlefieldRadar;
+        private IObjectPoolProvider _poolProvider;
         
         private WaitForSeconds _waveDelay;
         private readonly WaitForSeconds _scanDelay = new (10f);
         
         private void Awake() {
             _waveDelay = new WaitForSeconds(otherWaveDelay);
-            _levelManager = ServiceLocator.Get<LevelManager>();
-            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<IActorTracker>();
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
         }
         
         private void Start() {
@@ -174,8 +175,8 @@ namespace _01_Scripts._20_Features.Progression
             int poolSize = _levelManager.Settings.DefaultObjectPoolSize;
             int maxPoolSize = _levelManager.Settings.MaxDefaultObjectPoolSize;
             spawnDirection.y = 0;
-
-            var pooledObj = UniversalPoolService.Instance.Spawn(profile.Prefab, spawnPoint, Quaternion.LookRotation(spawnDirection), poolSize, maxPoolSize);
+            
+            var pooledObj = _poolProvider.Spawn(profile.Prefab, spawnPoint, Quaternion.LookRotation(spawnDirection), poolSize, maxPoolSize);
             
             _activeHostiles++;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
@@ -186,7 +187,7 @@ namespace _01_Scripts._20_Features.Progression
             if (breachVfxPrefab) {
                 Vector3 surfacePoint = spawnPoint;
                 surfacePoint.y = settings.OceanSurfaceY;
-                UniversalPoolService.Instance.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity,poolSize , maxPoolSize);
+                _poolProvider.Spawn(breachVfxPrefab, surfacePoint, Quaternion.identity,poolSize , maxPoolSize);
             }
         }
         
@@ -211,7 +212,7 @@ namespace _01_Scripts._20_Features.Progression
             _activeHostiles--;
             OnEnemyCountChanged?.Invoke(_activeHostiles);
             
-            if (_activeHostiles <= 0)
+            if (_activeHostiles <= 0 && !_isDeployingWave)
                 AdvanceToNextWave();
         }
         

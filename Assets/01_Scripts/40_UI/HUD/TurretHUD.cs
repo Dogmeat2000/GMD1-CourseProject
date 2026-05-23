@@ -33,10 +33,10 @@ namespace _01_Scripts._40_UI.HUD
         [Tooltip("Which layers contain the enemies that trigger friction?")]
         [SerializeField] private LayerMask enemyLayerMask;
         
-        private LevelManager _levelManager;
+        private ILevelManager _levelManager;
 
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
         }
 
         private void LateUpdate() {

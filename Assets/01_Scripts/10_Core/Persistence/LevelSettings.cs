@@ -1,4 +1,4 @@
-using _01_Scripts.Core.Targeting;
+using _01_Scripts._20_Features.Targeting;
 using UnityEngine;
 
 namespace _01_Scripts._10_Core.Persistence

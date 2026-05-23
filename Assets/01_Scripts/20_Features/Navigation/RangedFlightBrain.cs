@@ -4,8 +4,6 @@ using _01_Scripts._20_Features.Targeting;
 using _01_Scripts._20_Features.Vitals;
 using _01_Scripts._20_Features.Weapons;
 using _01_Scripts._30_Actors.Enemies;
-using _01_Scripts.Core;
-using _01_Scripts.Core.Targeting;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Navigation
@@ -69,14 +67,14 @@ namespace _01_Scripts._20_Features.Navigation
         private HealthManager _healthManager;
         
         private ITargetable _assignedTarget;
-        private BattlefieldRadar _battlefieldRadar;
+        private IActorTracker _battlefieldRadar;
         private ITargetingStrategy _targetingStrategy;
 
         private SeekBehavior _seek;
         private EvasiveBehavior _evade;
         private SeparationBehavior _separate;
         
-        private LevelManager _levelManager;
+        private ILevelManager _levelManager;
         private float _targetBreachAltitude;
         
         private IRangedWeapon _weapon;
@@ -87,8 +85,8 @@ namespace _01_Scripts._20_Features.Navigation
         private int _shootHash;
 
         private void Awake() {
-            _levelManager = ServiceLocator.Get<LevelManager>();
-            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
+            _battlefieldRadar = ServiceLocator.Get<IActorTracker>();
             _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
             _healthManager = GetComponent<HealthManager>();

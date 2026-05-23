@@ -17,7 +17,7 @@ namespace _01_Scripts._20_Features.Targeting
             ITargetable mostDangerousTarget = null;
             float highestThreatScore = -1f;
 
-            LevelManager levelManager = ServiceLocator.Get<LevelManager>();
+            ILevelManager levelManager = ServiceLocator.Get<ILevelManager>();
             LevelSettings settings = levelManager.Settings;
 
             foreach (ITargetable target in availableTargets) {

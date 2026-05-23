@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Bits: 256
   hardDeckAltitude: 10
   <ThreatCost>k__BackingField: 30
-  pointValue: 10
+  pointValue: 40
   baseCollisionDamage: 0
   defaultRespawnState: Idle
   deathTriggerName: Die

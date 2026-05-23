@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using _01_Scripts._10_Core.DependencyInjection;
 using _01_Scripts._20_Features.Vitals;
-using _01_Scripts.Core;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Progression
@@ -14,35 +13,31 @@ namespace _01_Scripts._20_Features.Progression
     /// The primary controller of the match lifecycle. Monitors critical win/loss conditions 
     /// across all players and directors, and commands the GameStateService to end the match.
     /// </summary>
-    public class GameDirector : MonoBehaviour, IService
+    public class GameDirector : MonoBehaviour, IGameDirectorService
     { 
         private readonly List<HealthManager> _playerHealths = new();
         public event Action<MatchResult> OnMatchEnded;
 
         private int _alivePlayers = 0;
-        private WaveDirector _waveDirector;
-        private FleetDirector _fleetDirector;
+        private IWaveSpawnService _waveDirector;
+        private IFleetService _fleetDirector;
         
         private IGameStateProvider _gameState;
 
         private void Awake() {
-            _waveDirector = ServiceLocator.Get<WaveDirector>();
-            _fleetDirector = ServiceLocator.Get < FleetDirector>();
+            _waveDirector = ServiceLocator.Get<IWaveSpawnService>();
+            _fleetDirector = ServiceLocator.Get <IFleetService>();
             _gameState = ServiceLocator.Get<IGameStateProvider>();
         }
         
         private void Start() {
-            if (_waveDirector)
+            if (_waveDirector != null)
                 _waveDirector.OnAllWavesCleared += HandleVictory;
             
-            if (_fleetDirector)
+            if (_fleetDirector != null)
                 _fleetDirector.OnFleetDestroyed += HandleDefeat;
         }
         
-        /// <summary>
-        /// Exposes a registration endpoint so the FleetDeploymentManager 
-        /// can inject the correct players based on the chosen GameMode.
-        /// </summary>
         public void RegisterPlayerTarget(HealthManager playerHealth) {
             if (!playerHealth || _playerHealths.Contains(playerHealth)) 
                 return;
@@ -53,10 +48,10 @@ namespace _01_Scripts._20_Features.Progression
         }
 
         private void OnDestroy() {
-            if (_waveDirector) 
+            if (_waveDirector != null) 
                 _waveDirector.OnAllWavesCleared -= HandleVictory;
             
-            if (_fleetDirector) 
+            if (_fleetDirector != null) 
                 _fleetDirector.OnFleetDestroyed -= HandleDefeat;
             
             foreach (var player in _playerHealths) {

@@ -77,15 +77,18 @@ namespace _01_Scripts._20_Features.Weapons
             _motor.RotateJoints(yawInput, pitchInput);
             
             float totalAngleError = Vector3.Angle(currentAim, dirToTarget);
-            
-            if (totalAngleError <= fireToleranceAngle) 
+
+            if (totalAngleError <= fireToleranceAngle) {
                 EngageTarget();
-            else 
-                _motor.ReleaseTrigger(WeaponSlot.Both);
+            } else {
+                _motor.ReleaseTrigger(WeaponSlot.Main);
+                _motor.ReleaseTrigger(WeaponSlot.Auxiliary);
+            }
         }
         
         private void ExecuteRestingProtocol() {
-            _motor.ReleaseTrigger(WeaponSlot.Both);
+            _motor.ReleaseTrigger(WeaponSlot.Main);
+            _motor.ReleaseTrigger(WeaponSlot.Auxiliary);
             
             Vector3 worldHomeAim = transform.TransformDirection(_homeLocalAimDirection);
             Vector3 targetPos = muzzleReference.position + (worldHomeAim * 200);

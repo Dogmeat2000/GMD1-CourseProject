@@ -27,22 +27,22 @@ namespace _01_Scripts._40_UI.HUD
 
         private WaitForSeconds _delay;
         private Coroutine _statusClearCoroutine;
-        private WaveDirector _waveDirector;
+        private IWaveSpawnService _waveDirector;
 
         private void Awake() {
             _delay = new WaitForSeconds(statusDisplayDuration);
-            _waveDirector = ServiceLocator.Get<WaveDirector>();
+            _waveDirector = ServiceLocator.Get<IWaveSpawnService>();
         }
         
         private void OnEnable() {
-            if (_waveDirector)
+            if (_waveDirector != null)
                 SubscribeToWaveUpdates();
             else
                 StartCoroutine(DelayedSubscription());
         }
 
         private void OnDisable() {
-            if (_waveDirector) {
+            if (_waveDirector != null) {
                 _waveDirector.OnWaveUpdated -= UpdateWaveDisplay;
                 _waveDirector.OnEnemyCountChanged -= UpdateEnemyCount;
                 _waveDirector.OnStatusMessage -= DisplayStatus;
@@ -50,7 +50,7 @@ namespace _01_Scripts._40_UI.HUD
         }
 
         private IEnumerator DelayedSubscription() {
-            yield return new WaitUntil(() => _waveDirector);
+            yield return new WaitUntil(() => _waveDirector != null);
             SubscribeToWaveUpdates();
         }
 

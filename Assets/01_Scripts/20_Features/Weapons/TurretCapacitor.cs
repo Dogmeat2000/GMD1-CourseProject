@@ -1,6 +1,5 @@
 using System;
 using _01_Scripts._10_Core.DependencyInjection;
-using _01_Scripts._10_Core.Persistence;
 using _01_Scripts._10_Core.Pooling;
 using _01_Scripts._20_Features.Progression;
 using UnityEngine;
@@ -46,7 +45,12 @@ namespace _01_Scripts._20_Features.Weapons
         private bool _isOverheated;
         private bool _triggerReleasedSinceOverheat = true;
         
+        private IObjectPoolProvider _poolProvider;
+        private ILevelManager _levelManager;
+        
         private void Awake() {
+            _poolProvider = ServiceLocator.Get<IObjectPoolProvider>();
+            _levelManager = ServiceLocator.Get<ILevelManager>();
             _currentEnergy = maxEnergy;
         }
 
@@ -116,14 +120,13 @@ namespace _01_Scripts._20_Features.Weapons
             _triggerReleasedSinceOverheat = false;
             _overheatTimer = overheatPenaltyTime;
             
-            if (overheatVfxPrefab && muzzleExit && UniversalPoolService.Instance) {
-                LevelSettings settings = ServiceLocator.Get<LevelManager>().Settings;
-                UniversalPoolService.Instance.Spawn(
+            if (overheatVfxPrefab && muzzleExit && _poolProvider != null) {
+                _poolProvider.Spawn(
                     overheatVfxPrefab, 
                     muzzleExit.position, 
                     muzzleExit.rotation, 
-                    settings.DefaultObjectPoolSize, 
-                    settings.MaxDefaultObjectPoolSize
+                    _levelManager.Settings.DefaultObjectPoolSize, 
+                    _levelManager.Settings.MaxDefaultObjectPoolSize
                 );
             }
         }

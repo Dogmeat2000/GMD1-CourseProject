@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using _01_Scripts._10_Core.DependencyInjection;
 using _01_Scripts._20_Features.Vitals;
-using _01_Scripts.Core;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Progression
 {
-    public class FleetDirector : MonoBehaviour, IService
+    public class FleetDirector : MonoBehaviour, IFleetService
     { 
         [Header("Fleet Roster")]
         [Tooltip("Drag and drop the HealthManagers of all pre-placed allied ships into this list.")]

@@ -17,7 +17,7 @@ namespace _01_Scripts._20_Features.Targeting
             int totalWeight = 0;
             List<ITargetable> validTargets = new List<ITargetable>();
 
-            LevelManager levelManager = ServiceLocator.Get<LevelManager>();
+            ILevelManager levelManager = ServiceLocator.Get<ILevelManager>();
             LevelSettings settings = levelManager.Settings;
             
             foreach (ITargetable target in availableTargets) {

@@ -1,5 +1,4 @@
 using _01_Scripts._10_Core.DependencyInjection;
-using _01_Scripts.Core.Targeting;
 using UnityEngine;
 
 namespace _01_Scripts._20_Features.Targeting
@@ -20,25 +19,22 @@ namespace _01_Scripts._20_Features.Targeting
         public Transform TargetTransform => transform;
         public bool IsTargetable => isActiveAndEnabled;
         
-        private BattlefieldRadar _battlefieldRadar;
+        private IActorTracker _battlefieldRadar;
 
         private void OnEnable() {
-            if (_battlefieldRadar) 
-                _battlefieldRadar.RegisterTarget(this);
+            _battlefieldRadar?.RegisterTarget(this);
         }
 
         private void OnDisable() {
-            if (_battlefieldRadar) 
-                _battlefieldRadar.UnregisterTarget(this);
+            _battlefieldRadar?.UnregisterTarget(this);
         }
 
         private void Awake() {
-            _battlefieldRadar = ServiceLocator.Get<BattlefieldRadar>();
+            _battlefieldRadar = ServiceLocator.Get<IActorTracker>();
         }
         
         private void Start() {
-            if (_battlefieldRadar) 
-                _battlefieldRadar.RegisterTarget(this);
+            _battlefieldRadar?.RegisterTarget(this);
         }
     }
 }
