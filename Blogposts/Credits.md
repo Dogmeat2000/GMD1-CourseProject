@@ -1,5 +1,7 @@
 # Credits - Spearhead: Nereus Protocol
 
+## ADD TUTORIALS I WENT THROUGH!
+
 ## 1. Development Team
 * **Project Lead / Director:** K. Dashnaw
 * **Lead Programmer:** K. Dashnaw

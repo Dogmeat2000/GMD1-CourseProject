@@ -1,11 +1,11 @@
 # Milestone 3
 ## Introduction
-This milestone focused on expanding the core gameplay loop with multiplayer support, refining visuals (skybox, lighting, fog, audio), and expanding gameplay elements. While much progress was made visually, I will dive deeper into two specific areas: ``Multiplayer support`` and ``Shaders``.
+This milestone focused on expanding the core gameplay loop with multiplayer support, refining visuals (skybox, lighting, fog, audio), and expanding gameplay elements. I will dive deeper into two areas: ``Multiplayer support`` and ``Shaders``.
 
 <img src="Blog%205%20-%20Appetizer.jpg" alt="Overview" width="860">
 
 ## Multiplayer
-A core vision for this game was cooperative split-screen play, where players work together while competing for kills. Implementing this was surprisingly easy due to my early focus on SOLID principles. Because the code is segmented and loosely coupled, introducing multiplayer meant simply creating another player object and modifying each camera to project to half the screen.
+A core vision was coop split-screen play, where players compete for kills while protecting the fleet. Implementing this was easy due to my early focus on SOLID principles. Because the code is segmented and loosely coupled, introducing multiplayer meant simply creating another player object and modifying each camera to project to half the screen.
 
 <img src="Blog%205%20-%20Multiplayer.gif" alt="Multiplayer" width="860">
 
@@ -27,7 +27,7 @@ namespace _01_Scripts.Core.Settings {
 }
  ```
 
-To manage these, I built a ``FleetDeploymentManager`` to configure ships upon scene start. It uses a scalable hardpoint system, activating the player objects corresponding to the chosen mode and disabling the rest to prevent unwanted AI turret spawns (which is a future goal).
+I built a ``FleetDeploymentManager`` to configure ships upon scene start. It uses a scalable hardpoint system, activating the player objects corresponding to the chosen mode and disabling the rest to prevent unwanted AI turret spawns.
 
  ```csharp
 namespace _01_Scripts.Core.Managers {
@@ -93,7 +93,7 @@ namespace _01_Scripts.Core.Managers {
 
 <br>
 
-To handle the situation where player1 dies, but player2 is still alive, needed to modify my ``GameDirector``, so active players can be registered with the director and tracked as they die. I chose to do this with the builtin C# ``Observer Pattern``, both listening for game events and assigning methods that should execute when listened events occur. For instance when a ``playerHealth.OnZeroHealth`` event is received, the ``HandlePlayerDeath`` method is executed.
+To handle the situation where player1 dies, but player2 is alive, I modified the ``GameDirector``, so active players can be registered with the director and tracked. This with the built-in C# ``Observer Pattern``, both listening for game events and assigning methods that execute when events are broadcast. I.e. ``playerHealth.OnZeroHealth`` event is received, then ``HandlePlayerDeath`` method executes.
 
 ```csharp
 namespace _01_Scripts.Core.Managers{
@@ -150,7 +150,7 @@ namespace _01_Scripts.Core.Managers{
 }
  ```
 
-Thus, now the game continues even if one of the players die!
+The game now continues even if a player dies
 
 <img src="Blog%205%20-%20Player%20Death.jpg" alt="Player Death, yet the game plays on" width="860">
 
@@ -183,6 +183,8 @@ To support future water displacement from ships, I created a dedicated shader co
 
 <img src="Blog%205%20-%20Ocean%20Weather%20Sim.jpg" alt="Shaders overview" width="860">
 
-This wave output is drawn onto a ``SM_WaveHeightProjectionMap`` (Marked yellow in hiearchy on screenshot below). A downward-facing camera captures this changing texture and outputs it to a ``Render Texture``. ``SH_OceanWaves`` then reads this texture to displace each ocean mesh. This approach ensures my 9 ocean planes blend seamlessly without tearing, and it makes the system scalable for future effects like ship wakes physically pushing the water down, or breaking water at their fronts. I would be able to apply these effects by combining onto the produced ``SM_WaveHeightProjectionMap`` texture, which uses grayscale coloring to determine height in the world, that would then be observed by the camera and applied seamlessly to my current ocean waves through ``SH_OceanWaves``.
+This is drawn onto ``SM_WaveHeightProjectionMap`` (Marked yellow below). A downward-facing camera captures this changing texture and outputs it to a ``Render Texture``. ``SH_OceanWaves`` then uses this to displace each mesh. This ensures all 9 ocean planes blend seamlessly without tearing, and makes it scalable for future effects like ship wakes pushing the water down. This would be done by applying the desired added effects on the greyscale ``SM_WaveHeightProjectionMap`` texture, which is observed by the camera and used to extract the height of each ocean plane in the scene through ``SH_OceanWaves``.
 
 <img src="Blog%205%20-%20Ocean%20Weather%20Sattelite.jpg" alt="Shaders overview" width="860">
+
+<img src="Blog%205%20-%20Ocean%20Shader.gif" alt="Ocean Mesh Being manipulated" width="860">
