@@ -1,18 +1,18 @@
 # Milestone 2
 ## Introduction
-This milestone focused on implementing the core gameplay loop - from level start to level win/lose.
+This milestone focused on the core gameplay loop - from level start to level win/lose.
 
 <img src="Blog%204%20-%20Appetizer.jpg" alt="Overview" width="860">
 
 ## Enemy Spawning and Behavior
-Enemies are no longer static, hard-coded entities. They are spawned dynamically via the ``WaveDirector`` script. It uses a "Threat Budget" calculation to dynamically "buy" enemies from a defined threat size for each wave. This allows for progressively more challenging waves, and adds a random element, since the ``WaveDirector`` can buy different amounts of enemy types on each playthrough. I also implemented support for allowed/disallowed enemy types.
+Enemies are now spawned dynamically via the ``WaveDirector`` script. It uses a "Threat Budget" calculation to "buy" enemies from a defined threat size for each wave. This allows for progressively more challenging waves, and adds a random element, since the ``WaveDirector`` can buy different amounts of enemy types on each playthrough.
 
 <img src="Blog%204%20-%20Spawning%20and%20Flight.gif" alt="Enemies Spawn and Attack" width="860">
 
 ## Handling Settings
 To adhere to the Single Responsibility Principle I implemented Unity's ``ScriptableObject`` architecture to create ``LevelSettings`` and ``GlobalSettings``.
 
-This allows scripts to query the active ``LevelSettings`` asset for data, allowing balancing the game without ever opening a script.
+This allows scripts to query the active ``LevelSettings`` asset for data, allowing configuring the game from the inspector.
 
 ```csharp
 [CreateAssetMenu(fileName = "NewLevelSettings", menuName = "Game/Settings/Level Settings")]
@@ -36,7 +36,7 @@ public class LevelSettings : ScriptableObject {
 }
 ```
 
-Here's the settings object in the Unity Inspector:
+Settings object in Unity Inspector:
 <img src="Blog%204%20-%20Settings.jpg" alt="Settings overview in Unity" width="860">
 
 ```csharp
@@ -55,16 +55,12 @@ public class LevelManager : MonoBehaviour
 ```
 
 ## Win/Lose Conditions
-The game lifecycle is controlled by the ```GameDirector```. Using event-driven programming, it listens for global broadcasts without tightly coupling to individual scripts.
+The `GameDirector` controls the level lifecycle via event-driven programming, ensuring loose coupling.
 
 <img src="Blog%204%20-%20Victory%20and%20Defeat.jpg" alt="Victory and Defeat" width="860"> <br>
 
-
-- **Victory:** Triggered when the ```WaveDirector``` broadcasts ```OnAllWavesCleared```. The ```GameDirector``` commands the state machine to trigger the victory sequence. 
-- **Defeat:** Triggered when either the ```FleetDirector``` broadcasts ```OnFleetDestroyed``` (all ships in the convoy have died), or all player' health reaches 0.
-
-
-This snippet displays the events subscribed to upon starting a level:
+- **Victory:** Triggered when the ```WaveDirector``` broadcasts ```OnAllWavesCleared```
+- **Defeat:** Triggered if ```FleetDirector``` broadcasts ```OnFleetDestroyed```, or all player' health reaches 0
 
 ```csharp
 public class GameDirector : MonoBehaviour {
@@ -90,17 +86,15 @@ public class GameDirector : MonoBehaviour {
 
 ## Menu & HUD
 **Menus** were expanded to support the core gameplay loop:
-- Traversing menus with keyboard, mouse and/or gamepad (verified on VIA Arcade Machine).
-- Player feedback when hovering over or selecting buttons.
 
 <img src="Blog%204%20-%20Menus.jpg" alt="Victory and Defeat" width="860"> <br>
 
-The menu system utilizes the built-in Unity ``uGUI system`` and ``EventSystem``. Navigation is handled through ``On Click()`` methods. To add visual effects and sounds, I implemented a ``UIButtonVisuals.cs`` script, drawing default effects from the central game settings but allowing for overrides.
+It uses Unity's ``uGUI system`` and ``EventSystem``. Navigation is handled through ``On Click()`` methods. To add visual effects and sounds, I implemented ``UIButtonVisuals.cs``, getting default effects from the game settings but allowing for overrides.
 
 <img src="Blog%204%20-%20Menu%20Change%20in%20Unity.jpg" alt="Victory and Defeat" width="860"> <br>
 
 
-**Heads Up Display (HUD)** was implemented using the Model-View-Controller (MVC) pattern. This allows for a clean separation of concerns, as well as loose coupling via dependency inversion and the observer pattern (events) to present updated info.
+**Heads Up Display (HUD)** uses the Model-View-Controller (MVC) pattern. This allows for separation of concerns and loose coupling via dependency inversion and the observer pattern (events) to present updated info.
 
 <img src="Blog%204%20-%20HUD%20Details.jpg" alt="HUD Details" width="860"> <br>
 
@@ -129,8 +123,8 @@ public ITargetable SelectTarget(List<ITargetable> targets, Vector3 position) {
 }
 ```
 
-**Observer Pattern (Behavioral):** UI scripts don't ask "Are you dead yet?" every frame. The ``HealthManager`` broadcasts ``OnHealthChanged`` only when health changes, vastly improving performance. Also used in ``PlayerScoreHUD``, ``GameDirector``, ``WaveDirector`` and ``FleetDirector``.
+**Observer Pattern (Behavioral):** UI scripts don't ask "Are you dead yet?". The ``HealthManager`` broadcasts ``OnHealthChanged`` only when health changes, improving performance. Also used in ``PlayerScoreHUD``, ``GameDirector``, ``WaveDirector`` and ``FleetDirector``.
 
-**Object Pool (Creational):** Recycles Memory. Instead of forcing the Unity engine to aggressively allocate and destroy memory, ``UniversalPoolService`` keeps a hidden pool of inactive objects ready for instant deployment (used for projectiles, VFX, and enemies).
+**Object Pool (Creational):** Recycles Memory. Instead of Unity aggressively allocating and destroying memory, ``UniversalPoolService`` keeps a hidden pool of inactive objects ready for instant deployment (used for projectiles, VFX, and enemies).
 
-**Singleton (Creational):** Used strictly for persisting cross-scene data, such as ```LeaderboardManager.Instance``` saving high scores between the Main Menu and the battlefield. Also used in the ``GlobalManager`` and ``UniversalPoolService``.
+**Singleton (Creational):** Used for persisting cross-scene data, such as ```LeaderboardManager.Instance``` saving high scores between the Main Menu and the level. Also used in the ``GlobalManager`` and ``UniversalPoolService``.
