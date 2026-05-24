@@ -1,7 +1,5 @@
 # Credits - Spearhead: Nereus Protocol
 
-## ADD TUTORIALS I WENT THROUGH!
-
 ## 1. Development Team
 * **Project Lead / Director:** K. Dashnaw
 * **Lead Programmer:** K. Dashnaw
@@ -53,16 +51,16 @@
     * *License:* Non-Commercial
 
 * **[Sound Track] Music_Spearhead_CombatLoop01_NonCommercial** by K. Dashnaw
-    * *Note:* Sound/music was created using the music software Suno.</i>
-    *License:* Non-Commercial
+    * *Note:* Sound/music was created using the music software Suno.
+    * *License:* Non-Commercial
 
 * **[Sound Track] Music_Spearhead_DefeatTrack_NonCommercial** by K. Dashnaw
-    * *Note:* Sound/music was created using the music software Suno.</i>
-    *License:* Non-Commercial
+    * *Note:* Sound/music was created using the music software Suno.
+    * *License:* Non-Commercial
 
 * **[Sound Track] Music_Spearhead_VictoryTrack_NonCommercial** by K. Dashnaw
-    * *Note: Sound/music was created using the music software Suno.</i>
-    *License:* Non-Commercial
+    * *Note:* Sound/music was created using the music software Suno.
+    * *License:* Non-Commercial
 
 * **[Sound Effect] SFX_ButtonClick** by Artem_Zaitsev
     * *Source:* [https://freesound.org/s/832398/](https://freesound.org/s/832398/)
@@ -139,5 +137,49 @@
 * **Audacity**
 
 
-## 6. Special Thanks
+## 6. References and Tutorials used during the development of this game
+* e-book: Level up your code with design patterns and SOLID
+    * https://unity.com/resources/design-patterns-solid-ebook?isGated=alse
+* Unity 6.3 User Manual
+    * https://docs.unity3d.com/Manual/index.html 
+* Unity tutorials and courses:
+    * Design Patterns (Unity 6)
+        * https://learn.unity.com/course/design-patterns-unity-6
+    * Coroutines
+        * https://learn.unity.com/tutorial/coroutines
+    * Rendering and Shading
+        * https://learn.unity.com/tutorial/rendering-and-shading?version=5.x
+        * Note: The videos were broken in this tutorial. But the textural parts were useful!
+    * Audio Setup
+        * https://learn.unity.com/tutorial/audio-setup      
+    * Sound Effects & Scripting
+        * https://learn.unity.com/tutorial/sound-effects-scripting
+    * Creating a Vertex Displacement Shader
+        * https://learn.unity.com/tutorial/creating-a-vertex-displacement-shader
+        * Note: Although outdated, and using the builtin render pipeline (not the universal), it did give me some good ideas and base understanding.
+    * Creative Core: Shaders and materials
+        * https://learn.unity.com/project/creative-core-shaders-and-materials
+    * The Camera
+        * https://learn.unity.com/tutorial/the-camera
+    * UI Components
+        * https://learn.unity.com/tutorial/ui-components
+    * Creative Core: UI
+        * https://learn.unity.com/project/creative-core-ui
+    * How to architect code as your project scales
+        * https://unity.com/how-to/how-architect-code-your-project-scales
+    * Introduction to 3D Animation Systems
+        * https://learn.unity.com/course/introduction-to-3d-animation-systems
+    * Beginner Scripting
+        * https://learn.unity.com/course/beginner-scripting
+    * Intermediate Scripting
+        * https://learn.unity.com/project/intermediate-gameplay-scripting
+    * Intro to the Unity Physics Engine - 2019.3
+        * https://learn.unity.com/tutorial/intro-to-the-unity-physics-engine-2019-3?version=2019.4
+    * Let's Try: Shooting with Raycasts
+        * https://learn.unity.com/tutorial/let-s-try-shooting-with-raycasts
+    * Creative Core: Cameras
+        * https://learn.unity.com/course/creative-core-cameras
+
+
+## 7. Special Thanks
 * VIA University College, Horsens - For teaching the course on Game Development.
