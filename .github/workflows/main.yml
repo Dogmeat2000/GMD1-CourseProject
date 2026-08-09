@@ -1,0 +1,185 @@
+name: Test and Build Project
+
+on:
+  workflow_dispatch:
+  push:
+      branches:
+        - main
+        - develop
+  pull_request:
+    branches:
+      - main
+          
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UNITY_VERSION: 6000.3.7f1
+  CACHE_VERSION: v2
+
+jobs:
+  testProject:
+    name: Test in ${{ matrix.testMode }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - editmode
+          - playmode
+
+    steps:
+
+    - name: Increase file descriptor limit
+      run: |
+        ulimit -n 65536
+        echo "ulimit set to:"
+        ulimit -n
+
+    - name: Free disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/lib/android
+        sudo docker system prune -af || true
+        df -h
+
+    - uses: actions/checkout@v4
+      with:
+        lfs: false
+        
+    # -------------------------------
+    # Generate LFS State Fingerprint
+    # -------------------------------
+    - name: Generate LFS pointers hash
+      run: |
+          git lfs ls-files -s > .lfs-pointers.txt
+          echo ".lfs-pointers.txt" >> .git/info/exclude
+        
+    # -------------------------------
+    # Cache Git LFS files
+    # -------------------------------
+    - name: Cache Git LFS files
+      uses: actions/cache@v4
+      with:
+        path: .git/lfs
+        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-pointers.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-lfs-
+            
+    # -------------------------------
+    # Pull LFS manually (Pulls from cache first, then downloads any missing delta)
+    # -------------------------------
+    - name: Pull LFS manually
+      run: git lfs pull --exclude="*.gif"
+
+    - uses: game-ci/unity-test-runner@v4
+      id: tests
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      with:
+        unityVersion: 6000.3.7f1
+        testMode: ${{ matrix.testMode }}
+        artifactsPath: test-artifacts-${{ matrix.testMode }}
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: TestResults-${{ matrix.testMode }}
+        path: test-artifacts-${{ matrix.testMode }}
+
+  buildForAllDesiredPlatforms:
+    needs: testProject
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64
+          - WebGL
+
+    steps:
+
+      # -------------------------------
+      # Free Disk Space Again
+      # -------------------------------
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/lib/android
+          sudo docker system prune -af || true
+          df -h
+
+      # -------------------------------
+      # Checkout
+      # -------------------------------
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: false
+
+      # -------------------------------
+      # Generate LFS State Fingerprint
+      # -------------------------------
+      - name: Generate LFS pointers hash
+        run: |
+          git lfs ls-files -s > .lfs-pointers.txt
+          echo ".lfs-pointers.txt" >> .git/info/exclude
+            
+      # -------------------------------
+      # Cache LFS
+      # -------------------------------
+      - name: Cache Git LFS files
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-pointers.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-lfs-
+
+      # -------------------------------
+      # Pull LFS manually (Pulls from cache first, then downloads any missing delta)
+      # -------------------------------
+      - name: Pull LFS manually
+        run: git lfs pull --exclude="*.gif"
+        
+      # -------------------------------
+      # Cache Unity Library Per Platform
+      # -------------------------------
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: >
+            Library-${{ env.CACHE_VERSION }}-
+            ${{ runner.os }}-
+            ${{ matrix.targetPlatform }}-
+            ${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json') }}
+
+      # -------------------------------
+      # Build
+      # -------------------------------
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+
+      # -------------------------------
+      # Upload Build Artifacts
+      # -------------------------------
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
